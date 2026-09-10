@@ -22,7 +22,7 @@ for r in inc: r["amount"]=float(r["amount"] or 0)
 spend=[r for r in ex if r["kind"]!="memo"]; months=sorted({r["month"] for r in spend}); nM=len(months)
 ML=lambda m: datetime.date(int(m[:4]),int(m[5:7]),1).strftime("%b %y")
 CATS=["Facility & housekeeping","Security","Utilities","Plant & equipment","Admin & governance","Taxes & statutory","One-time"]
-CATCOL=["#0f5b57","#8a3f2c","#c9a227","#3c6ea0","#7b6b8f","#5c7e5c","#9c9a91"]
+CATCOL=['css("--c1")','css("--c3")','css("--c2")','css("--c4")','css("--c5")','css("--c6")','css("--c7")']  # raw JS exprs, resolved from CSS vars
 bymc={m:{c:0 for c in CATS} for m in months}; byhead=collections.defaultdict(float)
 for r in spend:
     c="One-time" if r["kind"]=="onetime" else r["category"]; bymc[r["month"]][c]+=r["amount"]
@@ -60,6 +60,8 @@ def page(fn,title,body,scripts=""):
     nav="".join(f'<a href="{f}"{cur if f==fn else ""}>{t}</a>' for f,t in NAV)
     html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>{title} · Sobha Palm Court</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css"><script src="assets/gate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
 <div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Owners' Association</small></a><nav class="tabs" aria-label="Pages">{nav}</nav></div></div>
@@ -69,7 +71,7 @@ def page(fn,title,body,scripts=""):
 <script>{scripts}</script></body></html>'''
     open(os.path.join(OUT,fn),"w",encoding="utf-8").write(html)
 def tile(cls,k,v,d): return f'<div class="tile {cls}"><div class="k">{k}</div><div class="v">{v}</div><div class="d">{d}</div></div>'
-CH='Chart.defaults.color=getComputedStyle(document.documentElement).getPropertyValue("--muted").trim();Chart.defaults.borderColor=getComputedStyle(document.documentElement).getPropertyValue("--line-soft").trim();Chart.defaults.font.family="-apple-system, BlinkMacSystemFont, Inter, Helvetica, Arial, sans-serif";const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
+CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();Chart.defaults.color=css("--muted");Chart.defaults.borderColor=css("--line-soft");Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";Chart.defaults.font.size=12;const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
 # ---------- pages
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
@@ -103,11 +105,11 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 <div class="when">18–19 Oct</div><div>Special General Body Meeting. One flat, one vote. Proxies and e-mail votes allowed.</div>
 <div class="when">Nov</div><div>If a new rate is approved from 1 October, the difference for October–December is billed in November.</div>
 </div></section>
-<section><h2>Read on</h2><div class="cards">
-<div class="card"><h3>Where the money goes</h3><p class="small">Every expense, month by month.</p><a class="btn ghost" href="money.html">Open</a></div>
-<div class="card"><h3>Try the options</h3><p class="small">Five ways to fund the year. See which ones close the gap.</p><a class="btn ghost" href="simulator.html">Open</a></div>
-<div class="card"><h3>Our reserves</h3><p class="small">₹11.76 crore at handover, {L(reserves)} today. Where it is and what it earns.</p><a class="btn ghost" href="reserves.html">Open</a></div>
-<div class="card"><h3>What you told us</h3><p class="small">The August survey and what is being done about it.</p><a class="btn ghost" href="feedback.html">Open</a></div>
+<section><h2>Read on</h2><div class="readon">
+<a href="money.html"><span class="t">Where the money goes</span><span class="d">Every expense, month by month</span></a>
+<a href="simulator.html"><span class="t">Try the options</span><span class="d">Five ways to fund the year; see which ones close the gap</span></a>
+<a href="reserves.html"><span class="t">Our reserves</span><span class="d">₹11.76 crore at handover, {L(reserves)} today — where it is and what it earns</span></a>
+<a href="feedback.html"><span class="t">What you told us</span><span class="d">The August survey and what is being done about it</span></a>
 </div></section>'''
 page("index.html","Where we stand",idx)
 # money
@@ -126,8 +128,8 @@ money=f'''<section><div class="eyebrow">April to July 2026 · receipts and payme
 <section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in four months. The largest:</p>
 <div class="tablewrap"><table><thead><tr><th>Month</th><th>Item</th><th class="num">Amount</th></tr></thead><tbody>{otrows}</tbody></table></div>
 <p class="small">From September, every purchase above ₹25,000 needs three quotes before it is paid. The list is published monthly.</p></section>'''
-mjs=CH+f'''new Chart(document.getElementById("c1"),{{data:{{labels:{json.dumps([ML(m) for m in months])},datasets:[{",".join(f'{{type:"bar",label:{json.dumps(c)},data:{json.dumps([round(bymc[m][c]) for m in months])},backgroundColor:"{CATCOL[i]}",stack:"s",borderWidth:0}}' for i,c in enumerate(CATS))},{{type:"line",label:"Maintenance billed",data:{json.dumps([round(maint)]*nM)},borderColor:"#a4432e",borderDash:[6,4],borderWidth:2,pointRadius:0}}]}},options:{{responsive:true,interaction:{{mode:"index",intersect:false}},scales:{{x:{{stacked:true,grid:{{display:false}}}},y:{{stacked:true,ticks:{{callback:fmtL}},beginAtZero:true}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});
-new Chart(document.getElementById("c2"),{{type:"doughnut",data:{{labels:{json.dumps(CATS)},datasets:[{{data:{json.dumps([round(cattot[c]) for c in CATS])},backgroundColor:{json.dumps(CATCOL)},borderWidth:2}}]}},options:{{cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
+mjs=CH+f'''new Chart(document.getElementById("c1"),{{data:{{labels:{json.dumps([ML(m) for m in months])},datasets:[{",".join(f'{{type:"bar",label:{json.dumps(c)},data:{json.dumps([round(bymc[m][c]) for m in months])},backgroundColor:{CATCOL[i]},stack:"s",borderWidth:0}}' for i,c in enumerate(CATS))},{{type:"line",label:"Maintenance billed",data:{json.dumps([round(maint)]*nM)},borderColor:css("--crit"),borderDash:[6,4],borderWidth:2,pointRadius:0}}]}},options:{{responsive:true,interaction:{{mode:"index",intersect:false}},scales:{{x:{{stacked:true,grid:{{display:false}}}},y:{{stacked:true,ticks:{{callback:fmtL}},beginAtZero:true}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});
+new Chart(document.getElementById("c2"),{{type:"doughnut",data:{{labels:{json.dumps(CATS)},datasets:[{{data:{json.dumps([round(cattot[c]) for c in CATS])},backgroundColor:[{",".join(CATCOL)}],borderWidth:2,borderColor:css("--surface")}}]}},options:{{cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("money.html","Where the money goes",money,mjs)
 # shortfall
 rw=runway["rows"]
@@ -181,12 +183,12 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <li><strong>Two signatures</strong> for every deposit movement, one of them not an office-bearer.</li>
 <li><strong>A monthly deposit statement</strong> on these pages, from the banks, not from the books.</li>
 <li><strong>A sinking fund</strong> from next year, so the ₹50 L used is rebuilt and the big repairs of the next ten years have a plan.</li></ol></section>'''
-rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:["#0f5b57","#3c6ea0","#c9a227"],borderWidth:2}}]}},options:{{cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
-new Chart(document.getElementById("c4"),{{type:"line",data:{{labels:{json.dumps([m for m,_ in floats])},datasets:[{{label:"Bank + cash",data:{json.dumps([round(v) for _,v in floats])},borderColor:"#0f5b57",backgroundColor:"rgba(15,91,87,.12)",fill:true,tension:.25,pointRadius:4}},{{label:"One month of spending",data:{json.dumps([round(per_month)]*len(floats))},borderColor:"#a4432e",borderDash:[6,4],borderWidth:1.5,pointRadius:0}}]}},options:{{scales:{{y:{{ticks:{{callback:fmtL}}}},x:{{grid:{{display:false}}}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
+rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:[css("--c1"),css("--c4"),css("--c2")],borderWidth:2,borderColor:css("--surface")}}]}},options:{{cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
+new Chart(document.getElementById("c4"),{{type:"line",data:{{labels:{json.dumps([m for m,_ in floats])},datasets:[{{label:"Bank + cash",data:{json.dumps([round(v) for _,v in floats])},borderColor:css("--c1"),backgroundColor:css("--c1")+"26",fill:true,tension:.25,pointRadius:3,pointBackgroundColor:css("--c1")}},{{label:"One month of spending",data:{json.dumps([round(per_month)]*len(floats))},borderColor:css("--crit"),borderDash:[6,4],borderWidth:1.5,pointRadius:0}}]}},options:{{scales:{{y:{{ticks:{{callback:fmtL}}}},x:{{grid:{{display:false}}}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("reserves.html","Our reserves",res,rjs)
 # feedback
 def bar(d):
-    t=sum(d.values()) or 1; cols={"Very good":"#2f6b3a","Good":"#0f5b57","Acceptable":"#c9c6b8","Poor":"#c9a227","Very poor":"#a4432e"}
+    t=sum(d.values()) or 1; cols={"Very good":"var(--s-vg)","Good":"var(--s-g)","Acceptable":"var(--s-a)","Poor":"var(--s-p)","Very poor":"var(--s-vp)"}
     return '<div class="bar">'+"".join(f'<span style="width:{d[s]/t*100}%;background:{cols[s]}" title="{s}: {d[s]}"></span>' for s in cols)+'</div>'
 servrows="".join(f'<tr><td>{l}</td><td>{bar(dist[k])}</td><td class="num">{m:.2f}</td><td class="num{" neg" if p/nn>=0.2 else ""}">{p/nn*100:.0f}%</td></tr>' for l,m,nn,p,k in serv)
 prows="".join(f'<tr><td>{p}</td><td class="num">{c}</td><td class="num">{c/n*100:.0f}%</td></tr>' for p,c in prio.most_common(8))
@@ -194,10 +196,10 @@ irows="".join(f'<tr><td>{l}</td><td class="num">{m:.2f}</td><td class="num{" neg
 wrows="".join(f'<tr><td>{w}</td><td class="num">{c}</td><td class="num">{s/c*100:.0f}%</td><td class="num{" neg" if lm<3 else ""}">{lm:.2f}</td></tr>' for w,c,s,lm in wingrows)
 fb=f'''<section><div class="eyebrow">Resident services survey · 23 August to 2 September 2026</div><h1>What you told us</h1>
 <p class="lead">{n} households answered. {sat/n*100:.0f}% are satisfied overall. Lifts and pest control are the problems. Complaints are easy to raise and slow to close.</p>
-<div class="tiles">{tile("","Responses",str(n),"of 294 flats, all four wings")}{tile("good","Satisfied overall",f"{sat/n*100:.0f}%","mean {:.2f} of 5".format(sum(OV[r["overall"]] for r in sv)/n))}{tile("crit","Weakest service",serv[-1][0],f"{serv[-1][3]/serv[-1][2]*100:.0f}% rate it poor or worse")}{tile("good","Strongest service",serv[0][0],f"mean {serv[0][1]:.2f} of 5")}</div></section>
+<div class="tiles">{tile("","Responses",str(n),"of 294 flats, all four wings")}{tile("good","Satisfied overall",f"{sat/n*100:.0f}%","mean {:.2f} of 5".format(sum(OV[r["overall"]] for r in sv)/n))}{tile("crit sm","Weakest service",serv[-1][0],f"{serv[-1][3]/serv[-1][2]*100:.0f}% rate it poor or worse")}{tile("good sm","Strongest service",serv[0][0],f"mean {serv[0][1]:.2f} of 5")}</div></section>
 <section><h2>Service ratings</h2>
 <div class="tablewrap"><table><thead><tr><th>Service</th><th>Ratings</th><th class="num">Mean / 5</th><th class="num">Poor or worse</th></tr></thead><tbody>{servrows}</tbody></table></div>
-<div class="legend"><span><i style="background:#2f6b3a"></i>Very good</span><span><i style="background:#0f5b57"></i>Good</span><span><i style="background:#c9c6b8"></i>Acceptable</span><span><i style="background:#c9a227"></i>Poor</span><span><i style="background:#a4432e"></i>Very poor</span></div></section>
+<div class="legend"><span><i style="background:var(--s-vg)"></i>Very good</span><span><i style="background:var(--s-g)"></i>Good</span><span><i style="background:var(--s-a)"></i>Acceptable</span><span><i style="background:var(--s-p)"></i>Poor</span><span><i style="background:var(--s-vp)"></i>Very poor</span></div></section>
 <section><div class="charts"><div><h2>What you want fixed first</h2><div class="tablewrap"><table><thead><tr><th>Priority</th><th class="num">Chose it</th><th class="num">Share</th></tr></thead><tbody>{prows}</tbody></table></div><p class="small">Each household could pick up to three.</p></div>
 <div><h2>Complaint handling</h2><p class="small">Rated by the {len(rep)} households that reported an issue in the last six months.</p><div class="tablewrap"><table><thead><tr><th>Step</th><th class="num">Mean / 5</th><th class="num">Poor or worse</th></tr></thead><tbody>{irows}</tbody></table></div></div></div></section>
 <section><h2>By wing</h2><div class="tablewrap"><table><thead><tr><th>Wing</th><th class="num">Responses</th><th class="num">Satisfied</th><th class="num">Lifts, mean / 5</th></tr></thead><tbody>{wrows}</tbody></table></div><p class="small">Wing 1 had the fewest responses and the lowest lift score. The committee is visiting.</p></section>
