@@ -61,17 +61,17 @@ def page(fn,title,body,scripts=""):
     html=f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
 <title>{title} · Sobha Palm Court</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css"><script src="assets/gate.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
-<div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Owners' Association</small></a><nav class="tabs" aria-label="Pages">{nav}</nav></div></div>
+<div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><nav class="tabs" aria-label="Pages">{nav}</nav></div></div>
 <div class="wrap">{body}
 <div class="updated">Updated {UPDATED}. Accounts to end {ML(months[-1])} 2026; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee. Questions: spcaoa@gmail.com</div>
 </div><footer>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' summaries. They are not audited. Updated monthly.</footer>
 <script>{scripts}</script></body></html>'''
     open(os.path.join(OUT,fn),"w",encoding="utf-8").write(html)
 def tile(cls,k,v,d): return f'<div class="tile {cls}"><div class="k">{k}</div><div class="v">{v}</div><div class="d">{d}</div></div>'
-CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();Chart.defaults.color=css("--muted");Chart.defaults.borderColor=css("--line-soft");Chart.defaults.font.family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";Chart.defaults.font.size=12;const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
+CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();Chart.defaults.color=css("--muted");Chart.defaults.borderColor=css("--line-soft");Chart.defaults.font.family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";Chart.defaults.font.size=12;const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
 # ---------- pages
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
