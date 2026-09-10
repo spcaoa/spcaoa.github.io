@@ -1,0 +1,13 @@
+{
+  "note": "Illustrative. The Managing Committee's actual proposal, with the GST treatment confirmed by the association's tax adviser, will be in the SGBM notice.",
+  "increase": 0.20,
+  "types": [
+    {"type": "A / E (1,934 sq ft)", "quarter": 22296, "count_note": ""},
+    {"type": "A1 / E1 (1,949 sq ft)", "quarter": 22497},
+    {"type": "B / F (1,822 sq ft)", "quarter": 20763},
+    {"type": "B1 / F1 (1,837 sq ft)", "quarter": 20964},
+    {"type": "C (1,633 sq ft)", "quarter": 18174},
+    {"type": "D1 (1,560 sq ft)", "quarter": 17169},
+    {"type": "D (1,485 sq ft)", "quarter": 16143}
+  ]
+}
