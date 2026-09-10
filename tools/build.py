@@ -127,7 +127,7 @@ money=f'''<section><div class="eyebrow">April to July 2026 · receipts and payme
 <p>Three items are two-thirds of everything: facility management by Sobha (₹98 L a year), security by VEX (₹85 L including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹25–30 L a year in savings.</p></section>
 <section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in four months. The largest:</p>
 <div class="tablewrap"><table><thead><tr><th>Month</th><th>Item</th><th class="num">Amount</th></tr></thead><tbody>{otrows}</tbody></table></div>
-<p class="small">From September, every purchase above ₹25,000 needs three quotes before it is paid. The list is published monthly.</p></section>'''
+<p class="small">The association's purchasing and accounting controls are being reviewed. A revised policy will be put to the General Body for approval.</p></section>'''
 mjs=CH+f'''new Chart(document.getElementById("c1"),{{data:{{labels:{json.dumps([ML(m) for m in months])},datasets:[{",".join(f'{{type:"bar",label:{json.dumps(c)},data:{json.dumps([round(bymc[m][c]) for m in months])},backgroundColor:{CATCOL[i]},stack:"s",borderWidth:0}}' for i,c in enumerate(CATS))},{{type:"line",label:"Maintenance billed",data:{json.dumps([round(maint)]*nM)},borderColor:css("--crit"),borderDash:[6,4],borderWidth:2,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,interaction:{{mode:"index",intersect:false}},scales:{{x:{{stacked:true,grid:{{display:false}}}},y:{{stacked:true,ticks:{{callback:fmtL}},beginAtZero:true}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});
 new Chart(document.getElementById("c2"),{{type:"doughnut",data:{{labels:{json.dumps(CATS)},datasets:[{{data:{json.dumps([round(cattot[c]) for c in CATS])},backgroundColor:[{",".join(CATCOL)}],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("money.html","Where the money goes",money,mjs)
@@ -180,7 +180,7 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 </div></section>
 <section><h2>Going to the meeting</h2>
 <ol class="steps"><li><strong>Interest is income. Principal is not.</strong> Principal is not withdrawn without a General Body resolution. Every withdrawal is reported here the month it happens.</li>
-<li><strong>Two signatures</strong> for every deposit movement, one of them not an office-bearer.</li>
+<li><strong>Three signatures or five MC signatures</strong> for every deposit movement.</li>
 <li><strong>A monthly deposit statement</strong> on these pages, from the banks, not from the books.</li>
 <li><strong>A sinking fund</strong> from next year, so the ₹50 L used is rebuilt and the big repairs of the next ten years have a plan.</li></ol></section>'''
 rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:[css("--c1"),css("--c4"),css("--c2")],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
