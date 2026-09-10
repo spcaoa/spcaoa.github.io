@@ -1,0 +1,92 @@
+month,head,category,kind,amount,note,quotes,approval,sc_ref
+2026-04,TDS remitted on vendor bills,Taxes & statutory,routine,42125,Withheld from vendor invoices and remitted; part of vendor cost,,,
+2026-04,GST paid,Taxes & statutory,routine,92,,,,
+2026-04,STP/WTP maintenance,Plant & equipment,routine,47579,,,,SC §7
+2026-04,Telephone,Utilities,routine,3888,,,,
+2026-04,Transportation,Admin & governance,routine,200,,,,
+2026-04,"Postage, printing & stationery",Admin & governance,routine,1060,,,,
+2026-04,Pooja & festival celebration,Admin & governance,routine,7556,,,,
+2026-04,Repairs & maintenance,Plant & equipment,routine,32904,,,,SC §11
+2026-04,Electricity (BESCOM),Utilities,routine,487376,,,,Deck P4; SC §8
+2026-04,Sobha Ltd - FMS,Facility & housekeeping,routine,789865,,,,Deck P1
+2026-04,TDS on FD interest,Taxes & statutory,routine,17945.7,Bank-deducted; reconcile with actual interest credited,,,SC §9
+2026-04,Pest control,Facility & housekeeping,routine,21645,,,,Deck P3
+2026-04,Housekeeping materials,Facility & housekeeping,routine,12301,,,,SC §8; §11.3
+2026-04,Garden maintenance,Facility & housekeeping,routine,2750,,,,
+2026-04,"Garbage, biomedical & garden waste",Facility & housekeeping,routine,24510,,,,Deck P3
+2026-04,Accounting charges,Admin & governance,routine,23625,,,,SC §11.13
+2026-04,Water (BWSSB),Utilities,routine,228109,New connection; permanent line item,,,Deck §8
+2026-04,Security charges,Security,routine,669489,VEX Securities from Nov 2025,,,SC §5
+2026-04,Employer professional tax,Taxes & statutory,routine,2500,,,,
+2026-04,OHT float sensors (towers 1-4 + domestic OHT),One-time,onetime,15444,Plastic moulded magnetic float sensors for flushing OHTs,?,?,SC §11.1
+2026-04,Paver block laying service,One-time,onetime,126099,JCWINS Enterprises; no competing quotes per SC,N,?,SC §6
+2026-04,M-sand and jelly for paver work,One-time,onetime,16963,,N,?,SC §6
+2026-04,Mitsubishi contactors S-T12 for STP,One-time,onetime,5574,Incl. transport,?,?,
+2026-04,WTP pit pump motor servicing,One-time,onetime,18345,,?,?,
+2026-04,Fire safety equipment servicing Jan-Mar 2026,One-time,onetime,21489,Q1 2026 service billed in April,?,?,
+2026-04,AMC automated gate & security solutions (22 Mar 2026 - 21 Mar 2027),One-time,onetime,52200,Annual AMC paid upfront,NA,?,Deck P3
+2026-04,TMT bars for garden fencing,One-time,onetime,9000,,?,?,
+2026-04,Transformer oil and silica gel,One-time,onetime,16048,JCWINS invoice 05.03.2026,N,?,SC §6
+2026-04,FD placed - HDFC,Treasury (memo),memo,1100000,"Placement, not an expense",NA,?,SC §9
+2026-04,FD placed - ICICI,Treasury (memo),memo,10000000,"Placement, not an expense",NA,?,SC §9
+2026-04,FD matured - ICICI,Treasury (memo),memo,11377147,Inflow to bank; not income,NA,NA,
+2026-05,TDS remitted on vendor bills,Taxes & statutory,routine,19604,Withheld from vendor invoices and remitted; part of vendor cost,,,
+2026-05,STP/WTP maintenance,Plant & equipment,routine,99816,,,,SC §7
+2026-05,Repairs & maintenance,Plant & equipment,routine,35085,,,,SC §11
+2026-05,Electricity (BESCOM),Utilities,routine,456232,,,,Deck P4; SC §8
+2026-05,Telephone,Utilities,routine,1826,,,,
+2026-05,"Postage, printing & stationery",Admin & governance,routine,560,,,,
+2026-05,Sobha Ltd - FMS,Facility & housekeeping,routine,813261,,,,Deck P1
+2026-05,TDS on FD interest,Taxes & statutory,routine,26775.6,Bank-deducted; reconcile with actual interest credited,,,SC §9
+2026-05,Diesel for DG,Utilities,routine,86391,Keep a DG run log,,,
+2026-05,Pest control,Facility & housekeeping,routine,22831,,,,Deck P3
+2026-05,Housekeeping materials,Facility & housekeeping,routine,23593,,,,SC §8; §11.3
+2026-05,"Garbage, biomedical & garden waste",Facility & housekeeping,routine,47324,,,,Deck P3
+2026-05,Accounting charges,Admin & governance,routine,25200,,,,SC §11.13
+2026-05,Water (BWSSB),Utilities,routine,159092,New connection; permanent line item,,,Deck §8
+2026-05,Security charges,Security,routine,612579,VEX Securities from Nov 2025,,,SC §5
+2026-05,Tree mesh box frames + SS railings + cricket ground pipe framing,One-time,onetime,100980,Likely the 'mesh near ground-floor flats' the SC calls discriminatory,?,?,SC §11.6
+2026-05,"Lobby light, staircase sensor lights, LED tubes, basement signboard driver",One-time,onetime,58952,JCWINS invoice 21.05.2026,N,?,SC §6; §8
+2026-05,DG engine battery 12V x 10A,One-time,onetime,7956,,?,?,
+2026-05,Fire hydrant hose box supply & repair (balance payment),One-time,onetime,17400,12-year assurance claimed; get the warranty in writing,?,?,
+2026-05,FD placed - ICICI,Treasury (memo),memo,22700000,"Placement, not an expense",NA,?,SC §9
+2026-05,Refundable security deposit received,Treasury (memo),memo,5000,Not income,NA,NA,
+2026-05,FD matured - ICICI,Treasury (memo),memo,22749085,Inflow to bank; not income,NA,NA,
+2026-06,TDS remitted on vendor bills,Taxes & statutory,routine,26252,Withheld from vendor invoices and remitted; part of vendor cost,,,
+2026-06,STP/WTP maintenance,Plant & equipment,routine,78008,,,,SC §7
+2026-06,Repairs & maintenance,Plant & equipment,routine,19084,,,,SC §11
+2026-06,Electricity (BESCOM),Utilities,routine,527509,,,,Deck P4; SC §8
+2026-06,Telephone,Utilities,routine,2522,,,,
+2026-06,"Postage, printing & stationery",Admin & governance,routine,1140,,,,
+2026-06,Sobha Ltd - FMS,Facility & housekeeping,routine,836740,,,,Deck P1
+2026-06,TDS on FD interest,Taxes & statutory,routine,17939.7,Bank-deducted; reconcile with actual interest credited,,,SC §9
+2026-06,Lift AMC / UPS AMC,Plant & equipment,routine,800512,"Half-yearly AMC ₹8,00,512, paid in the month billed",,,SC §4
+2026-06,Pest control,Facility & housekeeping,routine,29000,,,,Deck P3
+2026-06,"Garbage, biomedical & garden waste",Facility & housekeeping,routine,63800,,,,Deck P3
+2026-06,Accounting charges,Admin & governance,routine,25200,,,,SC §11.13
+2026-06,Security charges,Security,routine,734021,VEX Securities from Nov 2025,,,SC §5
+2026-06,Garden maintenance,Facility & housekeeping,routine,13840,,,,
+2026-06,Advance income tax,Taxes & statutory,routine,250000,Quarterly instalment; FY25-26 tax paid was ₹30.8 L,,,Analysis: provision looks light
+2026-06,CFO renewal - STP (KSPCB consent to operate; 5 years),One-time,onetime,612521.24,"₹7,25,000 + GST for five years, paid in one go",NA,MC,
+2026-06,CO2 fire extinguishers servicing & refilling,One-time,onetime,57944,,?,?,
+2026-06,Boom barrier remotes,One-time,onetime,4248,Under ₹25K,NA,NA,
+2026-06,FD placed - ICICI,Treasury (memo),memo,3100000,"Placement, not an expense",NA,?,SC §9
+2026-06,FD matured - HDFC,Treasury (memo),memo,2434622,Inflow to bank; not income,NA,NA,
+2026-06,FD matured - ICICI,Treasury (memo),memo,3412482,Inflow to bank; not income,NA,NA,
+2026-07,TDS remitted on vendor bills,Taxes & statutory,routine,46955,Withheld from vendor invoices and remitted; part of vendor cost,,,
+2026-07,STP/WTP maintenance,Plant & equipment,routine,81691,,,,SC §7
+2026-07,Repairs & maintenance,Plant & equipment,routine,23100,,,,SC §11
+2026-07,Electricity (BESCOM),Utilities,routine,514986,,,,Deck P4; SC §8
+2026-07,Housekeeping materials,Facility & housekeeping,routine,12676,,,,SC §8; §11.3
+2026-07,Bank charges,Admin & governance,routine,167.45,,,,
+2026-07,Meeting charges,Admin & governance,routine,11275,GBM 26 Jul 2026,,,
+2026-07,"Postage, printing & stationery",Admin & governance,routine,950,,,,
+2026-07,Sobha Ltd - FMS,Facility & housekeeping,routine,836740,,,,Deck P1
+2026-07,TDS on FD interest,Taxes & statutory,routine,21317,Bank-deducted; reconcile with actual interest credited,,,SC §9
+2026-07,Pest control,Facility & housekeeping,routine,29000,,,,Deck P3
+2026-07,"Garbage, biomedical & garden waste",Facility & housekeeping,routine,68502,,,,Deck P3
+2026-07,Accounting charges,Admin & governance,routine,25200,,,,SC §11.13
+2026-07,Water (BWSSB),Utilities,routine,179409,New connection; permanent line item,,,Deck §8
+2026-07,Security charges,Security,routine,664535,VEX Securities from Nov 2025,,,SC §5
+2026-07,Paver block laying service (balance),One-time,onetime,113286,"JCWINS invoice 28.07.2026 ₹2,51,517; paid in the new MC's term - establish approval trail",N,?,SC §6
+2026-07,Corpus contribution received,Treasury (memo),memo,63227.3,Not income,NA,NA,

@@ -1,0 +1,48 @@
+month,line,amount,status,in_runrate,basis
+2026-04,Maintenance received (incl. penal interest),5356936.23,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
+2026-04,EV charging collections,676.78,actual,Y,Statement
+2026-04,Other income,17511.71,actual,Y,Statement
+2026-04,Rental - ACT & Adonmo,42592,actual,Y,Statement
+2026-04,Clubhouse / amphitheatre bookings,9440,actual,Y,Statement
+2026-04,Move-in / move-out charges,29500,actual,Y,Statement
+2026-04,Events & stalls,16800,actual,Y,Statement
+2026-04,Interest - corpus with Sobha,54531.9,actual,Y,Paid monthly by Sobha on the ₹90 L corpus it still holds
+2026-04,Interest - HDFC FDs (monthly payout),240205,actual,Y,Bank credit; HDFC FDs pay interest monthly
+2026-04,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
+2026-04,Interest - ICICI FDs (accrues to maturity),249500.0,accrued,Y,"6% p.a. on ₹4.99 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-05,Maintenance received (incl. penal interest),180645.16,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
+2026-05,EV charging collections,5386.88,actual,Y,Statement
+2026-05,Other income,16675.31,actual,Y,Statement
+2026-05,RFID tags,1062,actual,Y,Statement
+2026-05,Rental - ACT & Adonmo,16166,actual,Y,Statement
+2026-05,Move-in / move-out charges,23600,actual,Y,Statement
+2026-05,Events & stalls,4000,actual,Y,Statement
+2026-05,Interest - corpus with Sobha,54344.7,actual,Y,Paid monthly by Sobha on the ₹90 L corpus it still holds
+2026-05,Transfer fees,29500,actual,Y,Statement
+2026-05,Interest - HDFC FDs (monthly payout),232448,actual,Y,Bank credit; HDFC FDs pay interest monthly
+2026-05,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
+2026-05,Interest - ICICI FDs (accrues to maturity),263000.0,accrued,Y,"6% p.a. on ₹5.26 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-06,Maintenance received (incl. penal interest),171378.48,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
+2026-06,EV charging collections,2610.06,actual,Y,Statement
+2026-06,Other income,15728,actual,Y,Statement
+2026-06,RFID tags,590,actual,Y,Statement
+2026-06,Rental - ACT & Adonmo,16166,actual,Y,Statement
+2026-06,Clubhouse / amphitheatre bookings,4720,actual,Y,Statement
+2026-06,Move-in / move-out charges,29500,actual,Y,Statement
+2026-06,Events & stalls,11800,actual,Y,Statement
+2026-06,Interest - corpus with Sobha,54405.9,actual,Y,Paid monthly by Sobha on the ₹90 L corpus it still holds
+2026-06,Vendor licence - laundry,9114,actual,Y,Statement
+2026-06,Suspense (unidentified credits),72.92,actual,Y,Accountant to identify
+2026-06,Interest - HDFC FDs (monthly payout),240209,actual,Y,Bank credit; HDFC FDs pay interest monthly
+2026-06,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
+2026-06,Interest - ICICI FDs (accrues to maturity),263500.0,accrued,Y,"6% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-07,Maintenance received (incl. penal interest),5269439.76,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
+2026-07,EV charging collections,1977.68,actual,Y,Statement
+2026-07,Other income,8779.2,actual,Y,Statement
+2026-07,Events & stalls,1530,actual,Y,Statement
+2026-07,Interest - corpus with Sobha,49259.7,actual,Y,Paid monthly by Sobha on the ₹90 L corpus it still holds
+2026-07,Vendor licence - laundry,7199,actual,Y,Statement
+2026-07,Suspense (unidentified credits),90.01,actual,Y,Accountant to identify
+2026-07,Interest - HDFC FDs (monthly payout),217736,actual,Y,Bank credit; HDFC FDs pay interest monthly
+2026-07,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q2 ÷ 3; raised, not collected"
+2026-07,Interest - ICICI FDs (accrues to maturity),263500.0,accrued,Y,"6% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"

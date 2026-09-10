@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Build the residents' pages into docs/ from the MC site's data plus local JSON.
 Usage: python3 tools/build.py   (passcode read from tools/passcode.txt; empty file = no gate)"""
-import csv, json, os, hashlib, datetime, collections
+import csv, json, os, sys, hashlib, datetime, collections
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MC=os.path.join(os.path.dirname(ROOT),"spc-finance-site","site","data")
 OUT=os.path.join(ROOT,"docs"); DATA=os.path.join(ROOT,"data")
@@ -53,7 +54,7 @@ ISS=[("i_ease","Ease of reporting"),("i_courtesy","Courtesy of staff"),("i_quali
 iss=[(l,)+stat(rep,k) for k,l in ISS]
 wings=sorted({r["wing"] for r in sv}); wingrows=[(w,sum(1 for r in sv if r["wing"]==w),sum(1 for r in sv if r["wing"]==w and r["overall"] in("Satisfied","Very satisfied")),stat([r for r in sv if r["wing"]==w],"s_lifts")[0]) for w in wings]
 # ---------- html helpers
-NAV=[("index.html","Where we stand"),("money.html","Where the money goes"),("shortfall.html","The shortfall and the plan"),("reserves.html","Our reserves"),("feedback.html","What you told us"),("services.html","Lifts and complaints"),("documents.html","Documents and FAQ")]
+NAV=[("index.html","Where we stand"),("money.html","Where the money goes"),("shortfall.html","The shortfall"),("simulator.html","Try the options"),("reserves.html","Our reserves"),("contracts.html","Contracts"),("actions.html","What the committee is doing"),("feedback.html","What you told us"),("services.html","Lifts and complaints"),("documents.html","Documents and FAQ")]
 def page(fn,title,body,scripts=""):
     cur=' aria-current="page"'
     nav="".join(f'<a href="{f}"{cur if f==fn else ""}>{t}</a>' for f,t in NAV)
@@ -92,7 +93,7 @@ idx=f'''<section><div class="eyebrow">Sobha Palm Court Apartment Owners' Associa
 <li>The reserves are still substantial, about {L(reserves)}, but they are the building's savings for lifts, painting and waterproofing in the years ahead, and the interest they earn is already being spent on running costs.</li>
 <li>A resident Sub-Committee reviewed last year's accounts in August and found specific decisions that need answering. The previous committee has been asked for written responses, and the auditor for explanations. Those will be shared with everyone.</li>
 <li>The Managing Committee has called a Special General Body Meeting for <strong>18–19 October</strong> to approve this year's budget and the maintenance rate that goes with it. The 1 October bill will be at the current rate because only the General Body can change it.</li>
-<li>Until then the committee will use interest income and, if needed, an overdraft against the fixed deposits with a fixed cap, rather than break deposits. Whatever is used will be reported on these pages.</li>
+<li>Until the General Body decides, the shortfall is being met from the reserves, as it was last year. The difference is that it is being reported: the amount drawn appears on these pages each month.</li>
 </ol></section>
 <section><h2>What happens next</h2>
 <div class="timeline">
@@ -150,13 +151,7 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <p>The account had {L(floats[-1][1])} on 31 July. Spending runs at ₹26 L a month plus the lumps: advance tax in September, December and March, and the ₹8 L lift contract in December. The next bill is 1 October, at the current rate, because only the General Body can change it, and the General Body cannot meet before 18 October. The table shows the cash in the account at each month-end, in lakh, if nothing changes, and if a 20% increase is approved from 1 October with the difference billed in November.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
 <p class="small">Assumes no ICICI deposits mature in the period and no savings from the tenders. Negative means the account would be overdrawn without a bridge.</p>
-<h3>How the committee will bridge September and December</h3>
-<ol class="steps">
-<li><strong>Interest, not principal.</strong> HDFC pays about ₹1.9 L a month into the account. ICICI interest arrives when deposits mature: one of ₹14 L matures within weeks. Interest is income and will be used; principal will not be touched without the General Body's approval.</li>
-<li><strong>An overdraft against the HDFC deposits, capped at ₹50 L, as backstop.</strong> No deposit is broken and there is no penalty; the bank charges about 1% over the deposit rate on what is drawn, for as long as it is drawn. It will be disclosed in the meeting notice and repaid from the first collections at the new rate.</li>
-<li><strong>Paying on the contract's terms, not early.</strong> Sobha on the 15th of the following month, VEX at 45 days. September's outgoings fall to about ₹22 L.</li>
-<li><strong>Arrears.</strong> ₹10.5 L is outstanding from 30 flats, ₹3.9 L of it older than this year. Notices have gone out.</li>
-</ol></section>
+<div class="callout crit"><strong>Until the General Body decides, the gap is met from the reserves.</strong> There is no other source this year. What is drawn will be shown on the <a href="reserves.html">reserves page</a> month by month, and the meeting will be asked to decide how it is repaid.</div></section>
 <section><h2>What an increase would mean for your flat</h2>
 <p>{rates["note"]} The table shows today's monthly charge by flat type, the charge at a {int(inc_pct*100)}% increase, and the two ways GST can apply once a flat's monthly charge crosses ₹7,500: on the whole amount (the tax department's stated position) or only on the amount above ₹7,500 (a High Court reading). The committee is taking written advice before the notice; the difference is over ₹1,300 a month for the larger flats, so it matters.</p>
 <div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Today, per month</th><th class="num">At +{int(inc_pct*100)}%</th><th class="num">With GST on the whole amount</th><th class="num">With GST only above ₹7,500</th></tr></thead><tbody>{raterows}</tbody></table></div>
@@ -250,11 +245,22 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="card"><h3>General Body Meeting presentation</h3><p class="small">26 July 2026. The committee's presentation: audited FY 2025–26 summary, the corpus drawdown, cost proposals and the two funding options the meeting declined.</p><a class="btn ghost" href="docs/SPCAOA-GBM-Deck-2026-07-26.pdf">Open PDF</a></div>
 <div class="card"><h3>Independent Auditor's Report, FY 2025–26</h3><p class="small">20 July 2026. Two pages; unqualified opinion. The full audited statements with notes will be added with the meeting pack.</p><a class="btn ghost" href="docs/Independent-Auditors-Report-FY25-26.pdf">Open PDF</a></div>
 </div></section>
+<section><h2>The numbers behind these pages</h2><p>Nothing here is a summary you have to take on trust. The data files the pages are built from are below, along with the ledgers received from Sobha and the Treasurer. Files that carry individual flats' dues, employee salaries by name or guards' names are not published; the totals from them are.</p>
+<div class="cards">
+<div class="card"><h3>Expenses, April–July 2026</h3><p class="small">Every head, every month, from the accountant's statements. CSV.</p><a class="btn ghost" href="data/expenses.csv">Download</a></div>
+<div class="card"><h3>Income, treasury and budget</h3><p class="small">Income lines, month-end bank and deposit positions, and the working budget. CSV.</p><a class="small" href="data/income.csv">income.csv</a> · <a class="small" href="data/treasury.csv">treasury.csv</a> · <a class="small" href="data/budget.csv">budget.csv</a></div>
+<div class="card"><h3>Vendor bills and deposits</h3><p class="small">The two largest contracts invoice by invoice, and the fixed deposits by bank. CSV.</p><a class="small" href="data/vendor_bills.csv">vendor_bills.csv</a> · <a class="small" href="data/fds.csv">fds.csv</a></div>
+<div class="card"><h3>Sobha's corpus ledger</h3><p class="small">Sobha's own statement of the owners' corpus, June 2022 to August 2026. Excel, as received.</p><a class="small" href="docs/Sobha-corpus-fund-statement-2022-06-to-2026-08.xlsx">Download</a></div>
+<div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to June 2026. Excel, as received.</p><a class="small" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Download</a></div>
+<div class="card"><h3>The books themselves</h3><p class="small">The association's accounts are kept in TallyPrime. A backup dated 7 September 2026 is held by the committee; audited statements are published annually, and ledger extracts can be requested by any owner.</p></div>
+</div></section>
 <section><h2>Questions residents are asking</h2><div class="faq">{faq}</div></section>'''
 page("documents.html","Documents and FAQ",docs)
+from extra import build_extra
+build_extra(page, CH, runway)
 # gate
 pw=open(os.path.join(ROOT,"tools","passcode.txt")).read().strip().lower() if os.path.exists(os.path.join(ROOT,"tools","passcode.txt")) else ""
 h=hashlib.sha256(pw.encode()).hexdigest() if pw else ""
 g=open(os.path.join(ROOT,"docs","assets","gate.js")).read()
 import re; g=re.sub(r'var PASS_HASH = "[^"]*";', f'var PASS_HASH = "{h}";', g); open(os.path.join(ROOT,"docs","assets","gate.js"),"w").write(g)
-print("built 7 pages; gate", "ON" if h else "OFF"); print(f"spend/mo {per_month:,.0f} maint/mo {maint:,.0f} other/mo {inc_other:,.0f} reserves {reserves:,.0f} survey n={n} sat={sat}")
+print("built 10 pages; gate", "ON" if h else "OFF"); print(f"spend/mo {per_month:,.0f} maint/mo {maint:,.0f} other/mo {inc_other:,.0f} reserves {reserves:,.0f} survey n={n} sat={sat}")

@@ -1,0 +1,11 @@
+vendor,period,invoice_no,invoice_date,taxable,gst,total,units,units_note,paid_date,paid_amount,tds,note
+VEX India Securitas,2026-04,VIS/1/2627/00110,2026-05-08,523572,94242,617814,534,534 duties of 616 (87%); 18 guards at 415 duties,2026-05,612579,5236,Paid net of 1% TDS; matches
+VEX India Securitas,2026-05,VIS/1/2627/00268,2026-06-05,627369,112926,740295,643,643 duties (104%); 19 guards at 530 duties,2026-06,734021,6274,Paid net of 1% TDS; matches
+VEX India Securitas,2026-06,VIS/1/2627/00413,2026-06-30,607282,109310,716592,623,623 duties (101%); 18 guards at 516 duties,2026-07,664535,,"Paid ₹6,64,535 against ₹7,10,519 net; ₹45,984 short or a deduction — accountant to explain"
+VEX India Securitas,2026-07,VIS/1/2627/00581,2026-07-31,486494,87568,574062,496,496 duties (81%); guards 375 duties = 13.4 on average; muster roll 25 names for 18 posts,,,,Payment falls in August; statement awaited
+VEX India Securitas,2026-08,VIS/1/2627/00773,2026-09-04,461645,83096,544741,470,"470 duties (76%); invoice lists 12 guards, not 18",,,,Payment due October under MSMED 45 days
+Sobha Ltd - FMD,2026-04,statement + tax invoice,2026-05,701088,126196,827284,29,"29 heads: EM 1, supervisor 1, HK 15, gardeners 5, technicians 7; salaries ₹6,09,642 + 15% facilitation",2026-05-20,813261,14022,Per Sobha's receipt ledger; matches accountant's May payment
+Sobha Ltd - FMD,2026-05,REL-KA-000060942,2026-06-06,721328,129839,851167,31,"31 heads (two estate managers in handover); salaries ₹6,27,242 + 15%",2026-07-23,836740,14427,"Paid 23 Jul per Sobha; accountant's statement shows ₹8,36,740 in both June and July — June entry unexplained"
+Sobha Ltd - FMD,2026-06,REL-KA-000066339,2026-07-07,665784,119841,785625,27,"27 heads; salaries ₹5,78,943 + 15%",2026-08-14,772309,13316,"Paid 14 Aug per Sobha's ledger (set off against the corpus in July, re-credited on payment)"
+Sobha Ltd - FMD,2026-07,REL-KA-000072039,2026-08-10,660728,118931,779659,27,"27 heads; salaries ₹5,74,546 + 15%",,,,Payment due 15 Aug under the draft MOU; statement awaited
+Sobha Ltd - FMD,2026-08,statement Aug 2026,2026-09,696230,125321,821551,28,"28 heads: EM 1, supervisor 1, HK 14, gardeners 5, technicians 7; salaries ₹6,05,417 + 15%",,,,Statement received 10 Sep; tax invoice awaited

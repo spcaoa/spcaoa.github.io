@@ -1,0 +1,26 @@
+head,category,pattern,annual_baseline,basis
+Sobha Ltd - FMS,Facility & housekeeping,monthly,9829818,Apr–Jul 2026 average × 12 (working baseline)
+Security charges,Security,monthly,8041872,Apr–Jul 2026 average × 12 (working baseline)
+Electricity (BESCOM),Utilities,monthly,5958309,Apr–Jul 2026 average × 12 (working baseline)
+Lift AMC / UPS AMC,Plant & equipment,half-yearly,1601024,"Two half-yearly bills of ₹8,00,512"
+Water (BWSSB),Utilities,irregular,2177106,MANUAL: three BWSSB bills in four months (June's bill paid in July); ₹1.81 L per bill × 12. Irregular until billing settles
+STP/WTP maintenance,Plant & equipment,monthly,921282,Apr–Jul 2026 average × 12 (working baseline)
+Advance income tax,Taxes & statutory,quarterly,1000000,SC provision ₹10 L (4 × ₹2.5 L); FY25-26 actual ₹30.8 L — expect revision
+"Garbage, biomedical & garden waste",Facility & housekeeping,monthly,612408,Apr–Jul 2026 average × 12 (working baseline)
+TDS remitted on vendor bills,Taxes & statutory,monthly,404808,Apr–Jul 2026 average × 12 (working baseline)
+Repairs & maintenance,Plant & equipment,monthly,330519,Apr–Jul 2026 average × 12 (working baseline)
+Pest control,Facility & housekeeping,monthly,307428,Apr–Jul 2026 average × 12 (working baseline)
+Accounting charges,Admin & governance,monthly,297675,Apr–Jul 2026 average × 12 (working baseline)
+Diesel for DG,Utilities,irregular,300000,MANUAL: one ₹86K fill in four months; provision ₹25K/month pending a DG run log
+TDS on FD interest,Taxes & statutory,monthly,251934,Apr–Jul 2026 average × 12 (working baseline)
+Housekeeping materials,Facility & housekeeping,monthly,145710,Apr–Jul 2026 average × 12 (working baseline)
+Garden maintenance,Facility & housekeeping,irregular,49770,Irregular; average × 12 for scale only
+Meeting charges,Admin & governance,irregular,33825,Irregular; average × 12 for scale only
+Telephone,Utilities,monthly,24708,Apr–Jul 2026 average × 12 (working baseline)
+Pooja & festival celebration,Admin & governance,irregular,30000,MANUAL: annual provision
+"Postage, printing & stationery",Admin & governance,monthly,11130,Apr–Jul 2026 average × 12 (working baseline)
+Employer professional tax,Taxes & statutory,annual,2500,Paid once a year
+Transportation,Admin & governance,irregular,600,Irregular; average × 12 for scale only
+Bank charges,Admin & governance,irregular,502,Irregular; average × 12 for scale only
+GST paid,Taxes & statutory,irregular,276,Irregular; average × 12 for scale only
+One-time,One-time,irregular,3763348,Average × 12 (₹3.14 L/month); replace with an approved capex plan
