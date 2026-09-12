@@ -8,6 +8,15 @@ MC=os.path.join(os.path.dirname(ROOT),"spc-finance-site","site","data")
 OUT=os.path.join(ROOT,"docs"); DATA=os.path.join(ROOT,"data")
 UPDATED="10 September 2026"
 def rd(p): return list(csv.DictReader(open(p,newline="",encoding="utf-8")))
+def _assetver():
+    h=hashlib.sha256()
+    for f in ("site.css","ui.js","gate.js"):
+        try: h.update(open(os.path.join(ROOT,"docs","assets",f),"rb").read())
+        except FileNotFoundError: pass
+    try: h.update(open(os.path.join(ROOT,"tools","passcode.txt"),"rb").read())
+    except FileNotFoundError: pass
+    return h.hexdigest()[:8]
+VER=_assetver()
 def L(n): return f"₹{n/1e5:.1f} L" if abs(n)<1e7 else f"₹{n/1e7:.2f} Cr"
 def LL(n): return f"₹{n/1e5:.2f} L"
 def INR(n): return "₹"+f"{round(n):,}".replace(",","_").replace("_",",")  # simple grouping
@@ -62,12 +71,13 @@ def page(fn,title,body,scripts=""):
 <title>{title} · Sobha Palm Court</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css"><script src="assets/gate.js"></script>
+<link rel="stylesheet" href="assets/site.css?v={VER}"><script src="assets/gate.js?v={VER}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
-<div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><nav class="tabs" aria-label="Pages">{nav}</nav></div></div>
+<div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><button class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="tabs"><svg class="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><nav class="tabs" id="tabs" aria-label="Pages">{nav}</nav></div></div>
 <div class="wrap">{body}
 <div class="updated">Updated {UPDATED}. Accounts to end {ML(months[-1])} 2026; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee. Questions: spcaoa@gmail.com</div>
 </div><footer>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' summaries. They are not audited. Updated monthly.</footer>
+<script src="assets/ui.js?v={VER}"></script>
 <script>{scripts}</script></body></html>'''
     open(os.path.join(OUT,fn),"w",encoding="utf-8").write(html)
 def tile(cls,k,v,d): return f'<div class="tile {cls}"><div class="k">{k}</div><div class="v">{v}</div><div class="d">{d}</div></div>'

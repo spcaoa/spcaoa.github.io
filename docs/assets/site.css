@@ -217,3 +217,41 @@ footer{max-width:var(--wrap);margin:0 auto;padding:0 24px 48px;font-size:12.5px;
 .gapbar span{display:block;height:100%;background:var(--good)}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- mobile: hamburger nav ---------- */
+.menubtn{display:none;margin-left:auto;width:40px;height:40px;border:0;border-radius:12px;background:var(--grey-soft);color:var(--ink);align-items:center;justify-content:center;cursor:pointer;padding:0;flex:0 0 auto}
+.menubtn svg{width:20px;height:20px;display:block}
+.menubtn .x{display:none}
+.menubtn[aria-expanded="true"] .x{display:block}
+.menubtn[aria-expanded="true"] .b{display:none}
+@media (max-width:940px){
+  .topbar{position:sticky}
+  .menubtn{display:flex}
+  .tabs{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:2px;height:auto;margin-left:0;background:var(--surface);padding:10px 12px 14px;border-bottom:1px solid var(--line-soft);box-shadow:0 12px 24px rgba(0,0,0,.10);overflow-x:hidden;overflow-y:auto;max-height:calc(100dvh - 58px);overscroll-behavior:contain}
+  .tabs.open{display:flex}
+  .tabs a{padding:12px 14px;border-radius:12px;font-size:16px;font-weight:500}
+  .tabs a[aria-current="page"]{background:var(--accent-soft);color:var(--accent)}
+}
+/* ---------- mobile: wide tables become cards ---------- */
+@media (max-width:720px){
+  table.stack{font-size:15px}
+  table.stack thead{display:none}
+  table.stack tbody tr{display:block;padding:14px 16px;border-bottom:1px solid var(--line-soft)}
+  table.stack tbody tr:last-child{border-bottom:0}
+  /* numbers keep a label-left value-right row; text sits under its label */
+  table.stack tbody td{display:block;padding:6px 0;border:0;text-align:left;white-space:normal}
+  table.stack tbody td::before{content:attr(data-label);display:block;font-weight:400;color:var(--muted);font-size:13px;margin-bottom:1px}
+  table.stack tbody td.num{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:5px 0;text-align:right}
+  table.stack tbody td.num::before{display:block;margin:0;flex:1 1 auto;text-align:left;font-size:13.5px}
+  table.stack tbody td:first-child{display:block;font-weight:600;font-size:16.5px;text-align:left;padding:0 0 8px;letter-spacing:-.015em}
+  table.stack tbody td:first-child::before{display:none}
+  table.stack tbody td.num{white-space:nowrap}
+  table.stack tbody tr.total{background:var(--grey-soft)}
+  .tablewrap:has(table.stack){overflow-x:visible}
+  h1{font-size:34px}
+  .tile .v{font-size:30px}
+  .opt .bill{font-size:26px}
+}
+
+/* grid and flex children must be allowed to shrink, or wide tables push the page sideways */
+.charts>*,.cards>*,.tiles>*,.opts>*,.two>*{min-width:0}
