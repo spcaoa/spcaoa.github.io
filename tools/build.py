@@ -81,20 +81,20 @@ def page(fn,title,body,scripts=""):
 <script>{scripts}</script></body></html>'''
     open(os.path.join(OUT,fn),"w",encoding="utf-8").write(html)
 def tile(cls,k,v,d): return f'<div class="tile {cls}"><div class="k">{k}</div><div class="v">{v}</div><div class="d">{d}</div></div>'
-CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();Chart.defaults.color=css("--muted");Chart.defaults.borderColor=css("--line-soft");Chart.defaults.font.family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";Chart.defaults.font.size=12;const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
+CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();Chart.defaults.color=css("--muted");Chart.defaults.borderColor=css("--line-soft");Chart.defaults.font.weight="500";Chart.defaults.font.family="Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif";Chart.defaults.font.size=12;const fmtL=v=>"₹"+(v/1e5).toFixed(1)+" L";'
 # ---------- pages
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
 <h1>Where we stand</h1>
 <p class="lead">Running Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. Interest covers some of the rest. The reserves cover the remainder. These pages show the numbers, what the Managing Committee is doing, and what happens next.</p>
-<div class="tiles">
-{tile("crit","Spend per month",L(per_month),"April–July average, everything included")}
+<div class="hero">
+<div class="big"><div class="k">Shortfall this year</div><div class="v">₹70–90 L</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves, before any savings from the tenders.</div></div>
+<div class="rest">
+{tile("","Spend per month",L(per_month),"April–July average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
-{tile("","Interest and other income",L(inc_other),"per month")}
-{tile("crit","Shortfall this year","₹70–90 L","before any savings from tenders")}
-{tile("","Reserves",L(reserves),"fixed deposits plus the balance with Sobha")}
+{tile("accent","Reserves",L(reserves),"fixed deposits plus the balance with Sobha")}
 {tile("warn","Cash in the bank, end July",L(floats[-1][1]),"about five weeks of spending")}
-</div>
+</div></div>
 <div class="glossary">1 lakh = ₹1,00,000. 1 crore = 100 lakh. Reserves (the corpus) are the money owners paid at handover, kept in fixed deposits for big repairs.</div>
 </section>
 <section><h2>In six sentences</h2>

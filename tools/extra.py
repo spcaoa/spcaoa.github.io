@@ -34,7 +34,8 @@ def build_extra(page, CH, runway):
   </div>
 </aside>
 <div class="simresults">
-<section class="cardsec"><h2>Does it close the gap?</h2><div class="opts" id="optCards"></div>
+<div class="herocard" id="herocard"></div>
+<section class="cardsec"><h2>Compared with the others</h2><div class="opts" id="optCards"></div>
 <p class="small">"This year" is August 2026 to March 2027. "Next year" is April 2027 to March 2028, with all interest counted and tax provided.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹34.8 L on 31 July 2026. Below zero, the reserves are used.</p></section>
@@ -80,6 +81,8 @@ const KEYS=["asis","sc","mc","opt1","opt2"];
 const NM={asis:"Carry on as we are: +0%",sc:"Sub-Committee: +10.1%",mc:"MC option:",opt1:"GBM Option 1: +39.4%",opt2:"GBM Option 2: annual contribution"};
 function optOf(o,k){ const p=P[k]; return {...o,preset:k,pct:p.pct==null?+document.getElementById("pct").value:p.pct,inside:p.inside,contrib:p.contrib}; }
 function nameOf(k,oo){ return k==="mc"?NM[k]+" +"+oo.pct+"%":NM[k]; }
+const SHORT={asis:"Carry on",sc:"Sub-Committee +10.1%",mc:"MC option",opt1:"Option 1 +39.4%",opt2:"Option 2 contribution"};
+function shortOf(k,oo){ return k==="mc"?SHORT[k]+" +"+oo.pct+"%":SHORT[k]; }
 function verdict(rr){ if(rr.surplus<0) return {c:"no",t:"Not enough. Still short next year."}; if(rr.surplus<15) return {c:"mid",t:"Just balances next year. No buffer."}; return {c:"ok",t:"Balances next year, with a buffer."}; }
 const signL=n=>(n>0?"+":"")+L(n);
 let prevText={};
@@ -97,12 +100,13 @@ function render(){
   KEYS.forEach(k=>{ const x=R[k]; x.raised=Math.max(0,x.rr.b27-asis.b27); x.fromRes=Math.max(0,-x.rr.b27); x.extra=(x.a.total-x.a.t.m)*12+(x.oo.contrib?x.a.t.c2:0); });
   const S=R[o.preset];
   const tile=(c,k,v,d)=>'<div class="tile '+c+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>';
-  document.getElementById("gapTiles").innerHTML=tile("crit","If nothing changes: from reserves this year",L(gapNow),"August 2026 to March 2027")+tile("crit","If nothing changes: next year",L(asis.surplus),"full year, interest counted, tax provided")+tile("","Maintenance today","₹"+(TYPES.reduce((a,t)=>a+t.m*t.n,0)*12/1e5).toFixed(0)+" L/yr","294 flats")+tile("","Spending next year","₹"+((o.base==="tr"?33*12:26*12+16)-o.sav)+" L/yr","after savings");
+  document.getElementById("gapTiles").innerHTML=tile("crit sm","If nothing changes, from reserves this year",L(gapNow),"August 2026 to March 2027")+tile("crit sm","If nothing changes, next year",L(asis.surplus),"full year, interest counted, tax provided")+tile("sm","Maintenance today","₹"+(TYPES.reduce((a,t)=>a+t.m*t.n,0)*12/1e5).toFixed(0)+" L a year","294 flats")+tile("sm","Spending next year","₹"+((o.base==="tr"?33*12:26*12+16)-o.sav)+" L a year","after savings");
 
   // --- the live panel: every option, the selected one expanded
   const list=document.getElementById("optList");
   list.innerHTML=KEYS.map(k=>{ const x=R[k], sel=k===o.preset;
-    const row='<button type="button" class="orow'+(sel?' sel':'')+'" data-k="'+k+'" aria-pressed="'+sel+'"><span class="nm"><i class="dot" style="background:'+LCOL[k]+'"></i>'+x.name+'</span><span class="ny '+(x.rr.surplus<0?"neg":"pos")+'" data-f="ny-'+k+'">'+signL(x.rr.surplus)+'</span></button>';
+    const maxAbs=Math.max(20,...KEYS.map(q=>Math.abs(R[q].rr.surplus))), w=Math.min(50,Math.abs(x.rr.surplus)/maxAbs*50);
+    const row='<button type="button" class="orow'+(sel?' sel':'')+'" data-k="'+k+'" aria-pressed="'+sel+'"><span class="nm"><i class="dot" style="background:'+LCOL[k]+'"></i>'+shortOf(k,x.oo)+'</span><span class="track" aria-hidden="true"><i class="'+(x.rr.surplus<0?"neg":"pos")+'" style="width:'+w+'%"></i></span><span class="ny '+(x.rr.surplus<0?"neg":"pos")+'" data-f="ny-'+k+'">'+signL(x.rr.surplus)+'</span></button>';
     if(!sel) return row;
     return row+'<div class="odetail"><div class="big" data-f="bill">'+inr(x.a.total)+'<span> /month, A-type flat</span></div>'
       +'<div class="kv"><span>Extra per year</span><b data-f="extra">'+(x.extra>0?inr(x.extra):"none")+'</b></div>'
@@ -111,6 +115,13 @@ function render(){
   list.querySelectorAll(".orow").forEach(b=>b.onclick=()=>select(b.dataset.k));
   flashChanged(list);
 
+  // --- hero: the selected option, large
+  document.getElementById("herocard").className="herocard v-"+S.v.c;
+  document.getElementById("herocard").innerHTML='<div><div class="hk">Selected option</div><div class="hname">'+S.name+'</div><div class="hverdict '+S.v.c+'" data-f="h-verdict">'+S.v.t+'</div></div>'
+    +'<div><div class="hk">A-type flat, per month</div><div class="hv" data-f="h-bill">'+inr(S.a.total)+'</div><div class="small">'+(S.extra>0?inr(S.extra)+" more per year":"no change")+'</div></div>'
+    +'<div><div class="hk">From reserves this year</div><div class="hv '+(S.fromRes>0?"neg":"pos")+'" data-f="h-res">'+L(S.fromRes)+'</div><div class="small">of '+L(gapNow)+' if nothing changes</div></div>'
+    +'<div><div class="hk">Next year</div><div class="hv '+(S.rr.surplus<0?"neg":"pos")+'" data-f="h-ny">'+signL(S.rr.surplus)+'</div><div class="small">full year, all interest, tax provided</div></div>';
+  flashChanged(document.getElementById("herocard"));
   // --- cards
   document.getElementById("optCards").innerHTML=KEYS.map(k=>{ const x=R[k], cov=gapNow?Math.min(1,x.raised/gapNow):0;
     return '<div class="opt'+(k===o.preset?' sel':'')+'" data-k="'+k+'" role="button" tabindex="0"><h3>'+x.name+'</h3><div class="bill">'+inr(x.a.total)+'<span class="small"> /month, A-type</span></div><div class="sub">'+(x.extra>0?inr(x.extra)+" more per year":"no change")+(x.oo.contrib?" (annual contribution)":"")+'</div><div class="row"><span>Raises this year</span><b>'+L(x.raised)+'</b></div><div class="gapbar"><span style="width:'+(cov*100)+'%"></span></div><div class="row" style="border:0;padding-top:0"><span>From reserves</span><b class="'+(x.fromRes>0?"neg":"pos")+'">'+L(x.fromRes)+'</b></div><div class="row"><span>Next year</span><b class="'+(x.rr.surplus<0?"neg":"pos")+'">'+L(x.rr.surplus)+'</b></div><div class="verdict '+x.v.c+'">'+x.v.t+'</div></div>'; }).join("");
