@@ -3,8 +3,7 @@ import json
 def build_extra(page, CH, runway):
     TYPES=[{"t":"A / E","n":58,"m":7432,"c2":32357},{"t":"A1 / E1","n":16,"m":7499,"c2":32649},{"t":"B / F","n":58,"m":6921,"c2":30133},{"t":"B1 / F1","n":16,"m":6988,"c2":30424},{"t":"C","n":72,"m":6058,"c2":26375},{"t":"D1","n":66,"m":5723,"c2":24917},{"t":"D","n":8,"m":5381,"c2":23428}]
     sim = """<section class="simhead"><div class="eyebrow">Five options, one model</div><h1>Try the options</h1>
-<p class="lead">Pick an option and change the assumptions. The result updates as you go.</p>
-<div class="tiles" id="gapTiles"></div></section>
+<p class="lead">Pick an option and change the assumptions. The result updates as you go. If nothing changes, <b id="gapInline"></b> comes out of the reserves this year and next year is still short.</p></section>
 <div class="simgrid">
 <aside class="simpanel" id="simpanel" aria-label="Options and assumptions">
   <div class="live" id="live" aria-live="polite">
@@ -34,8 +33,7 @@ def build_extra(page, CH, runway):
   </div>
 </aside>
 <div class="simresults">
-<div class="herocard" id="herocard"></div>
-<section class="cardsec"><h2>Compared with the others</h2><div class="opts" id="optCards"></div>
+<section class="cardsec"><h2>Does it close the gap?</h2><div class="opts" id="optCards"></div>
 <p class="small">"This year" is August 2026 to March 2027. "Next year" is April 2027 to March 2028, with all interest counted and tax provided.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹34.8 L on 31 July 2026. Below zero, the reserves are used.</p></section>
@@ -100,7 +98,7 @@ function render(){
   KEYS.forEach(k=>{ const x=R[k]; x.raised=Math.max(0,x.rr.b27-asis.b27); x.fromRes=Math.max(0,-x.rr.b27); x.extra=(x.a.total-x.a.t.m)*12+(x.oo.contrib?x.a.t.c2:0); });
   const S=R[o.preset];
   const tile=(c,k,v,d)=>'<div class="tile '+c+'"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>';
-  document.getElementById("gapTiles").innerHTML=tile("crit sm","If nothing changes, from reserves this year",L(gapNow),"August 2026 to March 2027")+tile("crit sm","If nothing changes, next year",L(asis.surplus),"full year, interest counted, tax provided")+tile("sm","Maintenance today","₹"+(TYPES.reduce((a,t)=>a+t.m*t.n,0)*12/1e5).toFixed(0)+" L a year","294 flats")+tile("sm","Spending next year","₹"+((o.base==="tr"?33*12:26*12+16)-o.sav)+" L a year","after savings");
+  document.getElementById("gapInline").textContent=L(gapNow);
 
   // --- the live panel: every option, the selected one expanded
   const list=document.getElementById("optList");
@@ -115,13 +113,6 @@ function render(){
   list.querySelectorAll(".orow").forEach(b=>b.onclick=()=>select(b.dataset.k));
   flashChanged(list);
 
-  // --- hero: the selected option, large
-  document.getElementById("herocard").className="herocard v-"+S.v.c;
-  document.getElementById("herocard").innerHTML='<div><div class="hk">Selected option</div><div class="hname">'+S.name+'</div><div class="hverdict '+S.v.c+'" data-f="h-verdict">'+S.v.t+'</div></div>'
-    +'<div><div class="hk">A-type flat, per month</div><div class="hv" data-f="h-bill">'+inr(S.a.total)+'</div><div class="small">'+(S.extra>0?inr(S.extra)+" more per year":"no change")+'</div></div>'
-    +'<div><div class="hk">From reserves this year</div><div class="hv '+(S.fromRes>0?"neg":"pos")+'" data-f="h-res">'+L(S.fromRes)+'</div><div class="small">of '+L(gapNow)+' if nothing changes</div></div>'
-    +'<div><div class="hk">Next year</div><div class="hv '+(S.rr.surplus<0?"neg":"pos")+'" data-f="h-ny">'+signL(S.rr.surplus)+'</div><div class="small">full year, all interest, tax provided</div></div>';
-  flashChanged(document.getElementById("herocard"));
   // --- cards
   document.getElementById("optCards").innerHTML=KEYS.map(k=>{ const x=R[k], cov=gapNow?Math.min(1,x.raised/gapNow):0;
     return '<div class="opt'+(k===o.preset?' sel':'')+'" data-k="'+k+'" role="button" tabindex="0"><h3>'+x.name+'</h3><div class="bill">'+inr(x.a.total)+'<span class="small"> /month, A-type</span></div><div class="sub">'+(x.extra>0?inr(x.extra)+" more per year":"no change")+(x.oo.contrib?" (annual contribution)":"")+'</div><div class="row"><span>Raises this year</span><b>'+L(x.raised)+'</b></div><div class="gapbar"><span style="width:'+(cov*100)+'%"></span></div><div class="row" style="border:0;padding-top:0"><span>From reserves</span><b class="'+(x.fromRes>0?"neg":"pos")+'">'+L(x.fromRes)+'</b></div><div class="row"><span>Next year</span><b class="'+(x.rr.surplus<0?"neg":"pos")+'">'+L(x.rr.surplus)+'</b></div><div class="verdict '+x.v.c+'">'+x.v.t+'</div></div>'; }).join("");
