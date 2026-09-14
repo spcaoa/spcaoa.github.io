@@ -22,9 +22,9 @@
         Array.prototype.forEach.call(tr.children,function(td,i){ if(hs[i]) td.setAttribute("data-label",hs[i]); });
       });
       tb.classList.remove("stack");
-      if(!narrow) return;
       var wrap=tb.parentElement;
-      if(hs.length>4 || tb.scrollWidth > wrap.clientWidth + 2) tb.classList.add("stack");
+      // phones: any table with more than four columns; any screen: a table wider than its box
+      if((narrow && hs.length>4) || tb.scrollWidth > wrap.clientWidth + 2) tb.classList.add("stack");
     });
   }
   var t;
