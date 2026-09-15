@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MC=os.path.join(os.path.dirname(ROOT),"spc-finance-site","site","data")
 OUT=os.path.join(ROOT,"docs"); DATA=os.path.join(ROOT,"data")
-UPDATED="10 September 2026"
+UPDATED="15 September 2026"
 def rd(p): return list(csv.DictReader(open(p,newline="",encoding="utf-8")))
 def _assetver():
     h=hashlib.sha256()
@@ -90,29 +90,29 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 <div class="hero">
 <div class="big"><div class="k">Shortfall this year</div><div class="v">₹70–90 L</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves, before any savings from the tenders.</div></div>
 <div class="rest">
-{tile("","Spend per month",L(per_month),"April–July average, everything included")}
+{tile("","Spend per month",L(per_month),f"{ML(months[0])}–{ML(months[-1])} average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
 {tile("accent","Reserves",L(reserves),"fixed deposits plus the balance with Sobha")}
-{tile("warn","Cash in the bank, end July",L(floats[-1][1]),"about five weeks of spending")}
+{tile("crit" if floats[-1][1] < per_month*0.3 else "warn","Cash in the bank, end "+ML(months[-1]),L(floats[-1][1]),f"about {round(floats[-1][1]/per_month*4.3)} week{'s' if round(floats[-1][1]/per_month*4.3)!=1 else ''} of spending")}
 </div></div>
 <div class="glossary">1 lakh = ₹1,00,000. 1 crore = 100 lakh. Reserves (the corpus) are the money owners paid at handover, kept in fixed deposits for big repairs.</div>
 </section>
 <section><h2>In six sentences</h2>
 <ol class="steps">
 <li>Last year the association spent ₹48 lakh more than it collected. The difference came from the reserves. The General Body was not asked.</li>
-<li>This year is running the same way. April to July: {L(tot)} spent, {L(maint*nM)} billed.</li>
+<li>This year is running the same way. {ML(months[0])} to {ML(months[-1])}: {L(tot)} spent, {L(maint*nM)} billed.</li>
 <li>The reserves are about {L(reserves)}. That money is for big repairs in the years ahead. Its interest is already being spent on running costs.</li>
 <li>A resident Sub-Committee reviewed last year's accounts. Their questions have gone to the previous Managing Committee and to the auditor. The answers will be published here.</li>
-<li>A Special General Body Meeting on <strong>18–19 October</strong> will decide the budget and the maintenance rate. The 1 October bill stays at the current rate. Only the General Body can change it.</li>
+<li>A Special General Body Meeting on <strong>Sunday, 18 October</strong> will decide the budget and the maintenance rate. The notice goes out this week. The 1 October bill stays at the current rate; only the General Body can change it.</li>
 <li>Until then the gap is met from the reserves. The amount drawn is published here every month.</li>
 </ol></section>
 <section><h2>What happens next</h2>
 <div class="timeline">
-<div class="when">By 12 Sep</div><div>Meeting notice to every owner, with the resolutions and how to vote.</div>
-<div class="when">By 29 Sep</div><div>Written responses due from the previous Managing Committee and the auditor. Published as received.</div>
+<div class="when">18 Sep</div><div>Meeting notice to every owner, with the Sub-Committee's report and other supporting documents, the resolutions, and how to vote.</div>
+<div class="when">21 Sep</div><div>Written responses due from the previous Managing Committee, requested for each point the Sub-Committee raised. Published as received.</div>
 <div class="when">1 Oct</div><div>Q3 maintenance bill, at the current rate. Please pay by the due date.</div>
-<div class="when">By 4 Oct</div><div>Full meeting pack: the Sub-Committee report, the responses, the audited accounts, the budget.</div>
-<div class="when">18–19 Oct</div><div>Special General Body Meeting. One flat, one vote. Proxies and e-mail votes allowed.</div>
+<div class="when">Before 18 Oct</div><div>Full meeting pack: the responses, the audited accounts, the budget, tabled alongside the Sub-Committee's report.</div>
+<div class="when">Sun, 18 Oct</div><div>Special General Body Meeting. One flat, one vote. Proxies and e-mail votes allowed.</div>
 <div class="when">Nov</div><div>If a new rate is approved from 1 October, the difference for October–December is billed in November.</div>
 </div></section>
 <section><h2>Read on</h2><div class="readon">
@@ -127,10 +127,10 @@ rows=sorted(byhead.items(),key=lambda x:-x[1])[:12]
 headrows="".join(f'<tr><td>{h}</td><td class="num">{inr(v/nM)}</td><td class="num">{v/routine*100:.0f}%</td></tr>' for h,v in rows)
 ot=sorted([r for r in spend if r["kind"]=="onetime"],key=lambda r:-r["amount"])[:6]
 otrows="".join(f'<tr><td>{ML(r["month"])}</td><td>{r["head"]}</td><td class="num">{inr(r["amount"])}</td></tr>' for r in ot)
-money=f'''<section><div class="eyebrow">April to July 2026 · receipts and payments basis</div><h1>Where the money goes</h1>
-<p class="lead">Everything paid out from April to July, in the month it was paid. Nothing is smoothed. The half-yearly lift contract shows in June because that is when it was paid.</p>
-<div class="tiles">{tile("","Paid out, April–July",L(tot),f"{L(routine)} running costs + {L(onetime)} one-time items")}{tile("","Per month",L(per_month),"one-time items included")}{tile("crit","Maintenance covers",f"{maint/(routine/nM)*100:.0f}%","of running costs")}</div></section>
-<section><div class="charts"><div class="chartbox"><h3>Month by month, by category</h3><div class="ch" style="height:280px"><canvas id="c1"></canvas></div></div><div class="chartbox"><h3>Four months, by category</h3><div class="ch donut" style="height:240px"><canvas id="c2"></canvas></div></div></div>
+money=f'''<section><div class="eyebrow">{ML(months[0])} to {ML(months[-1])} · receipts and payments basis</div><h1>Where the money goes</h1>
+<p class="lead">Everything paid out from {ML(months[0])} to {ML(months[-1])}, in the month it was paid. Nothing is smoothed. The half-yearly lift contract shows in June because that is when it was paid.</p>
+<div class="tiles">{tile("","Paid out, "+ML(months[0])+chr(8211)+ML(months[-1]),L(tot),f"{L(routine)} running costs + {L(onetime)} one-time items")}{tile("","Per month",L(per_month),"one-time items included")}{tile("crit","Maintenance covers",f"{maint/(routine/nM)*100:.0f}%","of running costs")}</div></section>
+<section><div class="charts"><div class="chartbox"><h3>Month by month, by category</h3><div class="ch" style="height:280px"><canvas id="c1"></canvas></div></div><div class="chartbox"><h3>{nM} months, by category</h3><div class="ch donut" style="height:240px"><canvas id="c2"></canvas></div></div></div>
 <p class="small">The dashed line is monthly maintenance income. The gap above it is the shortfall.</p></section>
 <section><h2>The biggest heads</h2>
 <div class="tablewrap"><table><thead><tr><th>Head</th><th class="num">Per month</th><th class="num">Share of running costs</th></tr></thead><tbody>{headrows}</tbody></table></div>
@@ -159,9 +159,9 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 </tbody></table></div>
 <div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
 <section><h2>Cash, month by month</h2>
-<p>The account had {L(floats[-1][1])} on 31 July. Spending is ₹26 L a month, plus tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 18 October. The table shows cash at each month-end if nothing changes, and with a 20% increase from 1 October.</p>
+<p>The account had {L(floats[-1][1])} at the end of {ML(months[-1])} — about a week of spending. Spending is ₹26 L a month, plus tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 18 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
-<p class="small">Assumes no ICICI deposits mature and no savings from tenders. Negative means the reserves are used.</p>
+<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this; the reserves page has the detail. Negative means the reserves are used.</p>
 <div class="callout crit"><strong>Until the General Body decides, the gap is met from the reserves.</strong> There is no other source this year. What is drawn will be shown on the <a href="reserves.html">reserves page</a> month by month, and the meeting will be asked to decide how it is repaid.</div></section>
 <section><h2>What an increase would mean for your flat</h2>
 <p>Illustrative only. The MC's proposal will be in the meeting notice. Once a flat's monthly charge crosses ₹7,500, 18% GST applies. It can apply to the whole amount (the tax department's position) or only to the amount above ₹7,500 (a High Court reading). The difference is over ₹1,300 a month for the larger flats. Written advice is being taken.</p>
@@ -180,7 +180,8 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <section><h2>The deposits</h2>
 <div class="tablewrap"><table><thead><tr><th>Where</th><th class="num">Deposits</th><th class="num">Principal</th><th class="num">Rate</th><th>How interest is paid</th><th>Maturity</th></tr></thead><tbody>{bankrows}</tbody></table></div>
 <p class="small">Sources: the banks' own deposit summaries dated {fds["as_at"]} and Sobha's corpus statement. Account numbers are not published.</p>
-<div class="callout warn"><strong>Two figures are being reconciled.</strong> The books show ₹3.81 crore at HDFC at the end of July. The bank shows ₹3.20 crore on 7 September. Sobha's ledger shows ₹75 lakh held; the books show ₹90 lakh, because Sobha adjusts unpaid bills against it. Both will be explained in the meeting pack.</div></section>
+<div class="callout"><strong>The HDFC gap is explained.</strong> The books showed ₹3.81 crore at HDFC through July; the bank showed ₹3.20 crore on 7 September. The Treasurer's own tracking, received in September, shows why: three ₹25 lakh deposits matured in June, July and August and were spent rather than reinvested, and the accountant's monthly statement never updated to match. The bank figures on this page are correct.</div>
+<div class="callout warn"><strong>One figure is still being reconciled.</strong> Sobha's ledger shows about ₹75 lakh of the corpus held; the association's books show ₹90 lakh, because Sobha sets its unpaid bills off against the balance. This will be explained in the meeting pack.</div></section>
 <section><h2>How ₹11.76 crore became {L(reserves)}</h2>
 <div class="timeline">
 <div class="when">Jun 2022</div><div>₹11.76 Cr collected by Sobha at handover. For sixteen months Sobha ran the estate from it: ₹1.88 Cr charged, ₹1.17 Cr of interest credited.</div>
@@ -258,7 +259,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 </div></section>
 <section><h2>The numbers behind these pages</h2><p>The data files these pages are built from, and the ledgers received from Sobha and the Treasurer. Files with individual flats' dues or staff names are not published. Their totals are.</p>
 <div class="cards">
-<div class="card"><h3>Expenses, April–July 2026</h3><p class="small">Every head, every month, from the accountant's statements. CSV.</p><a class="btn ghost" href="data/expenses.csv">Download</a></div>
+<div class="card"><h3>Expenses, {ML(months[0])}–{ML(months[-1])}</h3><p class="small">Every head, every month, from the accountant's statements. CSV.</p><a class="btn ghost" href="data/expenses.csv">Download</a></div>
 <div class="card"><h3>Income, treasury and budget</h3><p class="small">Income lines, month-end bank and deposit positions, and the working budget. CSV.</p><a class="small" href="data/income.csv">income.csv</a> · <a class="small" href="data/treasury.csv">treasury.csv</a> · <a class="small" href="data/budget.csv">budget.csv</a></div>
 <div class="card"><h3>Vendor bills and deposits</h3><p class="small">The two largest contracts invoice by invoice, and the fixed deposits by bank. CSV.</p><a class="small" href="data/vendor_bills.csv">vendor_bills.csv</a> · <a class="small" href="data/fds.csv">fds.csv</a></div>
 <div class="card"><h3>Sobha's corpus ledger</h3><p class="small">Sobha's own statement of the owners' corpus, June 2022 to August 2026. Excel, as received.</p><a class="small" href="docs/Sobha-corpus-fund-statement-2022-06-to-2026-08.xlsx">Download</a></div>
