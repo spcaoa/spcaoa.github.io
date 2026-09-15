@@ -90,3 +90,26 @@ month,head,category,kind,amount,note,quotes,approval,sc_ref
 2026-07,Security charges,Security,routine,664535,VEX Securities from Nov 2025,,,SC §5
 2026-07,Paver block laying service (balance),One-time,onetime,113286,"JCWINS invoice 28.07.2026 ₹2,51,517; paid in the new MC's term - establish approval trail",N,?,SC §6
 2026-07,Corpus contribution received,Treasury (memo),memo,63227.3,Not income,NA,NA,
+2026-08,TDS remitted on vendor bills,Taxes & statutory,routine,22530,Withheld from vendor invoices and remitted; part of vendor cost,,,
+2026-08,STP/WTP maintenance,Plant & equipment,routine,43160,,,,SC §7
+2026-08,Repairs & maintenance,Plant & equipment,routine,7262,,,,SC §11
+2026-08,Electricity (BESCOM),Utilities,routine,503753,,,,Deck P4; SC §8
+2026-08,Housekeeping materials,Facility & housekeeping,routine,23913,,,,SC §8; §11.3
+2026-08,Bank charges,Admin & governance,routine,244.94,,,,
+2026-08,"Postage, printing & stationery",Admin & governance,routine,440,,,,
+2026-08,Pooja & festival celebration,Admin & governance,routine,2930,,,,
+2026-08,Sobha Ltd - FMS,Facility & housekeeping,routine,1538753,,,,Deck P1
+2026-08,TDS on FD interest,Taxes & statutory,routine,22500.6,Bank-deducted; reconcile with actual interest credited,,,SC §9
+2026-08,Telephone,Utilities,routine,1827,,,,
+2026-08,Transportation,Admin & governance,routine,223,,,,
+2026-08,Audit fees,Admin & governance,routine,201960,,,,
+2026-08,Pest control,Facility & housekeeping,routine,29000,,,,Deck P3
+2026-08,"Garbage, biomedical & garden waste",Facility & housekeeping,routine,63800,,,,Deck P3
+2026-08,Accounting charges,Admin & governance,routine,25200,,,,SC §11.13
+2026-08,Water (BWSSB),Utilities,routine,285406,New connection; permanent line item,,,Deck §8
+2026-08,Security charges,Security,routine,586857,VEX Securities from Nov 2025,,,SC §5
+2026-08,Garden maintenance,Facility & housekeeping,routine,16750,,,,
+2026-08,Fire safety equipment servicing Jan-Mar 2026,One-time,onetime,21499,Q1 2026 service billed in April,?,?,
+2026-08,Security/gate AMC renewal (15 Jul 2026 - 14 Jul 2027),One-time,onetime,164720,Annual AMC paid upfront; which system (gate/CCTV/fire) to be confirmed with the invoice,NA,?,
+2026-08,Direct payment to two housekeeping staff (Asharani,One-time,onetime,17360,, A Janeyalu),N,?
+2026-08,CFO renewal - STP (KSPCB consent to operate; 5 years),One-time,onetime,188500,"₹7,25,000 + GST for five years, paid in one go",NA,MC,

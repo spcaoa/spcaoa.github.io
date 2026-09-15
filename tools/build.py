@@ -75,7 +75,7 @@ def page(fn,title,body,scripts=""):
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
 <div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><button class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="tabs"><svg class="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><nav class="tabs" id="tabs" aria-label="Pages">{nav}</nav></div></div>
 <div class="wrap">{body}
-<div class="updated">Updated {UPDATED}. Accounts to end {ML(months[-1])} 2026; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee. Questions: spcaoa@gmail.com</div>
+<div class="updated">Updated {UPDATED}. Accounts to end {ML(months[-1])}; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee. Questions: spcaoa@gmail.com</div>
 </div><footer>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' summaries. They are not audited. Updated monthly.</footer>
 <script src="assets/ui.js?v={VER}"></script>
 <script>{scripts}</script></body></html>'''
@@ -100,7 +100,7 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 <section><h2>In six sentences</h2>
 <ol class="steps">
 <li>Last year the association spent ₹48 lakh more than it collected. The difference came from the reserves. The General Body was not asked.</li>
-<li>This year is running the same way. {ML(months[0])} to {ML(months[-1])}: {L(tot)} spent, {L(maint*nM)} billed.</li>
+<li>This year is running the same way. {ML(months[0])} to {ML(months[-1])}: {L(tot)} spent, against {L(maint*nM)} of maintenance for those months.</li>
 <li>The reserves are about {L(reserves)}. That money is for big repairs in the years ahead. Its interest is already being spent on running costs.</li>
 <li>A resident Sub-Committee reviewed last year's accounts. Their questions have gone to the previous Managing Committee and to the auditor. The answers will be published here.</li>
 <li>A Special General Body Meeting on <strong>Sunday, 18 October</strong> will decide the budget and the maintenance rate. The notice goes out this week. The 1 October bill stays at the current rate; only the General Body can change it.</li>
@@ -154,14 +154,14 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <p class="lead">Three groups estimated this year's shortfall and got three numbers. They differ on what to count, not on the facts.</p>
 <div class="tablewrap"><table><thead><tr><th>Estimate</th><th class="num">Shortfall, FY 2026–27</th><th>What it assumes</th></tr></thead><tbody>
 <tr><td>Treasurer's projection</td><td class="num">₹91 L</td><td>Spending of ₹33 L a month; only HDFC interest counted; nothing saved.</td></tr>
-<tr><td>Managing Committee's working model</td><td class="num">₹70–80 L</td><td>Actual spending of ₹30 L a month; all interest counted, including ICICI interest that arrives at maturity; tax on interest provided; no savings yet.</td></tr>
+<tr><td>Managing Committee's working model</td><td class="num">₹70–80 L</td><td>Actual spending of about ₹31 L a month; all interest counted, including ICICI interest that arrives at maturity; tax on interest provided; no savings yet.</td></tr>
 <tr><td>Finance Sub-Committee's report</td><td class="num">₹23 L</td><td>Running costs only (no one-time items), ₹18 L a year of savings assumed before they are made, and tax at a third of last year's level.</td></tr>
 </tbody></table></div>
 <div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
 <section><h2>Cash, month by month</h2>
 <p>The account had {L(floats[-1][1])} at the end of {ML(months[-1])} — about a week of spending. Spending is ₹26 L a month, plus tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 18 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
-<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this; the reserves page has the detail. Negative means the reserves are used.</p>
+<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this. Tax is at the current ₹2.5 L a quarter; the Options page defaults to the higher, correct provision, so it shows a somewhat larger draw. Negative means the reserves are used.</p>
 <div class="callout crit"><strong>Until the General Body decides, the gap is met from the reserves.</strong> There is no other source this year. What is drawn will be shown on the <a href="reserves.html">reserves page</a> month by month, and the meeting will be asked to decide how it is repaid.</div></section>
 <section><h2>What an increase would mean for your flat</h2>
 <p>Illustrative only. The MC's proposal will be in the meeting notice. Once a flat's monthly charge crosses ₹7,500, 18% GST applies. It can apply to the whole amount (the tax department's position) or only to the amount above ₹7,500 (a High Court reading). The difference is over ₹1,300 a month for the larger flats. Written advice is being taken.</p>
@@ -180,8 +180,7 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <section><h2>The deposits</h2>
 <div class="tablewrap"><table><thead><tr><th>Where</th><th class="num">Deposits</th><th class="num">Principal</th><th class="num">Rate</th><th>How interest is paid</th><th>Maturity</th></tr></thead><tbody>{bankrows}</tbody></table></div>
 <p class="small">Sources: the banks' own deposit summaries dated {fds["as_at"]} and Sobha's corpus statement. Account numbers are not published.</p>
-<div class="callout"><strong>The HDFC gap is explained.</strong> The books showed ₹3.81 crore at HDFC through July; the bank showed ₹3.20 crore on 7 September. The Treasurer's own tracking, received in September, shows why: three ₹25 lakh deposits matured in June, July and August and were spent rather than reinvested, and the accountant's monthly statement never updated to match. The bank figures on this page are correct.</div>
-<div class="callout warn"><strong>One figure is still being reconciled.</strong> Sobha's ledger shows about ₹75 lakh of the corpus held; the association's books show ₹90 lakh, because Sobha sets its unpaid bills off against the balance. This will be explained in the meeting pack.</div></section>
+<div class="callout warn"><strong>Two figures are being reconciled.</strong> The accountant's statements show ₹3.81 crore in HDFC deposits; the bank's own summary on 7 September shows ₹3.20 crore. And Sobha's ledger shows about ₹75 lakh of the corpus held, against ₹90 lakh in the books, because Sobha sets its unpaid bills off against the balance. The figures on this page are the banks' and Sobha's. Both differences will be explained in the meeting pack.</div></section>
 <section><h2>How ₹11.76 crore became {L(reserves)}</h2>
 <div class="timeline">
 <div class="when">Jun 2022</div><div>₹11.76 Cr collected by Sobha at handover. For sixteen months Sobha ran the estate from it: ₹1.88 Cr charged, ₹1.17 Cr of interest credited.</div>
