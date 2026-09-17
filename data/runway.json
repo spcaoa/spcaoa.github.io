@@ -1,63 +1,70 @@
 {
  "start_label": "31 August 2026",
- "start_float": 5.91,
+ "start_float": 14.42,
+ "start_basis": "Bank balances from the statements: HDFC \u20b99.64 L + ICICI \u20b94.76 L + cash. The accountant's figure of \u20b95.9 L is after \u20b98.5 L of cheques written in August that cleared in September.",
  "monthly_out": 26.0,
+ "tax": {
+  "2026-09": 4.0,
+  "2026-12": 5.0,
+  "2027-03": 4.0,
+  "basis": "Advance tax as paid (\u20b92.5 L June, \u20b94 L September); December and March on the same basis"
+ },
  "rows": [
   {
    "m": "Aug 26 (actual)",
-   "in": 8.8,
-   "out": 37.7,
-   "a": 5.9,
-   "c": 5.9
+   "in": 9.1,
+   "out": 30.7,
+   "a": 14.4,
+   "c": 14.4
   },
   {
-   "m": "Sep 26",
+   "m": "Sep 26 \u00b7 tax",
    "in": 5.3,
-   "out": 28.5,
-   "a": -17.3,
-   "c": -17.3
+   "out": 30.0,
+   "a": -10.3,
+   "c": -10.3
   },
   {
-   "m": "Oct 26 · Q3 bill",
+   "m": "Oct 26 \u00b7 Q3 bill",
    "in": 58.3,
    "out": 26.0,
-   "a": 15.0,
-   "c": 15.0
+   "a": 22.0,
+   "c": 22.0
   },
   {
    "m": "Nov 26",
    "in": 5.3,
    "out": 26.0,
-   "a": -5.7,
-   "c": 4.9
+   "a": 1.3,
+   "c": 11.9
   },
   {
-   "m": "Dec 26 · lift AMC, tax",
+   "m": "Dec 26 \u00b7 lift AMC, tax",
    "in": 5.3,
-   "out": 36.5,
-   "a": -36.9,
-   "c": -26.3
+   "out": 39.0,
+   "a": -32.4,
+   "c": -21.8
   },
   {
-   "m": "Jan 27 · Q4 bill",
+   "m": "Jan 27 \u00b7 Q4 bill",
    "in": 58.3,
    "out": 26.0,
-   "a": -4.6,
-   "c": 16.6
+   "a": -0.1,
+   "c": 21.1
   },
   {
    "m": "Feb 27",
    "in": 5.3,
    "out": 26.0,
-   "a": -25.3,
-   "c": -14.7
+   "a": -20.8,
+   "c": 0.4
   },
   {
-   "m": "Mar 27 · tax",
+   "m": "Mar 27 \u00b7 tax",
    "in": 5.3,
-   "out": 28.5,
-   "a": -48.5,
-   "c": -37.9
+   "out": 30.0,
+   "a": -45.5,
+   "c": -24.3
   }
  ]
 }

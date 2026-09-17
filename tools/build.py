@@ -45,11 +45,14 @@ hdfc_int=inc_lines.get("Interest - HDFC FDs (monthly payout)",0)/nM; sobha_int=i
 other=sum(v for k,v in inc_lines.items() if k not in("Maintenance billed","Maintenance received (incl. penal interest)") and "Interest" not in k)/nM
 icici_acc=inc_lines.get("Interest - ICICI FDs (accrues to maturity)",0)/nM
 fl=lambda r:float(r["bank_hdfc_close"])+float(r["bank_icici_close"])+float(r["cash_close"])
-floats=[(ML(r["month"]),fl(r)) for r in tr]
+bankbal=json.load(open(os.path.join(DATA,"bank_balances.json")))["rows"]
+floats=[(ML(r["month"]),float(r["bank_cash"])) for r in bankbal]
+book_last=fl(tr[-1])
 fds=json.load(open(os.path.join(DATA,"fds.json"))); runway=json.load(open(os.path.join(DATA,"runway.json"))); rates=json.load(open(os.path.join(DATA,"rates.json")))
 lifts=rd(os.path.join(DATA,"lifts.csv")); comps=rd(os.path.join(DATA,"complaints.csv"))
 hdfc=[b for b in fds["banks"] if b["bank"].startswith("HDFC")][0]; icici=[b for b in fds["banks"] if b["bank"].startswith("ICICI")][0]; sobha=[b for b in fds["banks"] if "Sobha" in b["bank"]][0]
 reserves=hdfc["principal"]+icici["ledger"]+sobha["principal"]
+int_yr=hdfc["principal"]*hdfc["rate"]/100+icici["principal"]*icici["rate"]/100+sobha["principal"]*sobha["rate"]/100
 # survey aggregates
 SV={"Very good":5,"Good":4,"Acceptable":3,"Poor":2,"Very poor":1}; OV={"Very satisfied":5,"Satisfied":4,"Neutral":3,"Dissatisfied":2,"Very dissatisfied":1}
 SERV=[("s_housekeeping","Housekeeping and cleanliness"),("s_landscaping","Landscaping and gardening"),("s_waste","Waste collection"),("s_electrical","Electrical and lighting"),("s_plumbing","Plumbing and water"),("s_security","Security and access"),("s_common","Common-area upkeep and repairs"),("s_clubhouse","Clubhouse and amenities"),("s_helpdesk","Helpdesk / complaint handling"),("s_pest","Pest control"),("s_lifts","Lifts")]
@@ -93,7 +96,7 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 {tile("","Spend per month",L(per_month),f"{ML(months[0])}–{ML(months[-1])} average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
 {tile("accent","Reserves",L(reserves),"fixed deposits plus the balance with Sobha")}
-{tile("crit" if floats[-1][1] < per_month*0.3 else "warn","Cash in the bank, end "+ML(months[-1]),L(floats[-1][1]),f"about {round(floats[-1][1]/per_month*4.3)} week{'s' if round(floats[-1][1]/per_month*4.3)!=1 else ''} of spending")}
+{tile("crit" if floats[-1][1] < per_month*0.5 else "warn","Cash in the bank, end "+ML(months[-1]),L(floats[-1][1]),f"{L(book_last)} after cheques already written; about {round(floats[-1][1]/per_month*4.3)} weeks of spending")}
 </div></div>
 <div class="glossary">1 lakh = ₹1,00,000. 1 crore = 100 lakh. Reserves (the corpus) are the money owners paid at handover, kept in fixed deposits for big repairs.</div>
 </section>
@@ -127,14 +130,14 @@ headrows="".join(f'<tr><td>{h}</td><td class="num">{inr(v/nM)}</td><td class="nu
 ot=sorted([r for r in spend if r["kind"]=="onetime"],key=lambda r:-r["amount"])[:6]
 otrows="".join(f'<tr><td>{ML(r["month"])}</td><td>{r["head"]}</td><td class="num">{inr(r["amount"])}</td></tr>' for r in ot)
 money=f'''<section><div class="eyebrow">{ML(months[0])} to {ML(months[-1])} · receipts and payments basis</div><h1>Where the money goes</h1>
-<p class="lead">Everything paid out from {ML(months[0])} to {ML(months[-1])}, in the month it was paid. Nothing is smoothed. The half-yearly lift contract shows in June because that is when it was paid.</p>
+<p class="lead">Everything paid out from {ML(months[0])} to {ML(months[-1])}, in the month it was paid. Nothing is smoothed. The half-yearly lift contract shows in June because that is when it was paid. One correction has been made to the accountant's figures: the June statement charged Sobha's ₹8.4 L monthly bill, and July charged it again; the ledger and the bank show one payment, on 23 July, so June has been reduced by ₹8.4 L pending a reissued statement.</p>
 <div class="tiles">{tile("","Paid out, "+ML(months[0])+chr(8211)+ML(months[-1]),L(tot),f"{L(routine)} running costs + {L(onetime)} one-time items")}{tile("","Per month",L(per_month),"one-time items included")}{tile("crit","Maintenance covers",f"{maint/(routine/nM)*100:.0f}%","of running costs")}</div></section>
 <section><div class="charts"><div class="chartbox"><h3>Month by month, by category</h3><div class="ch" style="height:280px"><canvas id="c1"></canvas></div></div><div class="chartbox"><h3>{nM} months, by category</h3><div class="ch donut" style="height:240px"><canvas id="c2"></canvas></div></div></div>
 <p class="small">The dashed line is monthly maintenance income. The gap above it is the shortfall.</p></section>
 <section><h2>The biggest heads</h2>
 <div class="tablewrap"><table><thead><tr><th>Head</th><th class="num">Per month</th><th class="num">Share of running costs</th></tr></thead><tbody>{headrows}</tbody></table></div>
-<p>Three items are two-thirds of everything: facility management by Sobha (₹98 L a year), security by VEX (₹85 L including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹25–30 L a year in savings.</p></section>
-<section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in four months. The largest:</p>
+<p>Three items are two-thirds of everything: facility management by Sobha (₹{byhead["Sobha Ltd - FMS"]/nM*12/1e5:.0f} L a year), security by VEX (₹85 L including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹25–30 L a year in savings.</p></section>
+<section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in {nM} months. The largest:</p>
 <div class="tablewrap"><table><thead><tr><th>Month</th><th>Item</th><th class="num">Amount</th></tr></thead><tbody>{otrows}</tbody></table></div>
 <p class="small">The association's purchasing and accounting controls are being reviewed. A revised policy will be put to the General Body for approval.</p></section>'''
 mjs=CH+f'''new Chart(document.getElementById("c1"),{{data:{{labels:{json.dumps([ML(m) for m in months])},datasets:[{",".join(f'{{type:"bar",label:{json.dumps(c)},data:{json.dumps([round(bymc[m][c]) for m in months])},backgroundColor:{CATCOL[i]},stack:"s",borderWidth:0}}' for i,c in enumerate(CATS))},{{type:"line",label:"Maintenance billed",data:{json.dumps([round(maint)]*nM)},borderColor:css("--crit"),borderDash:[6,4],borderWidth:2,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,interaction:{{mode:"index",intersect:false}},scales:{{x:{{stacked:true,grid:{{display:false}}}},y:{{stacked:true,ticks:{{callback:fmtL}},beginAtZero:true}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});
@@ -158,9 +161,9 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 </tbody></table></div>
 <div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
 <section><h2>Cash, month by month</h2>
-<p>The account had {L(floats[-1][1])} at the end of {ML(months[-1])} — about a week of spending. Spending is ₹26 L a month, plus tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 25 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
+<p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. Spending is ₹26 L a month, plus advance tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 25 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
-<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this. Tax is at the current ₹2.5 L a quarter; the Options page defaults to the higher, correct provision, so it shows a somewhat larger draw. Negative means the reserves are used.</p>
+<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this. Advance tax is as paid so far (₹2.5 L in June, ₹4 L in September), with December and March on the same basis; the Options page defaults to the higher, correct provision, so it shows a somewhat larger draw. Starting cash is the bank balance; the September outflow includes the cheques written in August. Negative means the reserves are used.</p>
 <div class="callout crit"><strong>Until the General Body decides, the gap is met from the reserves.</strong> There is no other source this year. What is drawn will be shown on the <a href="reserves.html">reserves page</a> month by month, and the meeting will be asked to decide how it is repaid.</div></section>
 <section><h2>What an increase would mean for your flat</h2>
 <p>Illustrative only. The MC's proposal will be in the meeting notice. Once a flat's monthly charge crosses ₹7,500, 18% GST applies. It can apply to the whole amount (the tax department's position) or only to the amount above ₹7,500 (a High Court reading). The difference is over ₹1,300 a month for the larger flats. Written advice is being taken.</p>
@@ -170,21 +173,25 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <p>Both are needed. The two big contracts have never been tendered. They are being tendered now. But tenders take months, and the savings start next year. Residents rated housekeeping and landscaping the best services on the estate. Cutting those to avoid an increase would trade a visible service for an invisible saving. The lift contract, rated worst, is being rebid on uptime.</p></section>'''
 page("shortfall.html","The shortfall and the plan",sf)
 # reserves
-bankrows="".join(f'<tr><td><strong>{b["bank"]}</strong></td><td class="num">{b["count"] or "—"}</td><td class="num">{L(b["principal"])}</td><td class="num">{(str(b["rate"])+"%") if b["rate"] else "≈7–7.5% (to confirm)"}</td><td>{b["payout"]}</td><td>{b["maturity"]}</td></tr>' for b in fds["banks"])
+def rate_cell(b):
+    if not b["rate"]: return "to confirm"
+    return str(b["rate"])+"%"+(' <span class="small">implied</span>' if b.get("rate_note") else "")
+bankrows="".join(f'<tr><td><strong>{b["bank"]}</strong></td><td class="num">{b["count"] or "—"}</td><td class="num">{L(b["principal"])}</td><td class="num">{rate_cell(b)}</td><td>{b["payout"]}</td><td>{b["maturity"]}</td></tr>' for b in fds["banks"])
 res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fds["as_at"]}</div><h1>Our reserves</h1>
-<p class="lead">At handover in June 2022 the owners' corpus was ₹11.76 crore. Today it is about {L(reserves)}: {L(hdfc["principal"])} at HDFC, {L(icici["ledger"])} at ICICI, and {L(sobha["principal"])} still with Sobha.</p>
-<div class="tiles">{tile("","Reserves today",L(reserves),"HDFC + ICICI + held by Sobha")}{tile("","Interest they earn, per year","≈ ₹67 L","before tax at about 31%")}{tile("warn","Used for running costs, FY 25–26","₹50 L","net, without General Body approval")}{tile("","At handover, June 2022","₹11.76 Cr","held by Sobha until returned in 2023–24")}</div></section>
+<p class="lead">At handover in June 2022 the owners' corpus was ₹11.76 crore. Today it is about {L(reserves)}: {L(hdfc["principal"])} at HDFC, {L(icici["principal"])} at ICICI ({L(icici["ledger"])} with the interest added so far), and {L(sobha["principal"])} still with Sobha.</p>
+<div class="tiles">{tile("","Reserves today",L(reserves),"HDFC + ICICI + held by Sobha")}{tile("","Interest they earn, per year","≈ "+L(int_yr),"HDFC 7.16%, ICICI 6.5%, Sobha 8%; before tax at about 31%")}{tile("warn","Used for running costs, FY 25–26","₹50 L","net, without General Body approval")}{tile("","At handover, June 2022","₹11.76 Cr","held by Sobha until returned in 2023–24")}</div></section>
 <section><div class="charts even"><div class="chartbox"><h3>Where the reserves sit</h3><div class="ch donut" style="height:240px"><canvas id="c3"></canvas></div></div><div class="chartbox"><h3>Cash in the operating account, month-end</h3><div class="ch" style="height:240px"><canvas id="c4"></canvas></div></div></div>
-<p class="small">The quarterly bill fills the account. By month three it is empty. The June figure is being reconciled.</p></section>
+<p class="small">The quarterly bill fills the account. By month three it is nearly empty. Month-end balances are from the bank statements.</p></section>
 <section><h2>The deposits</h2>
 <div class="tablewrap"><table><thead><tr><th>Where</th><th class="num">Deposits</th><th class="num">Principal</th><th class="num">Rate</th><th>How interest is paid</th><th>Maturity</th></tr></thead><tbody>{bankrows}</tbody></table></div>
-<p class="small">Sources: the banks' own deposit summaries dated {fds["as_at"]} and Sobha's corpus statement. Account numbers are not published.</p>
+<p class="small">Sources: HDFC's account statements to 14 September 2026, ICICI's deposit summary of 7 September 2026, and Sobha's corpus statement. Account numbers are not published.</p>
 <div class="callout warn"><strong>Where the reconciliation now stands.</strong> ICICI is settled: the bank holds ₹5.27 crore. The lower figure of ₹4.67 crore in the Treasurer's deposit tracker came from two entries, in July and August, that neither bank statement shows; without them the tracker agrees with the bank exactly. HDFC is close but not yet closed. The accounts and the interest the deposits actually pay each month both give ₹3.81 crore at the end of August, and one deposit of ₹24.2 lakh was closed on 3 September, leaving about ₹3.57 crore. The bank's own summary of 7 September shows ₹3.20 crore, but it lists only sixteen deposits and leaves others out; about ₹37 lakh is still to be tied out. Separately, Sobha's ledger shows about ₹75 lakh of the corpus held against ₹90 lakh in the books, because Sobha sets its unpaid bills off against the balance. The figures on this page come from the banks' own statements.</div></section>
 <section><h2>How ₹11.76 crore became {L(reserves)}</h2>
 <div class="timeline">
 <div class="when">Jun 2022</div><div>₹11.76 Cr collected by Sobha at handover. For sixteen months Sobha ran the estate from it: ₹1.88 Cr charged, ₹1.17 Cr of interest credited.</div>
 <div class="when">Nov 2023 – Jun 2024</div><div>Sobha returned ₹9.30 Cr in nine instalments. It went into fixed deposits at HDFC and ICICI. Sobha kept ₹91 L as security for its facility service.</div>
 <div class="when">2024–25 and 2025–26</div><div>Interest was spent on running costs. In 2025–26, ₹50 L of principal was also used, without General Body approval.</div>
+<div class="when">2026–27 so far</div><div>Two HDFC deposits closed, ₹48.6 L in all (12 June and 3 September); ₹11 L placed in April. Net ₹37.6 L of principal used. ICICI's maturities were all re-deposited.</div>
 <div class="when">Today</div><div>{L(reserves)}, of which {L(hdfc["principal"]+icici["ledger"])} is in bank deposits. A full bridge from the audited accounts will be in the meeting pack.</div>
 </div></section>
 <section><h2>Going to the meeting</h2>
@@ -238,7 +245,7 @@ svc=f'''<section><div class="eyebrow">Service performance · published monthly f
 page("services.html","Lifts and complaints",svc)
 # documents & faq
 FAQ=[("Why is the association short of money?","Costs have risen faster than the maintenance rate, which has not changed since handover, and last year's Managing Committee covered the difference from the reserves. Security alone costs ₹15 L a year more after the change of agency in November 2025. The full picture is on the money page."),
-("Isn't ₹9 crore in reserves enough to carry on?","It would carry on for a few years and then be gone, and it is the fund for lifts, painting and waterproofing in the years ahead. Its interest, about ₹67 L a year before tax, is already being spent on running costs. Spending the principal too is what last year's Managing Committee did, and what the General Body objected to."),
+("Isn't ₹9.7 crore in reserves enough to carry on?","It would carry on for a few years and then be gone, and it is the fund for lifts, painting and waterproofing in the years ahead. Its interest, about {L(int_yr)} a year before tax, is already being spent on running costs. Spending the principal too is what last year's Managing Committee did, and what the General Body objected to."),
 ("Why can't the MC just raise the rate now?","The bye-laws give the General Body, not the MC, the power to approve the budget and set the monthly charge. The previous Managing Committee has until 28 September to respond to the Sub-Committee's findings, and owners are then entitled to 21 days' notice with the full pack attached. That makes 25 October the earliest the meeting can be held. The 1 October bill is therefore at the current rate."),
 ("What will the increase be?","The MC's proposal will be in the meeting notice, with the budget behind it. The working range is 18–22% on the base charge before GST. The shortfall page shows what 20% would mean for each flat type, and the two ways GST could apply."),
 ("Why does GST suddenly matter?","Maintenance above ₹7,500 a month per flat attracts 18% GST. The larger flats (A and A1 types) are at ₹7,432–7,499 today, so any increase crosses the line. Whether GST then applies to the whole amount or only to the excess changes the bill by over ₹1,300 a month, and whether the association can reclaim the GST on its own contracts changes the increase needed. The MC is taking written advice before the notice."),
@@ -261,7 +268,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="card"><h3>Income, treasury and budget</h3><p class="small">Income lines, month-end bank and deposit positions, and the working budget. CSV.</p><a class="small" href="data/income.csv">income.csv</a> · <a class="small" href="data/treasury.csv">treasury.csv</a> · <a class="small" href="data/budget.csv">budget.csv</a></div>
 <div class="card"><h3>Vendor bills and deposits</h3><p class="small">The two largest contracts invoice by invoice, and the fixed deposits by bank. CSV.</p><a class="small" href="data/vendor_bills.csv">vendor_bills.csv</a> · <a class="small" href="data/fds.csv">fds.csv</a></div>
 <div class="card"><h3>Sobha's corpus ledger</h3><p class="small">Sobha's own statement of the owners' corpus, June 2022 to August 2026. Excel, as received.</p><a class="small" href="docs/Sobha-corpus-fund-statement-2022-06-to-2026-08.xlsx">Download</a></div>
-<div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to June 2026. Excel, as received.</p><a class="small" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Download</a></div>
+<div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to August 2026, as received on 16 September 2026. Its July and August maturity entries do not appear in the bank statements; see the reserves page.</p><a class="small" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Download</a></div>
 <div class="card"><h3>The books themselves</h3><p class="small">The association's accounts are kept in TallyPrime. A backup dated 7 September 2026 is held by the MC; audited statements are published annually, and ledger extracts can be requested by any owner.</p></div>
 </div></section>
 <section><h2>Questions residents are asking</h2><div class="faq">{faq}</div></section>'''

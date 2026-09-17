@@ -1,0 +1,25 @@
+{
+ "basis": "Closing balances from the HDFC and ICICI account statements, plus petty cash from the accountant's statement",
+ "rows": [
+  {
+   "month": "2026-04",
+   "bank_cash": 2553027
+  },
+  {
+   "month": "2026-05",
+   "bank_cash": 576924
+  },
+  {
+   "month": "2026-06",
+   "bank_cash": 533814
+  },
+  {
+   "month": "2026-07",
+   "bank_cash": 3613173
+  },
+  {
+   "month": "2026-08",
+   "bank_cash": 1441612
+  }
+ ]
+}

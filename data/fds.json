@@ -16,10 +16,11 @@
       "principal": 52712733,
       "ledger": 53766799,
       "maturity_value": 62391520,
-      "rate": null,
+      "rate": 6.5,
       "payout": "Interest is added to the deposit and paid at maturity",
       "maturity": "One deposit of ₹14 L within weeks and one of ₹27 L within a year; the rest between 2027 and 2029 (exact dates being confirmed from the bank's advices)",
-      "source": "ICICI Deposit Account Summary, 7 Sep 2026, confirmed against the ICICI account statement"
+      "source": "ICICI Deposit Account Summary, 7 Sep 2026, confirmed against the ICICI account statement",
+      "rate_note": "implied by this year's maturities (₹1 Cr became ₹1,13,77,147 in two years); to confirm from the advices"
     },
     {
       "bank": "Held by Sobha Ltd (developer)",
