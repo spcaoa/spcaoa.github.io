@@ -6,7 +6,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MC=os.path.join(os.path.dirname(ROOT),"spc-finance-site","site","data")
 OUT=os.path.join(ROOT,"docs"); DATA=os.path.join(ROOT,"data")
-UPDATED="15 September 2026"
+UPDATED="17 September 2026"
 def rd(p): return list(csv.DictReader(open(p,newline="",encoding="utf-8")))
 def _assetver():
     h=hashlib.sha256()
@@ -99,17 +99,17 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 </section>
 <section><h2>In six sentences</h2>
 <ol class="steps">
-<li>Last year the association spent ₹48 lakh more than it collected. The difference came from the reserves. The General Body was not asked.</li>
-<li>This year is running the same way. {ML(months[0])} to {ML(months[-1])}: {L(tot)} spent, against {L(maint*nM)} of maintenance for those months.</li>
+<li>This year is running the same way. From {ML(months[0])} to {ML(months[-1])}, {L(tot)} was spent against {L(maint*nM)} of maintenance for those months.</li>
 <li>The reserves are about {L(reserves)}. That money is for big repairs in the years ahead. Its interest is already being spent on running costs.</li>
 <li>A resident Sub-Committee reviewed last year's accounts. Their questions have gone to the previous Managing Committee and to the auditor. The answers will be published here.</li>
 <li>A Special General Body Meeting on <strong>Sunday, 18 October</strong> will decide the budget and the maintenance rate. The notice goes out this week. The 1 October bill stays at the current rate; only the General Body can change it.</li>
 <li>Until then the gap is met from the reserves. The amount drawn is published here every month.</li>
+<li>Last year the association spent ₹48 lakh more than it collected. The difference came from the reserves. The General Body was not asked. <span class="small">This point was conveyed and shared at the July AGM.</span></li>
 </ol></section>
 <section><h2>What happens next</h2>
 <div class="timeline">
 <div class="when">18 Sep</div><div>Meeting notice to every owner, with the Sub-Committee's report and other supporting documents, the resolutions, and how to vote.</div>
-<div class="when">21 Sep</div><div>Written responses due from the previous Managing Committee, requested for each point the Sub-Committee raised. Published as received.</div>
+<div class="when">28 Sep</div><div>Written responses due from the previous Managing Committee, requested for each point the Sub-Committee raised. Published as received.</div>
 <div class="when">1 Oct</div><div>Q3 maintenance bill, at the current rate. Please pay by the due date.</div>
 <div class="when">Before 18 Oct</div><div>Full meeting pack: the responses, the audited accounts, the budget, tabled alongside the Sub-Committee's report.</div>
 <div class="when">Sun, 18 Oct</div><div>Special General Body Meeting. One flat, one vote. Proxies and e-mail votes allowed.</div>
