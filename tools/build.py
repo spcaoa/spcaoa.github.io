@@ -164,12 +164,12 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <p>On this year's actual spending, a 20% increase on its own does not close the gap. It closes it only if the housekeeping and security tenders save ₹25–30 L a year. That assumption is behind the 18–22% range, and it should be stated plainly.</p>
 <div class="tablewrap"><table><thead><tr><th>Full year, at this year's run-rate</th><th class="num">₹ a year</th></tr></thead><tbody>
 <tr><td>Spending: ₹3.20 Cr running costs + ₹40 L one-time items</td><td class="num">3.59 Cr</td></tr>
-<tr><td>Income: maintenance ₹2.31 Cr, all deposit interest ₹65 L, other ₹12 L, less tax on interest ₹20 L</td><td class="num">2.87 Cr</td></tr>
-<tr><td><strong>Gap before any increase</strong></td><td class="num"><strong>72 L</strong></td></tr>
+<tr><td>Income: maintenance ₹2.31 Cr, all deposit interest ₹65 L, other ₹12 L, less tax on interest ₹25 L</td><td class="num">2.82 Cr</td></tr>
+<tr><td><strong>Gap before any increase</strong></td><td class="num"><strong>77 L</strong></td></tr>
 <tr><td>What +20% brings in, at the 92% collection rate</td><td class="num">42 L</td></tr>
-<tr><td><strong>Still short after +20%</strong></td><td class="num"><strong>29 L</strong></td></tr>
-<tr><td>With ₹25 L a year saved from the tenders</td><td class="num">≈ 4 L short</td></tr>
-<tr><td>Increase needed with no savings at all</td><td class="num">about 33%</td></tr>
+<tr><td><strong>Still short after +20%</strong></td><td class="num"><strong>35 L</strong></td></tr>
+<tr><td>With ₹25 L a year saved from the tenders</td><td class="num">≈ 10 L short</td></tr>
+<tr><td>Increase needed with no savings at all</td><td class="num">about 36%</td></tr>
 </tbody></table></div>
 <p class="small">Three things would make 20% wrong: the tenders saving less than ₹25 L; one-time spending continuing at ₹40 L a year; collections falling below 92%. None of them is settled yet. Even at 20%, this financial year still needs about ₹80 L from the reserves, because the new rate would apply only from October. The increase fixes 2027–28, not 2026–27. And there is nothing in this for a sinking fund.</p></section>
 <section><h2>Cash, month by month</h2>
@@ -191,7 +191,7 @@ def rate_cell(b):
 bankrows="".join(f'<tr><td><strong>{b["bank"]}</strong></td><td class="num">{b["count"] or "—"}</td><td class="num">{L(b["principal"])}</td><td class="num">{rate_cell(b)}</td><td>{b["payout"]}</td><td>{b["maturity"]}</td></tr>' for b in fds["banks"])
 res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fds["as_at"]}</div><h1>Our reserves</h1>
 <p class="lead">At handover in June 2022 the owners' corpus was ₹11.76 crore. Today it is about {L(reserves)}: {L(hdfc["principal"])} at HDFC, {L(icici["principal"])} at ICICI ({L(icici["ledger"])} with the interest added so far), and {L(sobha["principal"])} still with Sobha.</p>
-<div class="tiles">{tile("","Reserves today",L(reserves),"HDFC + ICICI + held by Sobha")}{tile("","Interest they earn, per year","≈ "+L(int_yr),"HDFC 7.16%, ICICI 6.5%, Sobha 8%; before tax at about 31%")}{tile("warn","Used for running costs, FY 25–26","₹50 L","net, without General Body approval")}{tile("","At handover, June 2022","₹11.76 Cr","held by Sobha until returned in 2023–24")}</div></section>
+<div class="tiles">{tile("","Reserves today",L(reserves),"HDFC + ICICI + held by Sobha")}{tile("","Interest they earn, per year","≈ "+L(int_yr),"HDFC 7.16%, ICICI 6.5%, Sobha 8%; taxed at 39% — an association pays the top rate plus surcharge and cess")}{tile("warn","Used for running costs, FY 25–26","₹50 L","net, without General Body approval")}{tile("","At handover, June 2022","₹11.76 Cr","held by Sobha until returned in 2023–24")}</div></section>
 <section><div class="charts even"><div class="chartbox"><h3>Where the reserves sit</h3><div class="ch donut" style="height:240px"><canvas id="c3"></canvas></div></div><div class="chartbox"><h3>Cash in the operating account, month-end</h3><div class="ch" style="height:240px"><canvas id="c4"></canvas></div></div></div>
 <p class="small">The quarterly bill fills the account. By month three it is nearly empty. Month-end balances are from the bank statements.</p></section>
 <section><h2>The deposits</h2>
