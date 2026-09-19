@@ -160,6 +160,18 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <tr><td>Finance Sub-Committee's report</td><td class="num">₹23 L</td><td>Running costs only (no one-time items), ₹18 L a year of savings assumed before they are made, and tax at a third of last year's level.</td></tr>
 </tbody></table></div>
 <div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
+<section><h2>Does 20% cover it? Only with the savings</h2>
+<p>On this year's actual spending, a 20% increase on its own does not close the gap. It closes it only if the housekeeping and security tenders save ₹25–30 L a year. That assumption is behind the 18–22% range, and it should be stated plainly.</p>
+<div class="tablewrap"><table><thead><tr><th>Full year, at this year's run-rate</th><th class="num">₹ a year</th></tr></thead><tbody>
+<tr><td>Spending: ₹3.20 Cr running costs + ₹40 L one-time items</td><td class="num">3.59 Cr</td></tr>
+<tr><td>Income: maintenance ₹2.31 Cr, all deposit interest ₹65 L, other ₹12 L, less tax on interest ₹20 L</td><td class="num">2.87 Cr</td></tr>
+<tr><td><strong>Gap before any increase</strong></td><td class="num"><strong>72 L</strong></td></tr>
+<tr><td>What +20% brings in, at the 92% collection rate</td><td class="num">42 L</td></tr>
+<tr><td><strong>Still short after +20%</strong></td><td class="num"><strong>29 L</strong></td></tr>
+<tr><td>With ₹25 L a year saved from the tenders</td><td class="num">≈ 4 L short</td></tr>
+<tr><td>Increase needed with no savings at all</td><td class="num">about 33%</td></tr>
+</tbody></table></div>
+<p class="small">Three things would make 20% wrong: the tenders saving less than ₹25 L; one-time spending continuing at ₹40 L a year; collections falling below 92%. None of them is settled yet. Even at 20%, this financial year still needs about ₹80 L from the reserves, because the new rate would apply only from October. The increase fixes 2027–28, not 2026–27. And there is nothing in this for a sinking fund.</p></section>
 <section><h2>Cash, month by month</h2>
 <p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. Spending is ₹26 L a month, plus advance tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 25 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
