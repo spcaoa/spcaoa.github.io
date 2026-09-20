@@ -164,7 +164,7 @@ def rate_row(t):
     return f'<tr><td>{t["type"]}</td><td class="num">{inr(m)}</td>'+at(inc_pct)+at(0.39)+'</tr>'
 raterows="".join(rate_row(t) for t in rates["types"])
 sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>The shortfall and the plan</h1>
-<p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the two options the Managing Committee is putting to owners.</p></section>
+<p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the three options the Managing Committee is putting to owners.</p></section>
 <section class="split"><div class="body"><h2>How big is the gap?</h2>
 <p>At this year's rate of spending, the association is about ₹84 L a year short. Costs are being cut — about ₹20 L a year, most of it already done by reducing the number of security guards — which brings it to ₹64 L. That has to come from maintenance.</p>
 <div class="tablewrap"><table><thead><tr><th>A full year, at this year's rate</th><th class="num">₹ a year</th></tr></thead><tbody>
@@ -192,7 +192,7 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <p><strong>Option B: 23%, plus a one-time ₹1 lakh from each flat into the reserves.</strong> The ₹1 lakh is not spent. It goes into fixed deposits, and the interest — about ₹12 L a year after tax — closes the gap. The ₹2.9 Cr also puts back what was taken out of the reserves over the last two years. Collected over about six months from November. Whether GST applies to it is being checked.</p>
 <p><strong>Option C: a 39% increase, nothing one-time.</strong> Raises ₹86 L. This is the only way to both balance the account and rebuild the reserves out of maintenance alone, and it is close to what the July meeting was asked for and turned down. The cost is the GST line: at 39% the C and D1 flats cross ₹7,500 too, so 286 of the 294 flats pay 18% GST — for a C-type that is about ₹1,515 a month going to the government on top of the increase. Option B reaches the same place for 23% and a one-time payment.</p>
 <p>Either way, this financial year still needs about ₹75 L from the reserves, because a new rate would only apply from October. The increase fixes next year, not this one.</p></div>
-<aside class="side"><h3>An A-type flat pays</h3><dl>
+<div class="sidecol"><aside class="side"><h3>An A-type flat pays</h3><dl>
 <dt>Today</dt><dd>{inr(a_type(0))}</dd>
 <dt>Option A or B</dt><dd class="key">{inr(a_type(inc_pct))}</dd>
 <dt>Option C</dt><dd class="up">{inr(a_type(0.39))}</dd>
@@ -203,7 +203,7 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <dt>Option A</dt><dd>₹12 L</dd>
 <dt>Option B</dt><dd class="key">none</dd>
 <dt>Option C</dt><dd class="key">none</dd>
-</dl></aside></section>
+</dl></aside></div></section>
 <section class="split"><div class="body"><h2>Why 23%?</h2>
 <p>Two reasons. It is the most that can be asked before the C-type flats cross ₹7,500 a month, which is where 18% GST starts. The A- and B-type flats cross that line at any increase at all — that is the tax law's threshold, not the association's choice — but going past 23% would put three-quarters of the estate into GST for no gain to the association, because the GST goes to the government. And 23% is close enough that the ₹1 lakh option, or a good year on repairs, balances it.</p>
 <p><strong>Why not 15% plus ₹1 lakh?</strong> Because of tax. At 15% the account is ₹30 L a year short, and the ₹1 lakh from each flat earns only ₹12 L a year after the association's 39% tax on interest. The other ₹18 L would have to be taken out of the reserves every year. For 15% to work without touching the reserves, the one-time amount would need to be about ₹2.4 lakh per flat.</p></div>
@@ -246,12 +246,19 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <div class="when">2026–27 so far</div><div>Two HDFC deposits closed, ₹48.6 L in all (12 June and 3 September); ₹11 L placed in April. Net ₹37.6 L of principal used. ICICI's maturities were all re-deposited.</div>
 <div class="when">Today</div><div>{L(reserves)}, of which {L(hdfc["principal"]+icici["ledger"])} is in bank deposits. How it got from ₹11.76 Cr to here, step by step from the audited accounts, goes out with the meeting notice.</div>
 </div></section>
-<section><h2>What owners will be asked to approve</h2>
+<section class="split"><div class="body"><h2>What owners will be asked to approve</h2>
 <p>Four rules for the reserves, to be put to the vote so that what happened over the last two years cannot happen again:</p>
 <ol class="steps"><li><strong>The reserves stay put.</strong> Interest can be used for running costs. The deposits themselves are not broken without owners' approval, and if one ever is, it is reported here the month it happens.</li>
 <li><strong>No one person can move deposit money.</strong> Any deposit movement needs three authorised signatories, or five members of the Managing Committee.</li>
 <li><strong>A monthly deposit statement, from the banks.</strong> Published on these pages every month, taken from the banks' own statements rather than the association's books.</li>
-<li><strong>A sinking fund from next year.</strong> A fixed amount set aside each year, so the ₹50 L used last year is rebuilt and the big repairs of the next ten years — lifts, painting, waterproofing — have money waiting for them.</li></ol></section>'''
+<li><strong>A sinking fund from next year.</strong> A fixed amount set aside each year, so the ₹50 L used last year is rebuilt and the big repairs of the next ten years — lifts, painting, waterproofing — have money waiting for them.</li></ol></div>
+<aside class="side"><h3>What has gone from the reserves</h3><dl>
+<dt>At handover, June 2022</dt><dd>₹11.76 Cr</dd>
+<dt>Returned by Sobha, 2023–24</dt><dd>₹9.30 Cr</dd>
+<dt>Used in FY 2025–26</dt><dd class="up">₹50 L</dd>
+<dt>Used so far in 2026–27</dt><dd class="up">₹38 L</dd>
+<dt>Today</dt><dd class="key">{L(reserves)}</dd>
+</dl><p class="note">Interest on the reserves is treated as income and already pays for running costs. The figures above are the principal itself.</p></aside></section>'''
 rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:[css("--c1"),css("--c4"),css("--c2")],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
 new Chart(document.getElementById("c4"),{{type:"line",data:{{labels:{json.dumps([m for m,_ in floats])},datasets:[{{label:"Bank + cash",data:{json.dumps([round(v) for _,v in floats])},borderColor:css("--c1"),backgroundColor:css("--c1")+"26",fill:true,tension:.25,pointRadius:3,pointBackgroundColor:css("--c1")}},{{label:"One month of spending",data:{json.dumps([round(per_month)]*len(floats))},borderColor:css("--crit"),borderDash:[6,4],borderWidth:1.5,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,scales:{{y:{{ticks:{{callback:fmtL}}}},x:{{grid:{{display:false}}}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("reserves.html","Our reserves",res,rjs)
