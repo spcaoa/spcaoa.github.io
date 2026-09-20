@@ -350,7 +350,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to August 2026, as received on 16 September 2026. Its July and August maturity entries do not appear in the bank statements; see the reserves page.</p><div class="card-actions"><a class="btn ghost" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Excel file</a></div></div>
 <div class="card"><h3>The books themselves</h3><p class="small">The association's accounts are kept in TallyPrime. A backup dated 7 September 2026 is held by the MC; audited statements are published annually, and ledger extracts can be requested by any owner.</p></div>
 </div></section>
-<section><h2>Questions residents are asking</h2><div class="faq">{faq}</div></section>'''
+<section><h2>Questions owners are asking</h2><div class="faq">{faq}</div></section>'''
 page("documents.html","Documents and FAQ",docs)
 from extra import build_extra
 build_extra(page, CH, runway)
