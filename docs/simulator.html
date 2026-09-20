@@ -20,7 +20,7 @@
     <div class="ctl"><div class="ctl-h">GST above ₹7,500</div>
       <label><input type="radio" name="gst" value="whole" checked> On the whole amount</label>
       <label><input type="radio" name="gst" value="excess"> Only on the part above ₹7,500</label>
-      <label><input type="checkbox" id="itc" checked> Association reclaims GST on its own bills</label></div>
+      <label><input type="checkbox" id="itc"> Association reclaims GST on its own bills (adviser's opinion awaited)</label></div>
     <div class="ctl"><div class="ctl-h">When the new rate starts</div>
       <label><input type="radio" name="eff" value="oct" checked> 1 Oct, difference billed in Nov</label>
       <label><input type="radio" name="eff" value="jan"> 1 Jan</label>
@@ -37,11 +37,11 @@
 </aside>
 <div class="simresults">
 <section class="cardsec"><h2>Does it close the gap?</h2><div class="opts" id="optCards"></div>
-<p class="small">"This year" runs from the real end-of-August cash position through March 2027. "Next year" is April 2027 to March 2028, with all interest counted and tax provided.</p></section>
+<p class="small">"This year" runs from the real end-of-August cash position through March 2027. "Next year" is April 2027 to March 2028 on the same basis as the shortfall page: this year's run-rate including ₹40 L of one-time items, 92% collection, all interest counted, tax at 39%.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹14.4 L in the bank at the end of August 2026 (₹5.9 L after the cheques already written, which the September outflow includes). Below zero, the reserves are used.</p></section>
 <section><h2>Side by side</h2><div class="tablewrap"><table><thead><tr><th>Option</th><th class="num">A-type flat / month</th><th class="num">Extra per year</th><th class="num">Raised this year</th><th class="num">From reserves this year</th><th class="num">Next year</th><th>Verdict</th></tr></thead><tbody id="cmpRows"></tbody></table></div></section>
-<section><h2>How the model works</h2><ol class="steps"><li>Spending: ₹26 L a month, plus ₹8 L for the lift contract in June and December, plus tax each quarter. Or ₹33 L flat, the Treasurer's figure. Savings reduce it from January 2027.</li><li>Income in a quiet month: ₹1.8 L late maintenance, ₹0.8 L rentals and fees, ₹2.1 L HDFC interest, ₹0.5 L Sobha interest. In a billing month: 92% of the quarter's bills.</li><li>GST collected goes to the government. If input credit is on, the association keeps its own vendor GST in proportion to taxable billing.</li><li>Option 2 nets ₹69.5 L after GST, collected in November. The Sub-Committee's 10.1% is applied to the bill with GST inside it, as in their report.</li><li>Next year adds ICICI interest (₹34 L at 6.5%) and deducts tax on all interest at 39%, the rate the accountant confirms applies to the association.</li><li>MC option B: a 15% increase plus a one-time ₹1 lakh per flat to the corpus, collected over six months from November. The ₹2.7 Cr (at 92% collection) is placed in deposits, not spent; the model counts only its interest, about ₹11.5 L a year after tax, from May 2027. Drawing on the corpus itself is possible but is the last resort.</li></ol></section>
+<section><h2>How the model works</h2><ol class="steps"><li>Spending: ₹26 L a month, plus ₹8 L for the lift contract in June and December, plus tax each quarter. Or ₹33 L flat, the Treasurer's figure. Savings reduce it from January 2027.</li><li>Income in a quiet month: ₹1.8 L late maintenance, ₹0.8 L rentals and fees, ₹2.1 L HDFC interest, ₹0.5 L Sobha interest. In a billing month: 92% of the quarter's bills.</li><li>GST collected goes to the government. If input credit is on, the association keeps its own vendor GST in proportion to taxable billing.</li><li>Option 2 nets ₹69.5 L after GST, collected in November. The Sub-Committee's 10.1% is applied to the bill with GST inside it, as in their report.</li><li>Next year counts collections at 92% of billing, adds ₹40 L of one-time items at this year's rate, adds ICICI interest (₹34 L at 6.5%) and deducts tax on all interest at 39%. GST input credit is off unless you switch it on; it is worth up to ₹35 L a year but the tax adviser's written opinion is still awaited.</li><li>MC option B: a 15% increase plus a one-time ₹1 lakh per flat to the corpus, collected over six months from November. The ₹2.7 Cr (at 92% collection) is placed in deposits, not spent; the model counts only its interest, about ₹11.5 L a year after tax, from May 2027. Drawing on the corpus itself is possible but is the last resort.</li></ol></section>
 </div>
 </div>
 <button class="livebar" id="livebar" type="button" hidden aria-label="Back to options"></button>
@@ -77,9 +77,9 @@ function run(o){
     if(mo.y>=2027) out-=o.sav/12;
     bal=bal+inn-out; series.push(bal); if(bal<minB){minB=bal;minM=mo.label;}
     if(mo.y===2027&&mo.m===3) b27=bal; if(mo.y===2028&&mo.m===3) b28=bal; });
-  const collections=monthlyBaseNew*12*0.98/1e5 + (o.contrib&&o.rep2?contribNet:0);
+  const collections=monthlyBaseNew*12*0.92/1e5 + (o.contrib&&o.rep2?0.92*contribNet:0);
   const income=collections+25.6+34.3+6+9.6+itcYear-(o.taxQ*4)+(o.corpus?corpusIntNet:0);
-  const spend=(o.base==="tr"?33*12:26*12+16)-o.sav;
+  const spend=(o.base==="tr"?33*12+40:26*12+16+40)-o.sav;   // +40 L a year of one-time items, this year's rate
   return {rows,monthlyBaseNew,itcYear,contribNet,corpusRaised,corpusIntNet,series,minB,minM,b27,b28,surplus:income-spend,taxableShare}; }
 function read(){ const preset=document.getElementById("preset").value; const p=P[preset]; const pct=p.pct==null?+document.getElementById("pct").value:p.pct;
   return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:document.querySelector('input[name=gst]:checked').value,itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
