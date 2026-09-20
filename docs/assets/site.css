@@ -146,9 +146,10 @@ strong{font-weight:650}
 @media (max-width:520px){.hero .rest{grid-template-columns:1fr}}
 
 /* callouts */
-.callout{background:var(--accent-soft);border:1px solid var(--accent-line);border-left:3px solid var(--accent);border-radius:var(--r-sm);padding:14px 18px;margin:18px 0}
-.callout.crit{background:var(--crit-soft);border-color:var(--crit-line);border-left-color:var(--crit)}
-.callout.warn{background:var(--warn-soft);border-color:var(--warn-line);border-left-color:var(--warn)}
+.callout{background:none;border:0;border-left:2px solid var(--line);border-radius:0;padding:2px 0 2px 20px;margin:20px 0}
+.callout strong:first-child{display:block;margin-bottom:3px}
+.callout.crit{background:var(--crit-soft);border:1px solid var(--crit-line);border-left:3px solid var(--crit);border-radius:var(--r-sm);padding:14px 18px}
+.callout.warn{background:var(--warn-soft);border:1px solid var(--warn-line);border-left:3px solid var(--warn);border-radius:var(--r-sm);padding:14px 18px}
 
 /* tables: ledger rules, small-caps heads, tabular figures */
 .tablewrap{overflow-x:auto;margin:14px 0 16px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
