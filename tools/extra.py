@@ -35,7 +35,7 @@ def build_extra(page, CH, runway):
   </div>
 </aside>
 <div class="simresults">
-<section class="cardsec"><h2>Does the association balance?</h2><div class="opts" id="optCards"></div>
+<section class="cardsec"><div class="opts" id="optCards"></div>
 <p class="small">"This year" runs from the real end-of-August cash position through March 2027. "Next year" is April 2027 to March 2028 on the same basis as the shortfall page: this year's run-rate including ₹40 L of one-time items, 98% collection, all interest counted, tax at 39%.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹14.4 L in the bank at the end of August 2026 (₹5.9 L after the cheques already written, which the September outflow includes). Below zero, the reserves are used.</p></section>
