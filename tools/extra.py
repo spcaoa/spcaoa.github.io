@@ -102,7 +102,7 @@ function flashChanged(root){
 }
 function render(){
   const o=read(); document.getElementById("pctLabel").textContent=document.getElementById("pct").value;
-  const LCOL={asis:css("--c7"),sc:css("--c4"),mc:css("--accent"),mcb:css("--c1"),opt1:css("--c2"),opt2:css("--c3")};
+  const LCOL={asis:css("--c7"),sc:css("--c3"),mc:css("--accent"),mcb:css("--c6"),opt1:css("--c2"),opt2:css("--c5")};
   // run each option once
   const R={}; KEYS.forEach(k=>{ const oo=optOf(o,k), rr=run(oo); R[k]={oo,rr,a:rr.rows[0],v:verdict(rr),name:nameOf(k,oo)}; });
   const asis=R.asis.rr, gapNow=Math.max(0,-asis.b27);
@@ -136,7 +136,7 @@ function render(){
   // --- chart: build once, then update in place (smooth while dragging)
   const ds=KEYS.map(k=>{ const x=R[k], sel=k===o.preset, col=LCOL[k];
     return {label:x.name,data:x.rr.series.map(v=>+v.toFixed(1)),borderColor:col,backgroundColor:sel?col+"1f":"transparent",borderWidth:sel?2.5:1.5,borderDash:sel?[]:[5,4],tension:.3,pointRadius:sel?x.rr.series.map(v=>v<0?2:0):0,pointBackgroundColor:css("--crit"),fill:sel}; });
-  if(!chart){ chart=new Chart(document.getElementById("cSim"),{type:"line",data:{labels:MONTHS.map(m=>m.label),datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:"index",intersect:false},scales:{y:{ticks:{callback:v=>v+" L"},grid:{color:css("--line-soft")}},x:{grid:{display:false}}},plugins:{legend:{position:"bottom",labels:{boxWidth:10,font:{size:11}}}}}}); }
+  if(!chart){ chart=new Chart(document.getElementById("cSim"),{type:"line",data:{labels:MONTHS.map(m=>m.label),datasets:ds},options:{responsive:true,maintainAspectRatio:false,animation:false,interaction:{mode:"index",intersect:false},scales:{y:{ticks:{callback:v=>v+" L"},grid:{color:css("--line-soft")}},x:{grid:{display:false}}},plugins:{legend:{position:"bottom",labels:{usePointStyle:true,pointStyle:"line",boxWidth:26,font:{size:11.5}}}}}}); }
   else { chart.data.datasets.forEach((d,i)=>Object.assign(d,ds[i])); chart.update("none"); }
 
   // --- side by side
