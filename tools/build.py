@@ -141,7 +141,7 @@ money=f'''<section><div class="eyebrow">{ML(months[0])} to {ML(months[-1])} · r
 <p>Three items are two-thirds of everything: facility management by Sobha (₹{byhead["Sobha Ltd - FMS"]/nM*12/1e5:.0f} L a year), security by VEX (₹85 L including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹25–30 L a year in savings.</p></section>
 <section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in {nM} months. The largest:</p>
 <div class="tablewrap"><table><thead><tr><th>Month</th><th>Item</th><th class="num">Amount</th></tr></thead><tbody>{otrows}</tbody></table></div>
-<p class="small">The association's purchasing and accounting controls are being reviewed. A revised policy will be put to the General Body for approval.</p></section>'''
+<p class="small">New rules for how the association buys things and pays for them will be put to owners for approval at the meeting.</p></section>'''
 mjs=CH+f'''new Chart(document.getElementById("c1"),{{data:{{labels:{json.dumps([ML(m) for m in months])},datasets:[{",".join(f'{{type:"bar",label:{json.dumps(c)},data:{json.dumps([round(bymc[m][c]) for m in months])},backgroundColor:{CATCOL[i]},stack:"s",borderWidth:0}}' for i,c in enumerate(CATS))},{{type:"line",label:"Maintenance billed",data:{json.dumps([round(maint)]*nM)},borderColor:css("--crit"),borderDash:[6,4],borderWidth:2,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,interaction:{{mode:"index",intersect:false}},scales:{{x:{{stacked:true,grid:{{display:false}}}},y:{{stacked:true,ticks:{{callback:fmtL}},beginAtZero:true}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});
 new Chart(document.getElementById("c2"),{{type:"doughnut",data:{{labels:{json.dumps(CATS)},datasets:[{{data:{json.dumps([round(cattot[c]) for c in CATS])},backgroundColor:[{",".join(CATCOL)}],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("money.html","Where the money goes",money,mjs)
@@ -209,13 +209,14 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <div class="when">Nov 2023 – Jun 2024</div><div>Sobha returned ₹9.30 Cr in nine instalments. It went into fixed deposits at HDFC and ICICI. Sobha kept ₹91 L as security for its facility service.</div>
 <div class="when">2024–25 and 2025–26</div><div>Interest was spent on running costs. In 2025–26, ₹50 L of principal was also used, without General Body approval.</div>
 <div class="when">2026–27 so far</div><div>Two HDFC deposits closed, ₹48.6 L in all (12 June and 3 September); ₹11 L placed in April. Net ₹37.6 L of principal used. ICICI's maturities were all re-deposited.</div>
-<div class="when">Today</div><div>{L(reserves)}, of which {L(hdfc["principal"]+icici["ledger"])} is in bank deposits. A full bridge from the audited accounts will be in the meeting pack.</div>
+<div class="when">Today</div><div>{L(reserves)}, of which {L(hdfc["principal"]+icici["ledger"])} is in bank deposits. How it got from ₹11.76 Cr to here, step by step from the audited accounts, goes out with the meeting notice.</div>
 </div></section>
-<section><h2>Going to the meeting</h2>
-<ol class="steps"><li><strong>Interest is income. Principal is not.</strong> Principal is not withdrawn without a General Body resolution. Every withdrawal is reported here the month it happens.</li>
-<li><strong>Three signatures or five MC signatures</strong> for every deposit movement.</li>
-<li><strong>A monthly deposit statement</strong> on these pages, from the banks, not from the books.</li>
-<li><strong>A sinking fund</strong> from next year, so the ₹50 L used is rebuilt and the big repairs of the next ten years have a plan.</li></ol></section>'''
+<section><h2>What owners will be asked to approve</h2>
+<p>Four rules for the reserves, to be put to the vote so that what happened over the last two years cannot happen again:</p>
+<ol class="steps"><li><strong>The reserves stay put.</strong> Interest can be used for running costs. The deposits themselves are not broken without owners' approval, and if one ever is, it is reported here the month it happens.</li>
+<li><strong>No one person can move deposit money.</strong> Any deposit movement needs three authorised signatories, or five members of the Managing Committee.</li>
+<li><strong>A monthly deposit statement, from the banks.</strong> Published on these pages every month, taken from the banks' own statements rather than the association's books.</li>
+<li><strong>A sinking fund from next year.</strong> A fixed amount set aside each year, so the ₹50 L used last year is rebuilt and the big repairs of the next ten years — lifts, painting, waterproofing — have money waiting for them.</li></ol></section>'''
 rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:[css("--c1"),css("--c4"),css("--c2")],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
 new Chart(document.getElementById("c4"),{{type:"line",data:{{labels:{json.dumps([m for m,_ in floats])},datasets:[{{label:"Bank + cash",data:{json.dumps([round(v) for _,v in floats])},borderColor:css("--c1"),backgroundColor:css("--c1")+"26",fill:true,tension:.25,pointRadius:3,pointBackgroundColor:css("--c1")}},{{label:"One month of spending",data:{json.dumps([round(per_month)]*len(floats))},borderColor:css("--crit"),borderDash:[6,4],borderWidth:1.5,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,scales:{{y:{{ticks:{{callback:fmtL}}}},x:{{grid:{{display:false}}}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("reserves.html","Our reserves",res,rjs)
@@ -243,7 +244,7 @@ fb=f'''<section><div class="eyebrow">Resident services survey · 23 August to 2 
 <li><strong>Complaints.</strong> A response standard in MyGate: acknowledged within four working hours, an update every 48 hours, closed only when you confirm. The numbers will be published monthly on the <a href="services.html">complaints page</a>.</li>
 <li><strong>Security.</strong> The retender specification is written from your comments: guards who speak Kannada, a limit on turnover, a post at each block entrance, logged basement rounds, and a way for guards to recognise residents.</li>
 <li><strong>Play area.</strong> The hardened sand and exposed pipes reported by two households are being inspected and fixed first, as a safety matter.</li>
-<li><strong>Costs.</strong> Several of you raised overstaffing, Sobha's cost, the ₹7,500 GST line and user charges for the gym and tennis court. All four are addressed on <a href="shortfall.html">the shortfall page</a> and will be in the meeting pack.</li>
+<li><strong>Costs.</strong> Several of you raised overstaffing, Sobha's cost, the ₹7,500 GST line and user charges for the gym and tennis court. All four are addressed on <a href="shortfall.html">the shortfall page</a> and will go out with the meeting notice.</li>
 </ol>
 <p class="small">The survey was anonymous. Individual comments are not published. Each one has been read and assigned to an MC member.</p></section>'''
 page("feedback.html","What you told us",fb)
@@ -282,7 +283,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="cards">
 <div class="card"><h3>Finance Sub-Committee report</h3><p class="small">31 August 2026. The Finance Sub-Committee's review of FY 2025–26, with annexures on expenses, income and their 10% simulation.</p><a class="btn ghost" href="docs/SPC-Finance-SubCommittee-Report-2026-08-31.pdf">Open PDF</a></div>
 <div class="card"><h3>General Body Meeting presentation</h3><p class="small">26 July 2026. The MC's presentation: audited FY 2025–26 summary, the corpus drawdown, cost proposals and the two funding options the meeting declined.</p><a class="btn ghost" href="docs/SPCAOA-GBM-Deck-2026-07-26.pdf">Open PDF</a></div>
-<div class="card"><h3>Independent Auditor's Report, FY 2025–26</h3><p class="small">20 July 2026. Two pages; unqualified opinion. The full audited statements with notes will be added with the meeting pack.</p><a class="btn ghost" href="docs/Independent-Auditors-Report-FY25-26.pdf">Open PDF</a></div>
+<div class="card"><h3>Independent Auditor's Report, FY 2025–26</h3><p class="small">20 July 2026. Two pages; unqualified opinion. The full audited statements with notes will be added with the meeting notice.</p><a class="btn ghost" href="docs/Independent-Auditors-Report-FY25-26.pdf">Open PDF</a></div>
 </div></section>
 <section><h2>The numbers behind these pages</h2><p>The data files these pages are built from, and the ledgers received from Sobha and the Treasurer. Files with individual flats' dues or staff names are not published. Their totals are.</p>
 <div class="cards">
