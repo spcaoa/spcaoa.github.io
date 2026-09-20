@@ -166,6 +166,9 @@ tr.total td{font-weight:650;background:var(--grey-soft)}
 /* charts */
 .charts{display:grid;grid-template-columns:2fr 1fr;gap:16px}
 .charts.even{grid-template-columns:1fr 1fr}
+.charts.even>div{display:flex;flex-direction:column}
+.charts.even>div>.tablewrap{flex:1 1 auto}
+.charts.even>div>.tablewrap>table{height:100%}
 @media (max-width:820px){.charts,.charts.even{grid-template-columns:1fr}}
 .chartbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px 14px;box-shadow:var(--shadow)}
 .chartbox h3{font-family:var(--font);font-size:16px;font-weight:700;letter-spacing:-.016em;color:var(--ink);margin:0 0 12px}
