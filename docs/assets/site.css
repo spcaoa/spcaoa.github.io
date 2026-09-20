@@ -105,11 +105,11 @@ strong{font-weight:650}
 /* KPI tiles: quiet stat blocks with small-caps labels */
 .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:26px 0 6px}
 .simhead .tiles{margin-top:18px}
-.tile{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:17px 20px 16px;box-shadow:var(--shadow);overflow:hidden}
+.tile{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:17px 20px 16px;box-shadow:var(--shadow);overflow:hidden}
 .tile::before{content:none}
 .tile .k{font:650 11px/1.4 var(--font);color:var(--muted);min-height:2.8em;letter-spacing:.07em;text-transform:uppercase}
-.tile .v{font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1.08;margin:9px 0 6px;font-variant-numeric:tabular-nums;color:var(--ink)}
-.tile .d{font-size:12.5px;color:var(--muted);line-height:1.45}
+.tile .v{font-size:30px;font-weight:750;letter-spacing:-.03em;line-height:1.08;margin:9px 0 8px;text-wrap:balance;font-variant-numeric:tabular-nums;color:var(--ink)}
+.tile .d{font-size:12.5px;color:var(--muted);line-height:1.45;margin-top:auto}
 .tile.crit .v{color:var(--crit)}
 .tile.warn .v{color:var(--warn)}
 .tile.good .v{color:var(--good)}
@@ -235,8 +235,11 @@ tr.total td{font-weight:650;background:var(--grey-soft)}
 
 .empty{border:1px dashed var(--line);border-radius:var(--r);padding:20px 22px;color:var(--muted);background:var(--surface)}
 
-.updated{font-size:13px;color:var(--muted);margin-top:44px;border-top:1px solid var(--line);padding-top:14px}
-footer{max-width:var(--wrap);margin:0 auto;padding:0 24px 48px;font-size:12.5px;color:var(--muted);line-height:1.5}
+.fin{max-width:var(--measure);border-top:1px solid var(--line);padding-top:16px;display:grid;gap:5px}
+.fin p{margin:0;max-width:none}
+.fin a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.fin a:hover{color:var(--ink)}
+footer{max-width:var(--wrap);margin:0 auto;padding:0 24px 52px;font-size:12.5px;color:var(--muted);line-height:1.5}
 @media (max-width:600px){footer{padding:0 16px 40px}}
 
 /* ---------- simulator ---------- */

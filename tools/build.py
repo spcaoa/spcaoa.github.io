@@ -80,8 +80,11 @@ def page(fn,title,body,scripts=""):
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
 <div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><button class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="tabs"><svg class="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><nav class="tabs" id="tabs" aria-label="Pages">{nav}</nav></div></div>
 <div class="wrap">{body}
-<div class="updated">Updated {UPDATED}. Accounts to end {ML(months[-1])}; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee. Questions: spcaoa@gmail.com</div>
-</div><footer>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' summaries. They are not audited. Updated monthly.</footer>
+</div><footer><div class="fin">
+<p>Updated {UPDATED}. Accounts to end {ML(months[-1])}; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee.</p>
+<p>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' own statements. They are not audited and are updated monthly.</p>
+<p>Questions: <a href="mailto:spcaoa@gmail.com">spcaoa@gmail.com</a></p>
+</div></footer>
 <script src="assets/ui.js?v={VER}"></script>
 <script>{scripts}</script></body></html>'''
     open(os.path.join(OUT,fn),"w",encoding="utf-8").write(html)
@@ -237,7 +240,17 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <section><h2>The deposits</h2>
 <div class="tablewrap"><table><thead><tr><th>Where</th><th class="num">Deposits</th><th class="num">Principal</th><th class="num">Rate</th><th>How interest is paid</th><th>Maturity</th></tr></thead><tbody>{bankrows}</tbody></table></div>
 <p class="small">Sources: HDFC's account statements to 14 September 2026, ICICI's deposit summary of 7 September 2026, and Sobha's corpus statement. Account numbers are not published.</p>
-<div class="callout warn"><strong>What has been checked, and what is still open.</strong> The deposit figures on this page come from the banks' own statements, checked line by line against the association's accounts in September. <strong>ICICI is settled</strong> at ₹5.27 crore. An earlier internal figure of ₹4.67 crore came from two entries that the bank has no record of; without them everything agrees. <strong>HDFC is nearly settled.</strong> The accounts and the interest actually received both give ₹3.81 crore at the end of August; one deposit of ₹24 lakh was closed on 3 September, leaving about ₹3.57 crore. The bank's summary screen lists sixteen deposits, and the full list is being obtained to confirm the last ₹37 lakh. <strong>Sobha still holds part of the corpus.</strong> Sobha's ledger shows ₹75 lakh, the association's books ₹90 lakh, because Sobha sets its unpaid bills off against it. Getting that money back is on the actions page. When any of these changes, this note will say so.</div></section>
+</section>
+<section class="split"><div class="body"><h2>Reconciling the deposits</h2>
+<p>The deposit figures on this page come from the banks' own statements, checked line by line against the association's accounts in September. <strong>ICICI is settled</strong> at ₹5.27 crore. An earlier internal figure of ₹4.67 crore came from two entries that the bank has no record of; without them everything agrees. <strong>HDFC is nearly settled.</strong> The accounts and the interest actually received both give ₹3.81 crore at the end of August; one deposit of ₹24 lakh was closed on 3 September, leaving about ₹3.57 crore. The bank's summary screen lists sixteen deposits, and the full list is being obtained to confirm the last ₹37 lakh. <strong>Sobha still holds part of the corpus.</strong> Sobha's ledger shows ₹75 lakh, the association's books ₹90 lakh, because Sobha sets its unpaid bills off against it. Getting that money back is on the actions page. When any of these changes, this note will say so.</p></div>
+<aside class="side"><h3>Where the figures stand</h3><dl>
+<dt>ICICI, confirmed</dt><dd class="key">₹5.27 Cr</dd>
+<dt>HDFC in the books, 31 Aug</dt><dd>₹3.81 Cr</dd>
+<dt>Closed 3 September</dt><dd class="up">−₹24.2 L</dd>
+<dt>HDFC today</dt><dd>₹3.57 Cr</dd>
+<dt>Still to tie out</dt><dd class="up">≈ ₹37 L</dd>
+</dl><p class="note">The bank's summary screen lists sixteen deposits; the full list has been asked for to close the last ₹37 L.</p></aside>
+</section>
 <section><h2>How ₹11.76 crore became {L(reserves)}</h2>
 <div class="timeline">
 <div class="when">Jun 2022</div><div>₹11.76 Cr collected by Sobha at handover. For sixteen months Sobha ran the estate from it: ₹1.88 Cr charged, ₹1.17 Cr of interest credited.</div>
