@@ -19,7 +19,7 @@
   --r:12px; --r-sm:9px;
   --shadow:0 1px 2px rgba(35,40,32,.06);
   --shadow-lg:0 1px 2px rgba(35,40,32,.05),0 16px 34px -22px rgba(35,40,32,.28);
-  --wrap:1200px; --measure:800px;
+  --wrap:1060px; --measure:860px;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#14170f; --bg2:#0f120a; --surface:#1d2016;
