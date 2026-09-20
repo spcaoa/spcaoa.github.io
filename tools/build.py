@@ -96,7 +96,7 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 <h1>Where we stand</h1>
 <p class="lead">Running Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
 <div class="hero">
-<div class="big"><div class="k">Shortfall</div><div class="v">₹84 L a year</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves. Savings of about ₹20 L a year are under way; the rest has to come from maintenance.</div></div>
+<div class="big"><div class="k">Shortfall</div><div class="v">₹84 L a year</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves. ₹15 L a year of cost has already been cut, and we hope for ₹5 L more; the rest has to come from maintenance.</div></div>
 <div class="rest">
 {tile("","Spend per month",L(per_month),f"{ML(months[0])}–{ML(months[-1])} average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
@@ -169,12 +169,13 @@ raterows="".join(rate_row(t) for t in rates["types"])
 sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>The shortfall and the plan</h1>
 <p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the three options the Managing Committee is putting to owners.</p></section>
 <section class="split"><div class="body"><h2>How big is the gap?</h2>
-<p>At this year's rate of spending, the association is about ₹84 L a year short. Costs are being cut — about ₹20 L a year, most of it already done by reducing the number of security guards — which brings it to ₹64 L. That has to come from maintenance.</p>
+<p>At this year's rate of spending, the association is about ₹84 L a year short. ₹15 L a year has already been cut by reducing the number of security posts, and the Managing Committee hopes for about ₹5 L more from housekeeping and technical staffing. If both come through, ₹64 L is left to come from maintenance.</p>
 <div class="tablewrap"><table><thead><tr><th>A full year, at this year's rate</th><th class="num">₹ a year</th></tr></thead><tbody>
 <tr><td>What we spend (running costs ₹3.20 Cr, plus about ₹40 L of one-off repairs and renewals)</td><td class="num">3.60 Cr</td></tr>
 <tr><td>What comes in (maintenance ₹2.31 Cr, interest ₹66 L, other income ₹10 L, less ₹25 L tax on the interest)</td><td class="num">2.76 Cr</td></tr>
 <tr><td><strong>Gap</strong></td><td class="num"><strong>84 L</strong></td></tr>
-<tr><td>Savings from fewer guards and, soon, fewer housekeeping and technical staff</td><td class="num">20 L</td></tr>
+<tr><td>Already cut: fewer security posts</td><td class="num">15 L</td></tr>
+<tr><td>Hoped for: housekeeping and technical staffing</td><td class="num">5 L</td></tr>
 <tr><td><strong>Left to find from maintenance</strong></td><td class="num"><strong>64 L</strong></td></tr>
 <tr><td>A 20% increase brings in</td><td class="num">45 L — still ₹19 L short</td></tr>
 <tr><td><strong>A 23% increase brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
@@ -185,7 +186,8 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <dt>What we spend</dt><dd>₹3.60 Cr</dd>
 <dt>What comes in</dt><dd>₹2.76 Cr</dd>
 <dt>Gap</dt><dd class="up">₹84 L</dd>
-<dt>Savings under way</dt><dd>₹20 L</dd>
+<dt>Already cut</dt><dd>₹15 L</dd>
+<dt>Hoped for</dt><dd>₹5 L</dd>
 <dt>To find from maintenance</dt><dd class="key">₹64 L</dd>
 </dl><p class="note">A full year at this year's rate of spending. Every figure comes from what was actually paid between April and August.</p></aside></section>
 <section class="split"><div class="body"><h2>Each option, in plain words</h2>
