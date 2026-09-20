@@ -5,8 +5,8 @@
 <link rel="stylesheet" href="assets/site.css?v=3fcf6773"><script src="assets/gate.js?v=3fcf6773"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
 <div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><button class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="tabs"><svg class="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><nav class="tabs" id="tabs" aria-label="Pages"><a href="index.html">Where we stand</a><a href="money.html">Money</a><a href="shortfall.html">Shortfall</a><a href="simulator.html" aria-current="page">Options</a><a href="reserves.html">Reserves</a><a href="contracts.html">Contracts</a><a href="actions.html">Actions</a><a href="feedback.html">Survey</a><a href="services.html">Lifts & complaints</a><a href="documents.html">Documents</a></nav></div></div>
-<div class="wrap"><section class="simhead"><div class="eyebrow">Six options, one model</div><h1>Try the options</h1>
-<p class="lead">Pick an option and change the assumptions. The result updates as you go. If nothing changes, <b id="gapInline"></b> comes out of the reserves this year and next year is still short.</p></section>
+<div class="wrap"><section class="simhead"><div class="eyebrow">Compare the options</div><h1>What it means for your flat</h1>
+<p class="lead">Pick an option and see what your bill becomes and whether the association balances. Move the slider or change an assumption and everything updates. If nothing changes, <b id="gapInline"></b> comes out of the reserves this year and next year is still short.</p></section>
 <div class="simgrid">
 <aside class="simpanel" id="simpanel" aria-label="Options and assumptions">
   <div class="live" id="live" aria-live="polite">
@@ -24,24 +24,26 @@
     <div class="ctl"><div class="ctl-h">When the new rate starts</div>
       <label><input type="radio" name="eff" value="oct" checked> 1 Oct, difference billed in Nov</label>
       <label><input type="radio" name="eff" value="jan"> 1 Jan</label>
-      <label><input type="checkbox" id="rep2" checked> Option 2 repeated next year</label></div>
+</div>
     <div class="ctl"><div class="ctl-h">Costs</div>
-      <div class="ctl-sub">Savings from tenders, from Jan 2027</div>
+      <div class="ctl-sub">Savings on staff and contracts, from Jan 2027</div>
       <select id="sav"><option value="0">None</option><option value="15">₹15 L a year</option><option value="20" selected>₹20 L a year (MC estimate)</option><option value="25">₹25 L a year</option><option value="30">₹30 L a year</option></select>
+      <details class="ctl-more"><summary>More assumptions</summary>
       <div class="ctl-sub">Spending base</div>
       <select id="base"><option value="mc" selected>₹26 L a month + lift contract and tax</option><option value="tr">₹33 L a month flat (Treasurer)</option></select>
       <div class="ctl-sub">Tax on interest</div>
-      <select id="tax"><option value="4">₹4 L a quarter (as paid in September)</option><option value="6.3" selected>₹6.3 L a quarter (39% on all interest)</option></select></div>
+      <select id="tax"><option value="4">₹4 L a quarter (as paid in September)</option><option value="6.3" selected>₹6.3 L a quarter (39% on all interest)</option></select>
+      <label><input type="checkbox" id="rep2" checked> July's Option 2 repeated next year</label></details></div>
     <input type="hidden" id="preset" value="mc">
   </div>
 </aside>
 <div class="simresults">
-<section class="cardsec"><h2>Does it close the gap?</h2><div class="opts" id="optCards"></div>
+<section class="cardsec"><h2>Does the association balance?</h2><div class="opts" id="optCards"></div>
 <p class="small">"This year" runs from the real end-of-August cash position through March 2027. "Next year" is April 2027 to March 2028 on the same basis as the shortfall page: this year's run-rate including ₹40 L of one-time items, 98% collection, all interest counted, tax at 39%.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹14.4 L in the bank at the end of August 2026 (₹5.9 L after the cheques already written, which the September outflow includes). Below zero, the reserves are used.</p></section>
 <section><h2>Side by side</h2><div class="tablewrap"><table><thead><tr><th>Option</th><th class="num">A-type flat / month</th><th class="num">Extra per year</th><th class="num">Raised this year</th><th class="num">From reserves this year</th><th class="num">Next year</th><th>Verdict</th></tr></thead><tbody id="cmpRows"></tbody></table></div></section>
-<section><h2>How the model works</h2><ol class="steps"><li>Spending: ₹26 L a month, plus ₹8 L for the lift contract in June and December, plus tax each quarter. Or ₹33 L flat, the Treasurer's figure. Savings reduce it from January 2027.</li><li>Income in a quiet month: ₹1.8 L late maintenance, ₹0.8 L rentals and fees, ₹2.1 L HDFC interest, ₹0.5 L Sobha interest. In a billing month: 92% of the quarter's bills.</li><li>GST collected goes to the government. If input credit is on, the association keeps its own vendor GST in proportion to taxable billing.</li><li>Option 2 nets ₹69.5 L after GST, collected in November. The Sub-Committee's 10.1% is applied to the bill with GST inside it, as in their report.</li><li>Next year counts collections at 98% of billing (this year's actual), adds ₹40 L of one-time items at this year's rate, adds ICICI interest (₹34 L at 6.5%) and deducts tax on all interest at 39%. GST input credit is off unless you switch it on; it is worth up to ₹35 L a year but the tax adviser's written opinion is still awaited.</li><li>MC option B: a 23% increase plus a one-time ₹1 lakh per flat to the corpus, collected over six months from November. The ₹2.9 Cr (at 98% collection) is placed in deposits, not spent; the model counts only its interest, about ₹12 L a year after tax, from May 2027. The corpus is not drawn on. At 15% the same ₹1 lakh would need ₹18 L a year drawn from it; see the shortfall page.</li></ol></section>
+<section><h2>How this is worked out</h2><ol class="steps"><li>Spending is this year's actual rate: ₹26 L a month, the ₹8 L lift contract in June and December, tax each quarter, and about ₹40 L a year of one-off repairs. Savings come off from January 2027.</li><li>Income is maintenance (98% of what is billed, which is what has been collected this year), interest on the deposits, and rentals and fees. Tax on interest is 39%, the rate that applies to the association.</li><li>GST collected goes to the government, not to the association. If the association can claim back the GST on its own bills, that helps; the tax adviser's opinion is awaited, so it is off unless you switch it on.</li><li>Option B: the ₹1 lakh per flat goes into deposits and is not spent. Only its interest, about ₹12 L a year after tax, is counted, from mid-2027.</li><li>The volunteers' 10.1% is applied to the bill including GST, as in their report. The two options the July meeting turned down (a 39% increase; an annual contribution) are not shown.</li></ol></section>
 </div>
 </div>
 <button class="livebar" id="livebar" type="button" hidden aria-label="Back to options"></button>
@@ -85,11 +87,11 @@ function read(){ const preset=document.getElementById("preset").value; const p=P
   return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:document.querySelector('input[name=gst]:checked').value,itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
 const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN"); const L=n=>(n<0?"−":"")+"₹"+Math.abs(n).toFixed(1)+" L";
 let chart;
-const KEYS=["asis","sc","mc","mcb","opt1","opt2"];
-const NM={asis:"Carry on as we are: +0%",sc:"Sub-Committee: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"GBM Option 1: +39.4%",opt2:"GBM Option 2: annual contribution"};
+const KEYS=["asis","sc","mc","mcb"];
+const NM={asis:"Carry on as we are: +0%",sc:"Volunteers' report: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"GBM Option 1: +39.4%",opt2:"GBM Option 2: annual contribution"};
 function optOf(o,k){ const p=P[k]; return {...o,preset:k,pct:p.pct==null?+document.getElementById("pct").value:p.pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus}; }
 function nameOf(k,oo){ return k==="mc"?NM[k]+" +"+oo.pct+"%":NM[k]; }
-const SHORT={asis:"Carry on",sc:"Sub-Committee +10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"Option 1 +39.4%",opt2:"Option 2 contribution"};
+const SHORT={asis:"Carry on",sc:"Volunteers 10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"Option 1 +39.4%",opt2:"Option 2 contribution"};
 function shortOf(k,oo){ return k==="mc"?SHORT[k]+" +"+oo.pct+"%":SHORT[k]; }
 function verdict(rr){ if(rr.surplus<0) return {c:"no",t:"Not enough. Still short next year."}; if(rr.surplus<15) return {c:"mid",t:"Just balances next year. No buffer."}; return {c:"ok",t:"Balances next year, with a buffer."}; }
 const signL=n=>(n>0?"+":"")+L(n);

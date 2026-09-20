@@ -89,9 +89,9 @@ CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
 <h1>Where we stand</h1>
-<p class="lead">Running Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. Interest covers some of the rest. The reserves cover the remainder. These pages show the numbers, what the Managing Committee is doing, and what happens next.</p>
+<p class="lead">Running Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
 <div class="hero">
-<div class="big"><div class="k">Shortfall this year</div><div class="v">₹70–90 L</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves, before any savings from the tenders.</div></div>
+<div class="big"><div class="k">Shortfall this year</div><div class="v">₹70–90 L</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves.</div></div>
 <div class="rest">
 {tile("","Spend per month",L(per_month),f"{ML(months[0])}–{ML(months[-1])} average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
@@ -100,26 +100,28 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 </div></div>
 <div class="glossary">1 lakh = ₹1,00,000. 1 crore = 100 lakh. Reserves (the corpus) are the money owners paid at handover, kept in fixed deposits for big repairs.</div>
 </section>
-<section><h2>In six sentences</h2>
+<section><h2>The short version</h2>
 <ol class="steps">
-<li>This year is running the same way. From {ML(months[0])} to {ML(months[-1])}, {L(tot)} was spent against {L(maint*nM)} of maintenance for those months.</li>
-<li>The reserves are about {L(reserves)}. That money is for big repairs in the years ahead. Its interest is already being spent on running costs.</li>
-<li>A resident Sub-Committee reviewed last year's accounts. Their questions have gone to the previous Managing Committee and to the auditor. The answers will be published here.</li>
-<li>A Special General Body Meeting on <strong>Sunday, 25 October</strong> will decide the budget and the maintenance rate. The notice, with the full pack, goes out by 30 September. The 1 October bill stays at the current rate; only the General Body can change it.</li>
-<li>Until then the gap is met from the reserves. The amount drawn is published here every month.</li>
-<li>Last year the association spent ₹48 lakh more than it collected. The difference came from the reserves. The General Body was not asked. <span class="small">This point was conveyed and shared at the July AGM.</span></li>
+<li>Between April and August we spent {L(tot)}. Maintenance for those five months was {L(maint*nM)}. The difference came from the reserves.</li>
+<li>The reserves are about {L(reserves)}. Their interest already goes on running costs. Last year ₹50 L of the reserves themselves was used as well, and this year another ₹38 L so far.</li>
+<li>The Managing Committee is proposing a <strong>23% increase</strong> in maintenance, with a second option that adds a one-time ₹1 lakh per flat to rebuild the reserves. The <a href="simulator.html">options page</a> shows what each would mean for your flat.</li>
+<li>A <strong>Special General Body Meeting on Sunday, 25 October</strong> discusses it. Every owner then votes in an online poll that opens straight after the meeting and closes a week later.</li>
+<li>The 1 October bill is at the current rate. Only the General Body can change it.</li>
+<li>Last year's accounts were reviewed by a group of resident volunteers. Their report, and the previous Managing Committee's answers, go out with the meeting notice. <span class="small">The ₹48 lakh shortfall last year was reported at the July AGM.</span></li>
 </ol></section>
 <section><h2>What happens next</h2>
 <div class="timeline">
-<div class="when">28 Sep</div><div>Written responses due from the previous Managing Committee, requested for each point the Sub-Committee raised. Published as received.</div>
-<div class="when">30 Sep</div><div>Meeting notice to every owner, with the full pack attached: the Sub-Committee's report, the previous Committee's responses, the accounts, the budget, the resolutions, and how to vote.</div>
-<div class="when">1 Oct</div><div>Q3 maintenance bill, at the current rate. Please pay by the due date.</div>
-<div class="when">Sun, 25 Oct</div><div>Special General Body Meeting. One flat, one vote. Proxies and e-mail votes allowed.</div>
+<div class="when">20 Sep</div><div>These pages shared with every owner.</div>
+<div class="when">Fri, 25 Sep</div><div>Meeting notice to every owner, with the budget, the options, the volunteers' report and how to vote.</div>
+<div class="when">28 Sep</div><div>Previous Managing Committee's written answers due. Published as received.</div>
+<div class="when">1 Oct</div><div>Quarterly maintenance bill, at the current rate.</div>
+<div class="when">Sun, 25 Oct</div><div>Special General Body Meeting.</div>
+<div class="when">25 Oct – 1 Nov</div><div>Online poll for every owner: the maintenance rate and the other decisions. One flat, one vote.</div>
 <div class="when">Nov</div><div>If a new rate is approved from 1 October, the difference for October–December is billed in November.</div>
 </div></section>
 <section><h2>Read on</h2><div class="readon">
 <a href="money.html"><span class="t">Where the money goes</span><span class="d">Every expense, month by month</span></a>
-<a href="simulator.html"><span class="t">Try the options</span><span class="d">Six ways to fund the year; see which ones close the gap</span></a>
+<a href="simulator.html"><span class="t">Try the options</span><span class="d">What 23%, or 23% plus ₹1 lakh, means for your flat</span></a>
 <a href="reserves.html"><span class="t">Our reserves</span><span class="d">₹11.76 crore at handover, {L(reserves)} today — where it is and what it earns</span></a>
 <a href="feedback.html"><span class="t">What you told us</span><span class="d">The August survey and what is being done about it</span></a>
 </div></section>'''
@@ -152,50 +154,38 @@ def rate_row(t):
     q=t["quarter"]; m=q/3; new=m*(1+inc_pct); gst_whole=new*0.18 if new>7500 else 0; gst_excess=(new-7500)*0.18 if new>7500 else 0
     return f'<tr><td>{t["type"]}</td><td class="num">{inr(m)}</td><td class="num">{inr(new)}</td><td class="num">{inr(new+gst_whole)}</td><td class="num">{inr(new+gst_excess)}</td></tr>'
 raterows="".join(rate_row(t) for t in rates["types"])
-sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div><h1>The shortfall and the plan</h1>
-<p class="lead">Three groups estimated this year's shortfall and got three numbers. They differ on what to count, not on the facts.</p>
-<div class="tablewrap"><table><thead><tr><th>Estimate</th><th class="num">Shortfall, FY 2026–27</th><th>What it assumes</th></tr></thead><tbody>
-<tr><td>Treasurer's projection</td><td class="num">₹91 L</td><td>Spending of ₹33 L a month; only HDFC interest counted; nothing saved.</td></tr>
-<tr><td>Managing Committee's working model</td><td class="num">₹70–80 L</td><td>Actual spending of about ₹31 L a month; all interest counted, including ICICI interest that arrives at maturity; tax on interest provided; no savings yet.</td></tr>
-<tr><td>Finance Sub-Committee's report</td><td class="num">₹23 L</td><td>Running costs only (no one-time items), ₹18 L a year of savings assumed before they are made, and tax at a third of last year's level.</td></tr>
+sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>The shortfall and the plan</h1>
+<p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the two options the Managing Committee is putting to owners.</p></section>
+<section><h2>How big is the gap?</h2>
+<p>At this year's rate of spending, the association is about ₹84 L a year short. Costs are being cut — about ₹20 L a year, most of it already done by reducing the number of security guards — which brings it to ₹64 L. That has to come from maintenance.</p>
+<div class="tablewrap"><table><thead><tr><th>A full year, at this year's rate</th><th class="num">₹ a year</th></tr></thead><tbody>
+<tr><td>What we spend (running costs ₹3.20 Cr, plus about ₹40 L of one-off repairs and renewals)</td><td class="num">3.60 Cr</td></tr>
+<tr><td>What comes in (maintenance ₹2.31 Cr, interest ₹66 L, other income ₹10 L, less ₹25 L tax on the interest)</td><td class="num">2.76 Cr</td></tr>
+<tr><td><strong>Gap</strong></td><td class="num"><strong>84 L</strong></td></tr>
+<tr><td>Savings from fewer guards and, soon, fewer housekeeping and technical staff</td><td class="num">20 L</td></tr>
+<tr><td><strong>Left to find from maintenance</strong></td><td class="num"><strong>64 L</strong></td></tr>
+<tr><td>A 20% increase brings in</td><td class="num">45 L — still ₹19 L short</td></tr>
+<tr><td><strong>A 23% increase brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
+<tr><td>To balance from maintenance alone would take</td><td class="num">about 28%</td></tr>
 </tbody></table></div>
-<div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
-<section><h2>What increase is needed</h2>
-<p>On this year's actual spending, a 20% increase does not close the gap, even with the savings the MC expects — about ₹20 L a year, ₹15 L of it already secured by reducing the number of security posts. The MC is proposing 23%: the most that can be asked before C-type flats cross the ₹7,500 line at which GST applies (A- and B-type flats cross it at any increase; that is the law's threshold, not the association's choice). To balance outright with nothing else would take about 28%.</p>
-<div class="tablewrap"><table><thead><tr><th>Full year, at this year's run-rate</th><th class="num">₹ a year</th></tr></thead><tbody>
-<tr><td>Spending: ₹3.20 Cr running costs + ₹40 L one-time items</td><td class="num">3.60 Cr</td></tr>
-<tr><td>Income: maintenance ₹2.31 Cr billed, collected at 98%; deposit interest ₹66 L; other ₹10 L; less tax on interest ₹25 L</td><td class="num">2.76 Cr</td></tr>
-<tr><td><strong>Gap before any increase</strong></td><td class="num"><strong>84 L</strong></td></tr>
-<tr><td>Savings the MC expects from January</td><td class="num">20 L</td></tr>
-<tr><td>What +20% brings in, at 98% collection</td><td class="num">45 L — still ₹19 L short</td></tr>
-<tr><td><strong>What +23% brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
-<tr><td>Increase that balances with nothing else</td><td class="num">about 28%</td></tr>
-<tr><td>Increase needed with no savings at all</td><td class="num">about 37%</td></tr>
-</tbody></table></div>
-<p class="small">Three things would change this: the savings falling short of ₹20 L; one-time spending continuing at ₹40 L a year (it includes an ₹8 L five-year consent, so ₹30 L is a fair budget for next year, which covers most of the ₹12 L); collections falling below 98%, which is what they have been this year. Even at 23%, this financial year still needs about ₹75 L from the reserves, because the new rate would apply only from October. The increase fixes 2027–28, not 2026–27.</p></section>
-<section><h2>Two options for the meeting, neither touching the corpus</h2>
-<p><strong>Option A: 23%, nothing one-time.</strong> About ₹12 L a year short on paper, covered if one-time repairs ease next year. Nothing for a sinking fund.</p>
-<p><strong>Option B: 23% plus a one-time ₹1 lakh per flat to the corpus.</strong> The ₹1 lakh is not spent. It goes into deposits, and its interest — about ₹12 L a year after tax — closes the gap exactly. The ₹2.9 Cr also rebuilds what was drawn from the reserves over the last two years. Collected over about six months from November, so it helps from mid-2027.</p>
-<div class="tablewrap"><table><thead><tr><th>Option B, full year</th><th class="num">₹</th></tr></thead><tbody>
-<tr><td>Short at 23% with ₹20 L of savings</td><td class="num">12 L a year</td></tr>
-<tr><td>Corpus raised: ₹1 L × 294 flats, at 98% collection</td><td class="num">2.9 Cr, once</td></tr>
-<tr><td>Its interest at 7%, after 39% tax</td><td class="num">≈ 12 L a year</td></tr>
-<tr><td><strong>Result</strong></td><td class="num"><strong>balances; corpus untouched</strong></td></tr>
-</tbody></table></div>
-<h3>Why not 15% plus ₹1 lakh?</h3>
-<p>Because of tax. At 15% the monthly account is ₹30 L a year short, and ₹1 lakh per flat earns only ₹12 L after the association's 39% tax on interest. The rest, ₹18 L a year, would have to be drawn from the corpus itself; it would last about 16 years. For the corpus to cover a 15% increase on interest alone, the one-time amount would need to be about ₹2.4 lakh per flat. The minimum to raise without ever drawing on the corpus is ₹7.2 Cr at 15%, ₹4.5 Cr at 20%, ₹2.8 Cr at 23%.</p>
-<p class="small">For an A-type flat, 23% is ₹1,709 a month more, ₹2,016 with GST on the whole amount; under option B the ₹1 lakh is on top, once. Whether GST applies to a corpus contribution is being confirmed with the tax adviser. Both options are on the <a href="simulator.html">options page</a>.</p></section>
+<p class="small">Earlier estimates of the gap ranged from ₹23 L to ₹91 L because they counted different things. This page uses what was actually spent from April to August. The ₹40 L of one-offs includes an ₹8 L five-year licence, so next year's one-offs may be lower, which would cover most of the ₹12 L.</p></section>
+<section><h2>The two options</h2>
+<p><strong>Option A: a 23% increase.</strong> The monthly account is still about ₹12 L a year short on paper. If one-off repairs ease next year, that closes. Nothing is set aside for the future.</p>
+<p><strong>Option B: 23%, plus a one-time ₹1 lakh from each flat into the reserves.</strong> The ₹1 lakh is not spent. It goes into fixed deposits, and the interest — about ₹12 L a year after tax — closes the gap. The ₹2.9 Cr also puts back what was taken out of the reserves over the last two years. It would be collected over about six months from November.</p>
+<p>Either way, this financial year still needs about ₹75 L from the reserves, because a new rate would only apply from October. The increase fixes next year, not this one.</p></section>
+<section><h2>Why 23%?</h2>
+<p>Two reasons. It is the most that can be asked before the C-type flats cross ₹7,500 a month, which is where 18% GST starts. The A- and B-type flats cross that line at any increase at all — that is the tax law's threshold, not the association's choice — but going past 23% would put three-quarters of the estate into GST for no gain to the association, because the GST goes to the government. And 23% is close enough that the ₹1 lakh option, or a good year on repairs, balances it.</p>
+<p><strong>Why not 15% plus ₹1 lakh?</strong> Because of tax. At 15% the account is ₹30 L a year short, and the ₹1 lakh from each flat earns only ₹12 L a year after the association's 39% tax on interest. The other ₹18 L would have to be taken out of the reserves every year. For 15% to work without touching the reserves, the one-time amount would need to be about ₹2.4 lakh per flat.</p></section>
 <section><h2>Cash, month by month</h2>
-<p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. Spending is ₹26 L a month, plus advance tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 25 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
-<div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
-<p class="small">Assumes no ICICI deposits mature and no savings from tenders yet. A maturing ICICI deposit (one is expected within weeks) would ease this. Advance tax is as paid so far (₹2.5 L in June, ₹4 L in September), with December and March on the same basis; the Options page defaults to the higher, correct provision, so it shows a somewhat larger draw. Starting cash is the bank balance; the September outflow includes the cheques written in August. Negative means the reserves are used.</p>
-<div class="callout crit"><strong>Until the General Body decides, the gap is met from the reserves.</strong> There is no other source this year. What is drawn will be shown on the <a href="reserves.html">reserves page</a> month by month, and the meeting will be asked to decide how it is repaid.</div></section>
-<section><h2>What an increase would mean for your flat</h2>
-<p>Illustrative only. The MC's proposal will be in the meeting notice. Once a flat's monthly charge crosses ₹7,500, 18% GST applies. It can apply to the whole amount (the tax department's position) or only to the amount above ₹7,500 (a High Court reading). The difference is over ₹1,300 a month for the larger flats. Written advice is being taken.</p>
+<p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. The next bill is 1 October, at the current rate. The table shows where the account goes if nothing changes, and with a 23% increase from 1 October. Below zero means the reserves are being used.</p>
+<div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">If nothing changes</th><th class="num">With +23% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
+<p class="small">Spending ₹26 L a month, plus advance tax in September, December and March and the ₹8 L lift contract in December. No deposits maturing, no savings yet. Figures in lakhs.</p></section>
+<section><h2>What it means for your flat</h2>
+<p>Once a flat's monthly charge crosses ₹7,500, 18% GST applies. The tax department says it applies to the whole amount; a High Court has said only to the part above ₹7,500. The difference is about ₹1,300 a month for the larger flats, and the association is taking written advice on which applies.</p>
 <div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Today, per month</th><th class="num">At +{int(inc_pct*100)}%</th><th class="num">With GST on the whole amount</th><th class="num">With GST only above ₹7,500</th></tr></thead><tbody>{raterows}</tbody></table></div>
-<p class="small">Flats still below ₹7,500 pay no GST under either reading. If the association can reclaim the GST on its own contracts (about ₹35 L a year), the increase needed is smaller.</p></section>
+<p class="small">Option B adds ₹1 lakh once, for every flat. C, D and D1 flats stay below ₹7,500 at 23% and pay no GST.</p></section>
 <section><h2>Why not just cut costs?</h2>
-<p>Both are needed. The two big contracts have never been tendered. They are being tendered now. But tenders take months, and the savings start next year. Residents rated housekeeping and landscaping the best services on the estate. Cutting those to avoid an increase would trade a visible service for an invisible saving. The lift contract, rated worst, is being rebid on uptime.</p></section>'''
+<p>Both are happening. The facility and security contracts have never been put out to tender; they are being tendered now, and ₹15 L a year has already been saved on guards. But the two together are ₹1.8 Cr a year, and residents rated housekeeping and gardening the best things about living here. Cutting those to avoid an increase would trade a visible service for an invisible saving.</p></section>'''
 page("shortfall.html","The shortfall and the plan",sf)
 # reserves
 def rate_cell(b):
@@ -277,13 +267,13 @@ page("services.html","Lifts and complaints",svc)
 FAQ=[("Why is the association short of money?","Costs have risen faster than the maintenance rate, which has not changed since handover, and last year's Managing Committee covered the difference from the reserves. Security alone costs ₹15 L a year more after the change of agency in November 2025. The full picture is on the money page."),
 ("Isn't ₹9.7 crore in reserves enough to carry on?","It would carry on for a few years and then be gone, and it is the fund for lifts, painting and waterproofing in the years ahead. Its interest, about {L(int_yr)} a year before tax, is already being spent on running costs. Spending the principal too is what last year's Managing Committee did, and what the General Body objected to."),
 ("Why can't the MC just raise the rate now?","The bye-laws give the General Body, not the MC, the power to approve the budget and set the monthly charge. The previous Managing Committee has until 28 September to respond to the Sub-Committee's findings, and owners are then entitled to 21 days' notice with the full pack attached. That makes 25 October the earliest the meeting can be held. The 1 October bill is therefore at the current rate."),
-("What will the increase be?","The MC's proposal will be in the meeting notice, with the budget behind it. The working range is 18–22% on the base charge before GST. The shortfall page shows what 20% would mean for each flat type, and the two ways GST could apply."),
-("Why does GST suddenly matter?","Maintenance above ₹7,500 a month per flat attracts 18% GST. The larger flats (A and A1 types) are at ₹7,432–7,499 today, so any increase crosses the line. Whether GST then applies to the whole amount or only to the excess changes the bill by over ₹1,300 a month, and whether the association can reclaim the GST on its own contracts changes the increase needed. The MC is taking written advice before the notice."),
-("What happened to last year's money?","The Finance Sub-Committee's report, on the documents page, sets out the specific decisions it questioned: the pool repair, lift batteries, the security agency switch, paver work, a payment without an invoice, and withdrawals from the reserves. The previous Managing Committee has been asked to respond in writing to each; the auditor has been asked to explain. Both responses will be published, and the General Body will be asked to approve an independent review."),
-("Is anyone being accused of anything?","No. The Sub-Committee's report raises questions; the answers are being sought; a professional review will establish facts. Nobody will be named or blamed on these pages ahead of that."),
+("What will the increase be?","The Managing Committee is proposing 23%, with a second option of 23% plus a one-time ₹1 lakh per flat into the reserves. Owners choose in the poll after the meeting. The shortfall page shows what 20% would mean for each flat type, and the two ways GST could apply."),
+("Why does GST suddenly matter?","Maintenance above ₹7,500 a month per flat attracts 18% GST. The A- and B-type flats are between ₹6,900 and ₹7,500 today, so any increase puts them over the line; C-type flats would cross at 24%, which is why the proposal stops at 23%. Whether GST then applies to the whole amount or only the part above ₹7,500 changes the bill by about ₹1,300 a month for the larger flats. Written advice is being taken."),
+("What happened to last year's money?","The Finance volunteers' report, on the documents page, sets out the specific decisions it questioned: the pool repair, lift batteries, the security agency switch, paver work, a payment without an invoice, and withdrawals from the reserves. The previous Managing Committee has been asked to respond in writing to each; the auditor has been asked to explain. Both responses will be published, and the General Body will be asked to approve an independent review."),
+("Is anyone being accused of anything?","No. The volunteers' report raises questions; the answers are being sought; a professional review will establish facts. Nobody will be named or blamed on these pages ahead of that."),
 ("Why not cut costs instead of raising the rate?","Both are happening. The facility and security contracts, ₹1.8 Cr a year between them, are being tendered for the first time. But tenders take months, and residents rated housekeeping and landscaping the best-run services on the estate. The MC will not cut those to avoid an increase; it will cut what is not working, starting with the lift contract."),
 ("What is the MC doing about lifts and pest control?","See the feedback page. In short: a public lift log from October, a root-cause report on the worst machines, the lift contract rebid on uptime; and for pests, an audit of what the vendor actually does, source reduction, and a published schedule."),
-("How do I know these numbers are right?","They are taken from the accountant's monthly statements and the banks' own deposit summaries, and the sources are named on each page. They are not audited figures; the audited accounts are annual. Anything that is an estimate says so. If you find an error, write to spcaoa@gmail.com and it will be corrected and noted."),
+("How do I know these numbers are right?","They come from the accountant's monthly statements, checked line by line against both banks' statements in September 2026. Where the two disagreed, the bank figure is used and the page says so. They are not audited figures; the audited accounts are annual. Anything that is an estimate says so. If you find an error, write to spcaoa@gmail.com and it will be corrected and noted."),
 ("How often are these pages updated?","Monthly, after the accountant's statement for the month is received, and immediately after any General Body decision. The date at the foot of each page says what the figures cover.")]
 faq="".join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)
 docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>Documents and FAQ</h1>
