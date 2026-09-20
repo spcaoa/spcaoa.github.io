@@ -1,26 +1,26 @@
-lift,date,kind,detail
-11245401,2026-01-21,Preventive maintenance,"Routine checks, all normal"
-11245401,2026-03-30,Preventive maintenance,car guide shoes replaced and adjusted safety gear alignment
-11245401,2026-07-31,Preventive maintenance,Routine maintenance done ard alarm intercom manual rescue operation checked all ok all floors doors ok
-11245404,2026-01-28,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
-11245404,2026-05-30,Preventive maintenance,"Routine checks, all normal"
-11245404,2026-07-31,Preventive maintenance,Routine maintenance done are alarm intercom and manual rescue operation checked
-11245407,2026-01-22,Preventive maintenance,counter Run by cleared
-11245407,2026-03-17,Repair,Car door sensor replaced; returned to service after observation
-11245407,2026-05-30,Preventive maintenance,The OSG O-ring has been replaced and landing doors are adjusted in few floors. The OSG O-ring has been replaced and landing door adjusted in few floors
-11245407,2026-07-31,Preventive maintenance,Routine maintenance done ARD alarm intercom and manual rescue operation checked all ok
-11245414,2026-01-21,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
-11245414,2026-05-30,Preventive maintenance,"Routine checks, all normal"
-11245414,2026-07-31,Preventive maintenance,Routine Maintenance done are alarm intercom and all floors doors safety circuit checked
-11245417,2026-02-25,Preventive maintenance,OSG o ring cleaned
-11245417,2026-06-24,Preventive maintenance,OSG o ring replaced
-11245417,2026-08-11,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
-11245420,2026-02-26,Preventive maintenance,"Routine checks, all normal"
-11245420,2026-06-08,Repair,"Car door clutch replaced (work in progress 8 Jun, verified 15 Jun; under observation one day)"
-11245420,2026-06-15,Preventive maintenance,Car door clutch replaced and verified operation in all floors and lift kept under observation for 1 day
-11245421,2026-02-26,Preventive maintenance,"Routine checks, all normal"
-11245421,2026-06-19,Preventive maintenance,Car Penel noise adjusted and after observation lift given to normal operation
-11245421,2026-06-20,Repair,"16th-floor car button and intercom: COP unit replaced, verified normal"
-11245422,2026-02-25,Preventive maintenance,"Routine checks, all normal"
-11245422,2026-06-24,Preventive maintenance,"Routine checks, all normal"
-11245422,2026-08-11,Preventive maintenance,EXTENSIVE SERVICE 2 is done. ARD and MANUAL EVACUATION and EMERGENCY LIGHT and ALARM is working normal. All safety switches checked is working normal
+wing,type,lift,date,kind,detail
+Wing 1,Passenger,11245401,2026-01-21,Preventive maintenance,"Routine checks, all normal"
+Wing 1,Passenger,11245401,2026-03-30,Preventive maintenance,car guide shoes replaced and adjusted safety gear alignment
+Wing 1,Passenger,11245401,2026-07-31,Preventive maintenance,Routine maintenance done ard alarm intercom manual rescue operation checked all ok all floors doors ok
+Wing 1,Service,11245414,2026-01-21,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
+Wing 1,Service,11245414,2026-05-30,Preventive maintenance,"Routine checks, all normal"
+Wing 1,Service,11245414,2026-07-31,Preventive maintenance,Routine Maintenance done are alarm intercom and all floors doors safety circuit checked
+Wing 2,Passenger,11245404,2026-01-28,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
+Wing 2,Passenger,11245404,2026-05-30,Preventive maintenance,"Routine checks, all normal"
+Wing 2,Passenger,11245404,2026-07-31,Preventive maintenance,Routine maintenance done are alarm intercom and manual rescue operation checked
+Wing 2,Service,11245407,2026-01-22,Preventive maintenance,counter Run by cleared
+Wing 2,Service,11245407,2026-03-17,Repair,Car door sensor replaced; returned to service after observation
+Wing 2,Service,11245407,2026-05-30,Preventive maintenance,The OSG O-ring has been replaced and landing doors are adjusted in few floors. The OSG O-ring has been replaced and landing door adjusted in few floors
+Wing 2,Service,11245407,2026-07-31,Preventive maintenance,Routine maintenance done ARD alarm intercom and manual rescue operation checked all ok
+Wing 3,Passenger,11245417,2026-02-25,Preventive maintenance,OSG o ring cleaned
+Wing 3,Passenger,11245417,2026-06-24,Preventive maintenance,OSG o ring replaced
+Wing 3,Passenger,11245417,2026-08-11,Statutory 5-year inspection,CPSI5Y done by Karthik Ravi
+Wing 3,Service,11245422,2026-02-25,Preventive maintenance,"Routine checks, all normal"
+Wing 3,Service,11245422,2026-06-24,Preventive maintenance,"Routine checks, all normal"
+Wing 3,Service,11245422,2026-08-11,Preventive maintenance,EXTENSIVE SERVICE 2 is done. ARD and MANUAL EVACUATION and EMERGENCY LIGHT and ALARM is working normal. All safety switches checked is working normal
+Wing 4,Passenger,11245420,2026-02-26,Preventive maintenance,"Routine checks, all normal"
+Wing 4,Passenger,11245420,2026-06-08,Repair,"Car door clutch replaced (work in progress 8 Jun, verified 15 Jun; under observation one day)"
+Wing 4,Passenger,11245420,2026-06-15,Preventive maintenance,Car door clutch replaced and verified operation in all floors and lift kept under observation for 1 day
+Wing 4,Service,11245421,2026-02-26,Preventive maintenance,"Routine checks, all normal"
+Wing 4,Service,11245421,2026-06-19,Preventive maintenance,Car Penel noise adjusted and after observation lift given to normal operation
+Wing 4,Service,11245421,2026-06-20,Repair,"16th-floor car button and intercom: COP unit replaced, verified normal"
