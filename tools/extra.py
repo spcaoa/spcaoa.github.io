@@ -23,6 +23,8 @@ def build_extra(page, CH, runway):
       <label><input type="radio" name="eff" value="jan"> 1 Jan</label>
 </div>
     <div class="ctl"><div class="ctl-h">Costs</div>
+      <label><input type="checkbox" id="esc" checked> Maintenance rises 5% a year from Apr 2028</label>
+      <label><input type="checkbox" id="cesc" checked> Costs rise about 5% a year too</label>
       <div class="ctl-sub">Savings on staff and contracts, from Jan 2027</div>
       <select id="sav"><option value="0">None</option><option value="15">₹15 L a year</option><option value="20" selected>₹20 L a year (MC estimate)</option><option value="25">₹25 L a year</option><option value="30">₹30 L a year</option></select>
       <details class="ctl-more"><summary>More assumptions</summary>
@@ -39,14 +41,14 @@ def build_extra(page, CH, runway):
 <p class="small">"This year" runs from the real end-of-August cash position through March 2027. "Next year" is April 2027 to March 2028 on the same basis as the shortfall page: this year's run-rate including ₹40 L of one-time items, 98% collection, all interest counted, tax at 39%.</p></section>
 <section><h2>Your bill</h2><div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Flats</th><th class="num">Today / month</th><th class="num">New base</th><th class="num">GST</th><th class="num">Total / month</th><th class="num">Extra per year</th></tr></thead><tbody id="flatRows"></tbody></table></div><p class="small" id="flatNote"></p></section>
 <section><h2>Cash in the account</h2><div class="chartbox"><div class="ch" style="height:280px"><canvas id="cSim"></canvas></div></div><p class="small">Starts from ₹14.4 L in the bank at the end of August 2026 (₹5.9 L after the cheques already written, which the September outflow includes). Below zero, the reserves are used.</p></section>
-<section><h2>Side by side</h2><div class="tablewrap"><table><thead><tr><th>Option</th><th class="num">A-type flat / month</th><th class="num">Extra per year</th><th class="num">Raised this year</th><th class="num">From reserves this year</th><th class="num">Next year</th><th>Verdict</th></tr></thead><tbody id="cmpRows"></tbody></table></div></section>
-<section><h2>How this is worked out</h2><ol class="steps"><li>Spending is this year's actual rate: ₹26 L a month, the ₹8 L lift contract in June and December, tax each quarter, and about ₹40 L a year of one-off repairs. Savings come off from January 2027.</li><li>Income is maintenance (98% of what is billed, which is what has been collected this year), interest on the deposits, and rentals and fees. Tax on interest is 39%, the rate that applies to the association.</li><li>GST collected goes to the government, not to the association. If the association can claim back the GST on its own bills, that helps; the tax adviser's opinion is awaited, so it is off unless you switch it on.</li><li>Option B: the ₹1 lakh per flat goes into deposits and is not spent. Only its interest, about ₹12 L a year after tax, is counted, from mid-2027.</li><li>The Finance Sub-Committee's 10.1% is applied to the bill including GST, as in their report. The two options the July meeting turned down (a 39% increase; an annual contribution) are not shown.</li></ol></section>
+<section><h2>Side by side</h2><div class="tablewrap"><table><thead><tr><th>Option</th><th class="num">A-type flat / month</th><th class="num">Extra per year</th><th class="num">Raised this year</th><th class="num">From reserves this year</th><th class="num">Next year</th><th class="num">Reserves used, 10 yrs</th><th>Verdict</th></tr></thead><tbody id="cmpRows"></tbody></table></div></section>
+<section><h2>How this is worked out</h2><ol class="steps"><li>Spending is this year's actual rate: ₹26 L a month, the ₹8 L lift contract in June and December, tax each quarter, and about ₹40 L a year of one-off repairs. Savings come off from January 2027.</li><li>Income is maintenance (98% of what is billed, which is what has been collected this year), interest on the deposits, and rentals and fees. Tax on interest is 39%, the rate that applies to the association.</li><li>GST collected goes to the government, not to the association. If the association can claim back the GST on its own bills, that helps; the tax adviser's opinion is awaited, so it is off unless you switch it on.</li><li>Option C is 39% with nothing one-time: it balances the account and rebuilds the reserves from maintenance alone. It is close to what the July meeting was asked for and turned down. Option B reaches the same place for 23% plus a one-time payment.</li><li>Option B: the ₹1 lakh per flat goes into deposits and is not spent. Only its interest, about ₹12 L a year after tax, is counted, from mid-2027.</li><li><strong>The last column.</strong> What each option would take from the reserves between April 2028 and 2038, if maintenance rises 5% a year as proposed and costs rise about 5% too. An option that starts near balance stays near it; one that starts well short falls further behind each year, because 5% of a bigger cost is more than 5% of a smaller maintenance bill.</li><li>The Finance Sub-Committee's 10.1% is applied to the bill including GST, as in their report. The two options the July meeting turned down (a 39% increase; an annual contribution) are not shown.</li></ol></section>
 </div>
 </div>
 <button class="livebar" id="livebar" type="button" hidden aria-label="Back to options"></button>"""
     simjs = CH + "const TYPES=" + json.dumps(TYPES) + ";" + r"""
 const START=14.4, MONTHS=[];(()=>{let y=2026,m=9;for(let i=0;i<19;i++){MONTHS.push({y,m,label:new Date(y,m-1,1).toLocaleString("en-IN",{month:"short"})+" "+String(y).slice(2)});m++;if(m>12){m=1;y++;}}})();
-const P={asis:{pct:0,inside:false,contrib:false},sc:{pct:10.1,inside:true,contrib:false},mc:{pct:null,inside:false,contrib:false},mcb:{pct:23,inside:false,contrib:false,corpus:true},opt1:{pct:39.37,inside:false,contrib:false},opt2:{pct:0,inside:false,contrib:true}};
+const P={asis:{pct:0,inside:false,contrib:false},sc:{pct:10.1,inside:true,contrib:false},mc:{pct:null,inside:false,contrib:false},mcb:{pct:23,inside:false,contrib:false,corpus:true},opt1:{pct:39,inside:false,contrib:false},opt2:{pct:0,inside:false,contrib:true}};
 const CORPUS_PER_FLAT=1, CORPUS_RATE=0.07, TAXR=0.39;
 function flatCalc(t,pct,inside,gst){ let base,total;
   if(inside){ total=t.m*(1+pct/100); base= total>7500 ? (gst==="whole"? total/1.18 : total-((total-7500)*0.18/1.18)) : total; }
@@ -74,18 +76,21 @@ function run(o){
     bal=bal+inn-out; series.push(bal); if(bal<minB){minB=bal;minM=mo.label;}
     if(mo.y===2027&&mo.m===3) b27=bal; if(mo.y===2028&&mo.m===3) b28=bal; });
   const collections=monthlyBaseNew*12*0.98/1e5 + (o.contrib&&o.rep2?0.98*contribNet:0);
-  const income=collections+25.6+34.3+6+9.6+itcYear-(o.taxQ*4)+(o.corpus?corpusIntNet:0);
+  const fixedInc=25.6+34.3+6+9.6+itcYear-(o.taxQ*4)+(o.corpus?corpusIntNet:0);
+  const income=collections+fixedInc;
   const spend=(o.base==="tr"?33*12+40:320+40)-o.sav;   // ₹3.20 Cr running (this year's rate, lift included) + ₹40 L one-time
-  return {rows,monthlyBaseNew,itcYear,contribNet,corpusRaised,corpusIntNet,series,minB,minM,b27,b28,surplus:income-spend,taxableShare}; }
+  let coll=collections, cost=spend, drawn=0;
+  for(let y=0;y<10;y++){ drawn+=Math.max(0,cost-(coll+fixedInc)); if(o.esc) coll*=1.05; if(o.cesc) cost*=1.05; }
+  return {rows,monthlyBaseNew,itcYear,contribNet,corpusRaised,corpusIntNet,collections,fixedInc,spend,drawn10:drawn,series,minB,minM,b27,b28,surplus:income-spend,taxableShare}; }
 function read(){ const preset=document.getElementById("preset").value; const p=P[preset]; const pct=p.pct==null?+document.getElementById("pct").value:p.pct;
-  return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:document.querySelector('input[name=gst]:checked').value,itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
+  return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:document.querySelector('input[name=gst]:checked').value,itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,esc:document.getElementById("esc").checked,cesc:document.getElementById("cesc").checked,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
 const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN"); const L=n=>(n<0?"−":"")+"₹"+Math.abs(n).toFixed(1)+" L";
 let chart;
-const KEYS=["asis","sc","mc","mcb"];
-const NM={asis:"Carry on as we are: +0%",sc:"Finance Sub-Committee: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"GBM Option 1: +39.4%",opt2:"GBM Option 2: annual contribution"};
+const KEYS=["asis","sc","mc","mcb","opt1"];
+const NM={asis:"Carry on as we are: +0%",sc:"Finance Sub-Committee: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"Option C: +39%, nothing one-time",opt2:"GBM Option 2: annual contribution"};
 function optOf(o,k){ const p=P[k]; return {...o,preset:k,pct:p.pct==null?+document.getElementById("pct").value:p.pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus}; }
 function nameOf(k,oo){ return k==="mc"?NM[k]+" +"+oo.pct+"%":NM[k]; }
-const SHORT={asis:"Carry on",sc:"Sub-Committee 10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"Option 1 +39.4%",opt2:"Option 2 contribution"};
+const SHORT={asis:"Carry on",sc:"Sub-Committee 10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"Option C: 39%",opt2:"Option 2 contribution"};
 function shortOf(k,oo){ return k==="mc"?SHORT[k]+" +"+oo.pct+"%":SHORT[k]; }
 function verdict(rr){ if(rr.surplus<0) return {c:"no",t:"Not enough. Still short next year."}; if(rr.surplus<15) return {c:"mid",t:"Just balances next year. No buffer."}; return {c:"ok",t:"Balances next year, with a buffer."}; }
 const signL=n=>(n>0?"+":"")+L(n);
@@ -136,7 +141,7 @@ function render(){
 
   // --- side by side
   document.getElementById("cmpRows").innerHTML=KEYS.map(k=>{ const x=R[k];
-    return '<tr'+(k===o.preset?' style="background:var(--accent-soft)"':'')+'><td><strong>'+x.name+'</strong></td><td class="num">'+inr(x.a.total)+'</td><td class="num">'+inr(x.extra)+'</td><td class="num">'+L(x.raised)+'</td><td class="num'+(x.fromRes>0?" neg":" pos")+'">'+L(x.fromRes)+'</td><td class="num'+(x.rr.surplus<0?" neg":" pos")+'">'+L(x.rr.surplus)+'</td><td><span class="pill '+(x.v.c==="no"?"crit":x.v.c==="mid"?"warn":"ok")+'">'+x.v.t+'</span></td></tr>'; }).join("");
+    return '<tr'+(k===o.preset?' style="background:var(--accent-soft)"':'')+'><td><strong>'+x.name+'</strong></td><td class="num">'+inr(x.a.total)+'</td><td class="num">'+inr(x.extra)+'</td><td class="num">'+L(x.raised)+'</td><td class="num'+(x.fromRes>0?" neg":" pos")+'">'+L(x.fromRes)+'</td><td class="num'+(x.rr.surplus<0?" neg":" pos")+'">'+L(x.rr.surplus)+'</td><td class="num'+(x.rr.drawn10>50?" neg":"")+'">'+(x.rr.drawn10<1?"none":L(x.rr.drawn10))+'</td><td><span class="pill '+(x.v.c==="no"?"crit":x.v.c==="mid"?"warn":"ok")+'">'+x.v.t+'</span></td></tr>'; }).join("");
 
   // --- phone result bar
   const bar=document.getElementById("livebar");
