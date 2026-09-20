@@ -152,6 +152,10 @@ rw=runway["rows"]
 def cell(v): return f'<td class="num{" neg" if v<0 else ""}">{v:+.1f}</td>'.replace("+","") if v>=0 else f'<td class="num neg">−{abs(v):.1f}</td>'
 rrows="".join(f'<tr><td>{r["m"]}</td><td class="num">{r["in"]:.1f}</td><td class="num">{r["out"]:.1f}</td>{cell(r["a"])}{cell(r["c"])}</tr>' for r in rw)
 inc_pct=rates["increase"]
+def gst_flats(p):
+    return sum(t["count"] for t in rates["types"] if t["quarter"]/3*(1+p)>7500)
+def a_type(p):
+    t=rates["types"][0]; return t["quarter"]/3*(1+p)
 def rate_row(t):
     q=t["quarter"]; m=q/3
     def at(p):
@@ -161,7 +165,7 @@ def rate_row(t):
 raterows="".join(rate_row(t) for t in rates["types"])
 sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>The shortfall and the plan</h1>
 <p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the two options the Managing Committee is putting to owners.</p></section>
-<section><h2>How big is the gap?</h2>
+<section class="split"><div class="body"><h2>How big is the gap?</h2>
 <p>At this year's rate of spending, the association is about ₹84 L a year short. Costs are being cut — about ₹20 L a year, most of it already done by reducing the number of security guards — which brings it to ₹64 L. That has to come from maintenance.</p>
 <div class="tablewrap"><table><thead><tr><th>A full year, at this year's rate</th><th class="num">₹ a year</th></tr></thead><tbody>
 <tr><td>What we spend (running costs ₹3.20 Cr, plus about ₹40 L of one-off repairs and renewals)</td><td class="num">3.60 Cr</td></tr>
@@ -173,17 +177,42 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <tr><td><strong>A 23% increase brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
 <tr><td>To balance from maintenance alone would take</td><td class="num">about 28%</td></tr>
 </tbody></table></div>
-<p class="small">Earlier estimates of the gap ranged from ₹23 L to ₹91 L because they counted different things. This page uses what was actually spent from April to August. The ₹40 L of one-offs includes an ₹8 L five-year licence, so next year's one-offs may be lower, which would cover most of the ₹12 L.</p></section>
-<section><h2>Each option, in plain words</h2>
+<p class="small">Earlier estimates of the gap ranged from ₹23 L to ₹91 L because they counted different things. This page uses what was actually spent from April to August. The ₹40 L of one-offs includes an ₹8 L five-year licence, so next year's one-offs may be lower, which would cover most of the ₹12 L.</p></div>
+<aside class="side"><h3>The year in five numbers</h3><dl>
+<dt>What we spend</dt><dd>₹3.60 Cr</dd>
+<dt>What comes in</dt><dd>₹2.76 Cr</dd>
+<dt>Gap</dt><dd class="up">₹84 L</dd>
+<dt>Savings under way</dt><dd>₹20 L</dd>
+<dt>To find from maintenance</dt><dd class="key">₹64 L</dd>
+</dl><p class="note">A full year at this year's rate of spending. Every figure comes from what was actually paid between April and August.</p></aside></section>
+<section class="split"><div class="body"><h2>Each option, in plain words</h2>
 <p><strong>Carry on as we are.</strong> The reserves keep paying the difference — about ₹64 L a year after the savings. The interest they earn is already spent; this eats the principal. At that rate, the money set aside for lifts, painting and waterproofing is gone in about fifteen years, and the estate has nothing when those bills come.</p>
 <p><strong>The Finance Sub-Committee's 10.1%.</strong> The Finance Sub-Committee, the resident owners who reviewed last year's accounts, proposed 10.1%. It does not work, for two separate reasons, and it is worth being precise about both. First, their 10.1% was on the bill <em>including</em> GST. For the 148 flats that cross ₹7,500, that GST is inside the new amount, so the association's own share goes <em>down</em>: an A-type flat would pay ₹8,183, of which ₹1,248 is GST, leaving ₹6,934 for the association against ₹7,432 today. Across the estate the association ends up about ₹2 L a year better off — not ₹23 L. (If GST applied only above ₹7,500, it would be about ₹22 L.) Second, their gap of ₹23 L was small because it left out one-off repairs, counted ₹18 L of savings before any had been made, and put tax at a third of what is actually paid. Even 10.1% on the base charge would raise ₹23 L of the ₹64 L needed.</p>
 <p><strong>Option A: a 23% increase.</strong> Raises ₹52 L. The monthly account is still about ₹12 L a year short on paper; if one-off repairs ease next year, that closes. Nothing is set aside for the future. The A- and B-type flats cross ₹7,500 and pay GST; the C, D and D1 flats do not.</p>
 <p><strong>Option B: 23%, plus a one-time ₹1 lakh from each flat into the reserves.</strong> The ₹1 lakh is not spent. It goes into fixed deposits, and the interest — about ₹12 L a year after tax — closes the gap. The ₹2.9 Cr also puts back what was taken out of the reserves over the last two years. Collected over about six months from November. Whether GST applies to it is being checked.</p>
 <p><strong>Option C: a 39% increase, nothing one-time.</strong> Raises ₹86 L. This is the only way to both balance the account and rebuild the reserves out of maintenance alone, and it is close to what the July meeting was asked for and turned down. The cost is the GST line: at 39% the C and D1 flats cross ₹7,500 too, so 286 of the 294 flats pay 18% GST — for a C-type that is about ₹1,515 a month going to the government on top of the increase. Option B reaches the same place for 23% and a one-time payment.</p>
-<p>Either way, this financial year still needs about ₹75 L from the reserves, because a new rate would only apply from October. The increase fixes next year, not this one.</p></section>
-<section><h2>Why 23%?</h2>
+<p>Either way, this financial year still needs about ₹75 L from the reserves, because a new rate would only apply from October. The increase fixes next year, not this one.</p></div>
+<aside class="side"><h3>An A-type flat pays</h3><dl>
+<dt>Today</dt><dd>{inr(a_type(0))}</dd>
+<dt>Option A or B</dt><dd class="key">{inr(a_type(inc_pct))}</dd>
+<dt>Option C</dt><dd class="up">{inr(a_type(0.39))}</dd>
+</dl><p class="note">A month, before GST. Option B adds ₹1 lakh once. The other flat types are in the table below.</p></aside>
+<aside class="side"><h3>Left short each year</h3><dl>
+<dt>Carry on as we are</dt><dd class="up">₹64 L</dd>
+<dt>Sub-Committee 10.1%</dt><dd class="up">₹62 L</dd>
+<dt>Option A</dt><dd>₹12 L</dd>
+<dt>Option B</dt><dd class="key">none</dd>
+<dt>Option C</dt><dd class="key">none</dd>
+</dl></aside></section>
+<section class="split"><div class="body"><h2>Why 23%?</h2>
 <p>Two reasons. It is the most that can be asked before the C-type flats cross ₹7,500 a month, which is where 18% GST starts. The A- and B-type flats cross that line at any increase at all — that is the tax law's threshold, not the association's choice — but going past 23% would put three-quarters of the estate into GST for no gain to the association, because the GST goes to the government. And 23% is close enough that the ₹1 lakh option, or a good year on repairs, balances it.</p>
-<p><strong>Why not 15% plus ₹1 lakh?</strong> Because of tax. At 15% the account is ₹30 L a year short, and the ₹1 lakh from each flat earns only ₹12 L a year after the association's 39% tax on interest. The other ₹18 L would have to be taken out of the reserves every year. For 15% to work without touching the reserves, the one-time amount would need to be about ₹2.4 lakh per flat.</p></section>
+<p><strong>Why not 15% plus ₹1 lakh?</strong> Because of tax. At 15% the account is ₹30 L a year short, and the ₹1 lakh from each flat earns only ₹12 L a year after the association's 39% tax on interest. The other ₹18 L would have to be taken out of the reserves every year. For 15% to work without touching the reserves, the one-time amount would need to be about ₹2.4 lakh per flat.</p></div>
+<aside class="side"><h3>Flats paying GST</h3><dl>
+<dt>Today</dt><dd>{gst_flats(0)}</dd>
+<dt>At 23%</dt><dd class="key">{gst_flats(0.23)}</dd>
+<dt>At 24%</dt><dd class="up">{gst_flats(0.24)}</dd>
+<dt>At 39%</dt><dd class="up">{gst_flats(0.39)}</dd>
+</dl><p class="note">Out of 294 flats. GST starts once a flat's charge passes ₹7,500 a month. The jump between 23% and 24% is the C-type flats crossing the line.</p></aside></section>
 <section><h2>Cash, month by month</h2>
 <p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. The next bill is 1 October, at the current rate. The table shows where the account goes if nothing changes, and with a 23% increase from 1 October. Below zero means the reserves are being used.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">If nothing changes</th><th class="num">With +23% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
