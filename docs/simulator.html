@@ -95,10 +95,10 @@ function read(){ const preset=document.getElementById("preset").value; const p=P
 const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN"); const L=n=>(n<0?"−":"")+"₹"+Math.abs(n).toFixed(1)+" L";
 let chart;
 const KEYS=["asis","sc","mc","mcb","opt1"];
-const NM={asis:"Carry on as we are: +0%",sc:"Finance Sub-Committee: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"Option C: +39%, nothing one-time",opt2:"GBM Option 2: annual contribution"};
+const NM={asis:"Carry on as we are: +0%",sc:"Finance Sub-Committee: +10.1%",mc:"MC option A:",mcb:"MC option B: +23% and ₹1 L to the corpus",opt1:"MC option C: +39%, nothing one-time",opt2:"GBM Option 2: annual contribution"};
 function optOf(o,k){ const p=P[k]; return {...o,preset:k,pct:p.pct==null?+document.getElementById("pct").value:p.pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus}; }
 function nameOf(k,oo){ return k==="mc"?NM[k]+" +"+oo.pct+"%":NM[k]; }
-const SHORT={asis:"Carry on",sc:"Sub-Committee 10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"Option C: 39%",opt2:"Option 2 contribution"};
+const SHORT={asis:"Carry on",sc:"Sub-Committee 10.1%",mc:"MC option A",mcb:"MC option B: 23% + ₹1 L corpus",opt1:"MC option C: 39%",opt2:"Option 2 contribution"};
 function shortOf(k,oo){ return k==="mc"?SHORT[k]+" +"+oo.pct+"%":SHORT[k]; }
 function verdict(rr){ if(rr.surplus<0) return {c:"no",t:"Not enough. Still short next year."}; if(rr.surplus<15) return {c:"mid",t:"Just balances next year. No buffer."}; return {c:"ok",t:"Balances next year, with a buffer."}; }
 const signL=n=>(n>0?"+":"")+L(n);
