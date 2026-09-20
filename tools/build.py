@@ -49,7 +49,7 @@ bankbal=json.load(open(os.path.join(DATA,"bank_balances.json")))["rows"]
 floats=[(ML(r["month"]),float(r["bank_cash"])) for r in bankbal]
 book_last=fl(tr[-1])
 fds=json.load(open(os.path.join(DATA,"fds.json"))); runway=json.load(open(os.path.join(DATA,"runway.json"))); rates=json.load(open(os.path.join(DATA,"rates.json")))
-lifts=rd(os.path.join(DATA,"lifts.csv")); comps=rd(os.path.join(DATA,"complaints.csv"))
+lifts=rd(os.path.join(DATA,"lifts.csv")); comps=rd(os.path.join(DATA,"complaints.csv")); lsvc=rd(os.path.join(DATA,"lifts_service.csv"))
 hdfc=[b for b in fds["banks"] if b["bank"].startswith("HDFC")][0]; icici=[b for b in fds["banks"] if b["bank"].startswith("ICICI")][0]; sobha=[b for b in fds["banks"] if "Sobha" in b["bank"]][0]
 reserves=hdfc["principal"]+icici["ledger"]+sobha["principal"]
 int_yr=hdfc["principal"]*hdfc["rate"]/100+icici["principal"]*icici["rate"]/100+sobha["principal"]*sobha["rate"]/100
@@ -119,7 +119,7 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 </div></section>
 <section><h2>Read on</h2><div class="readon">
 <a href="money.html"><span class="t">Where the money goes</span><span class="d">Every expense, month by month</span></a>
-<a href="simulator.html"><span class="t">Try the options</span><span class="d">Five ways to fund the year; see which ones close the gap</span></a>
+<a href="simulator.html"><span class="t">Try the options</span><span class="d">Six ways to fund the year; see which ones close the gap</span></a>
 <a href="reserves.html"><span class="t">Our reserves</span><span class="d">₹11.76 crore at handover, {L(reserves)} today — where it is and what it earns</span></a>
 <a href="feedback.html"><span class="t">What you told us</span><span class="d">The August survey and what is being done about it</span></a>
 </div></section>'''
@@ -160,18 +160,31 @@ sf=f'''<section><div class="eyebrow">The gap, the runway, and the proposal</div>
 <tr><td>Finance Sub-Committee's report</td><td class="num">₹23 L</td><td>Running costs only (no one-time items), ₹18 L a year of savings assumed before they are made, and tax at a third of last year's level.</td></tr>
 </tbody></table></div>
 <div class="callout"><strong>The MC plans on ₹70–90 L.</strong> Savings from the tenders reduce it from next year. The target is ₹25–30 L a year.</div></section>
-<section><h2>Does 20% cover it? Only with the savings</h2>
-<p>On this year's actual spending, a 20% increase on its own does not close the gap. It closes it only if the housekeeping and security tenders save ₹25–30 L a year. That assumption is behind the 18–22% range, and it should be stated plainly.</p>
+<section><h2>Does 20% cover it? Not quite, even with the savings</h2>
+<p>On this year's actual spending, a 20% increase on its own does not close the gap. The MC now expects about ₹20 L a year of savings: ₹15 L already secured by reducing the number of security posts, and perhaps ₹5 L more from housekeeping and technician numbers. With that, 20% still leaves the year about ₹15 L short. That assumption should be stated plainly.</p>
 <div class="tablewrap"><table><thead><tr><th>Full year, at this year's run-rate</th><th class="num">₹ a year</th></tr></thead><tbody>
 <tr><td>Spending: ₹3.20 Cr running costs + ₹40 L one-time items</td><td class="num">3.59 Cr</td></tr>
 <tr><td>Income: maintenance ₹2.31 Cr, all deposit interest ₹65 L, other ₹12 L, less tax on interest ₹25 L</td><td class="num">2.82 Cr</td></tr>
 <tr><td><strong>Gap before any increase</strong></td><td class="num"><strong>77 L</strong></td></tr>
 <tr><td>What +20% brings in, at the 92% collection rate</td><td class="num">42 L</td></tr>
 <tr><td><strong>Still short after +20%</strong></td><td class="num"><strong>35 L</strong></td></tr>
-<tr><td>With ₹25 L a year saved from the tenders</td><td class="num">≈ 10 L short</td></tr>
+<tr><td>With the ₹20 L a year of savings the MC expects</td><td class="num">≈ 15 L short</td></tr>
 <tr><td>Increase needed with no savings at all</td><td class="num">about 36%</td></tr>
 </tbody></table></div>
-<p class="small">Three things would make 20% wrong: the tenders saving less than ₹25 L; one-time spending continuing at ₹40 L a year; collections falling below 92%. None of them is settled yet. Even at 20%, this financial year still needs about ₹80 L from the reserves, because the new rate would apply only from October. The increase fixes 2027–28, not 2026–27. And there is nothing in this for a sinking fund.</p></section>
+<p class="small">Three things would make 20% wrong: the savings falling short of ₹20 L; one-time spending continuing at ₹40 L a year; collections falling below 92%. None of them is settled yet. Even at 20%, this financial year still needs about ₹80 L from the reserves, because the new rate would apply only from October. The increase fixes 2027–28, not 2026–27. And there is nothing in this for a sinking fund.</p></section>
+<section><h2>A second option: 15% plus a one-time ₹1 lakh to the corpus</h2>
+<p>The MC recognises that 20% is a lot. The alternative it will put to the meeting caps the monthly increase at 15% and asks each flat for a one-time ₹1 lakh contribution to the corpus, collected over about six months from November. The corpus money is not spent: it goes into deposits, and its interest helps meet the shortfall. Drawing on the corpus itself would be the last resort.</p>
+<div class="tablewrap"><table><thead><tr><th>Full year, same run-rate</th><th class="num">₹ a year</th></tr></thead><tbody>
+<tr><td>Gap before any increase</td><td class="num">77 L</td></tr>
+<tr><td>What +15% brings in, at 92% collection</td><td class="num">32 L</td></tr>
+<tr><td>Savings the MC expects</td><td class="num">20 L</td></tr>
+<tr><td><strong>Still short on the monthly account</strong></td><td class="num"><strong>25 L</strong></td></tr>
+<tr><td>Corpus raised: ₹1 L × 294 flats, at 92% collection</td><td class="num">2.7 Cr, one time</td></tr>
+<tr><td>Its interest at 7%, after 39% tax</td><td class="num">≈ 11.5 L</td></tr>
+<tr><td><strong>Still short, if only the interest is used</strong></td><td class="num"><strong>≈ 13 L</strong></td></tr>
+<tr><td>If instead ₹25 L a year is drawn from that corpus</td><td class="num">it lasts about 11 years</td></tr>
+</tbody></table></div>
+<p class="small">For an A-type flat, 15% is ₹1,115 a month more against ₹1,486 at 20%; the ₹1 lakh is on top, once. The corpus arrives in instalments, so nothing from it helps before mid-2027. Whether GST applies to a corpus contribution is being confirmed with the tax adviser. Both options are on the <a href="simulator.html">options page</a>.</p></section>
 <section><h2>Cash, month by month</h2>
 <p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. Spending is ₹26 L a month, plus advance tax in September, December and March, plus the ₹8 L lift contract in December. The next bill is 1 October at the current rate. The meeting cannot be held before 25 October. The table below starts from the real {ML(months[-1])} closing balance: even with a 20% increase from 1 October, the account still needs the reserves in several months, because there is no cushion left to absorb the wait.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">Cash if nothing changes</th><th class="num">Cash with +20% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
@@ -249,9 +262,14 @@ def lifts_html():
 def comps_html():
     if not comps: return '<div class="empty"><strong>No data published yet.</strong> From October, a monthly table from MyGate: complaints opened and closed by category, how many were still open at month-end, and the average days to close. The standard the MC has set is: acknowledged within four working hours, an update every 48 hours, closed only when the resident confirms.</div>'
     return '<div class="tablewrap"><table><thead><tr><th>Month</th><th>Category</th><th class="num">Opened</th><th class="num">Closed</th><th class="num">Open at month-end</th><th class="num">Avg days to close</th><th>Note</th></tr></thead><tbody>'+"".join(f'<tr><td>{r["month"]}</td><td>{r["category"]}</td><td class="num">{r["opened"]}</td><td class="num">{r["closed"]}</td><td class="num">{r["open_at_month_end"]}</td><td class="num">{r["avg_days_to_close"]}</td><td class="small">{r["note"]}</td></tr>' for r in comps)+'</tbody></table></div>'
+lsvc_rows="".join(f'<tr><td>{r["lift"]}</td><td>{datetime.date.fromisoformat(r["date"]).strftime("%-d %b %Y")}</td><td>{"<strong>"+r["kind"]+"</strong>" if r["kind"]=="Repair" else r["kind"]}</td><td class="small">{r["detail"]}</td></tr>' for r in lsvc)
 svc=f'''<section><div class="eyebrow">Service performance · published monthly from October 2026</div><h1>Lifts and complaints</h1>
 <p class="lead">Lifts and complaints were the top two issues in the survey. Both will be measured and published here every month from October.</p></section>
 <section><h2>Lift uptime</h2><p>Lifts were the lowest-rated service (3.30 of 5) and the top priority for 54% of households. The lift contract costs ₹16 L a year. Batteries cost ₹6.75 L last year.</p>{lifts_html()}</section>
+<section><h2>Service record, January to August 2026</h2>
+<p>From the contractor's worksheets for the eight lifts. Each lift had three maintenance visits in eight months, roughly one a quarter, and three lifts had a repair call. The worksheets do not record how long a lift was out of service, which is why the uptime log above starts from October.</p>
+<div class="tablewrap"><table><thead><tr><th>Lift</th><th>Date</th><th>Visit</th><th>What was done</th></tr></thead><tbody>{lsvc_rows}</tbody></table></div>
+<p class="small">Lift numbers are the manufacturer's serial numbers; the wing for each will be added. "Statutory 5-year inspection" is the contractor's five-yearly safety check. Source: contractor e-worksheets, as received.</p></section>
 <section><h2>Complaint resolution</h2><p>Half the households had raised a complaint in the last six months. Reporting was easy (3.90 of 5). Getting it closed was not: ownership scored 3.05, time to resolve 3.13.</p>{comps_html()}</section>
 <section><h2>Where the numbers come from</h2><ol class="steps"><li>Lift figures: the contractor's call log, checked against the gate register.</li><li>Complaint figures: MyGate's ticket export, unedited.</li><li>Published by the 10th of the following month. Raw files on request.</li></ol></section>'''
 page("services.html","Lifts and complaints",svc)
