@@ -280,7 +280,7 @@ FAQ=[("Why is the association short of money?","Costs have risen faster than the
 faq="".join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)
 docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>Documents and FAQ</h1>
 <div class="cards">
-<div class="card"><h3>Finance Sub-Committee report</h3><p class="small">31 August 2026. The resident volunteers' review of FY 2025–26, with annexures on expenses, income and their 10% simulation.</p><a class="btn ghost" href="docs/SPC-Finance-SubCommittee-Report-2026-08-31.pdf">Open PDF</a></div>
+<div class="card"><h3>Finance Sub-Committee report</h3><p class="small">31 August 2026. The Finance Sub-Committee's review of FY 2025–26, with annexures on expenses, income and their 10% simulation.</p><a class="btn ghost" href="docs/SPC-Finance-SubCommittee-Report-2026-08-31.pdf">Open PDF</a></div>
 <div class="card"><h3>General Body Meeting presentation</h3><p class="small">26 July 2026. The MC's presentation: audited FY 2025–26 summary, the corpus drawdown, cost proposals and the two funding options the meeting declined.</p><a class="btn ghost" href="docs/SPCAOA-GBM-Deck-2026-07-26.pdf">Open PDF</a></div>
 <div class="card"><h3>Independent Auditor's Report, FY 2025–26</h3><p class="small">20 July 2026. Two pages; unqualified opinion. The full audited statements with notes will be added with the meeting pack.</p><a class="btn ghost" href="docs/Independent-Auditors-Report-FY25-26.pdf">Open PDF</a></div>
 </div></section>
