@@ -94,7 +94,7 @@ CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
 <h1>Where we stand</h1>
-<p class="lead">Running Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
+<p class="lead">Running Sobha Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
 <div class="hero">
 <div class="big"><div class="k">Shortfall</div><div class="v">₹84 L a year</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves. ₹15 L a year of cost has already been cut, and we hope for ₹5 L more; the rest has to come from maintenance.</div></div>
 <div class="rest">
