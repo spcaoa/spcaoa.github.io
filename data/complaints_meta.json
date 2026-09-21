@@ -1,0 +1,16 @@
+{
+ "total": 336,
+ "closed": 315,
+ "still_open": 23,
+ "median_days": 2.6,
+ "mean_days": 8.2,
+ "within_1d": 30,
+ "within_7d": 75,
+ "over_30d": 23,
+ "rated": 30,
+ "rating": 4.13,
+ "reopened": 9,
+ "personal": 301,
+ "first": "2 Jan 2026",
+ "last": "21 Sep 2026"
+}

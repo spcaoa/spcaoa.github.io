@@ -50,6 +50,7 @@ floats=[(ML(r["month"]),float(r["bank_cash"])) for r in bankbal]
 book_last=fl(tr[-1])
 fds=json.load(open(os.path.join(DATA,"fds.json"))); runway=json.load(open(os.path.join(DATA,"runway.json"))); rates=json.load(open(os.path.join(DATA,"rates.json")))
 lifts=rd(os.path.join(DATA,"lifts.csv")); comps=rd(os.path.join(DATA,"complaints.csv")); lsvc=rd(os.path.join(DATA,"lifts_service.csv"))
+cm=json.load(open(os.path.join(DATA,"complaints_meta.json"))); lsvc=rd(os.path.join(DATA,"lifts_service.csv"))
 hdfc=[b for b in fds["banks"] if b["bank"].startswith("HDFC")][0]; icici=[b for b in fds["banks"] if b["bank"].startswith("ICICI")][0]; sobha=[b for b in fds["banks"] if "Sobha" in b["bank"]][0]
 reserves=hdfc["principal"]+icici["ledger"]+sobha["principal"]
 int_yr=hdfc["principal"]*hdfc["rate"]/100+icici["principal"]*icici["rate"]/100+sobha["principal"]*sobha["rate"]/100
@@ -310,17 +311,38 @@ def lifts_html():
     if not lifts: return '<div class="empty"><strong>No data published yet.</strong> The first monthly lift report will be published here by 10 October 2026, covering September. It will show, for each wing: the number of breakdowns, the hours each lift was out of service, the uptime percentage, and the time taken to restore service, from the lift contractor\'s call log checked against the security register.</div>'
     return '<div class="tablewrap"><table><thead><tr><th>Month</th><th>Wing</th><th class="num">Lifts</th><th class="num">Breakdowns</th><th class="num">Hours down</th><th class="num">Uptime</th><th>Note</th></tr></thead><tbody>'+"".join(f'<tr><td>{r["month"]}</td><td>{r["wing"]}</td><td class="num">{r["lifts"]}</td><td class="num">{r["breakdowns"]}</td><td class="num">{r["hours_down"]}</td><td class="num">{r["uptime_pct"]}%</td><td class="small">{r["note"]}</td></tr>' for r in lifts)+'</tbody></table></div>'
 def comps_html():
-    if not comps: return '<div class="empty"><strong>No data published yet.</strong> From October, a monthly table from MyGate: complaints opened and closed by category, how many were still open at month-end, and the average days to close. The standard the MC has set is: acknowledged within four working hours, an update every 48 hours, closed only when the resident confirms.</div>'
-    return '<div class="tablewrap"><table><thead><tr><th>Month</th><th>Category</th><th class="num">Opened</th><th class="num">Closed</th><th class="num">Open at month-end</th><th class="num">Avg days to close</th><th>Note</th></tr></thead><tbody>'+"".join(f'<tr><td>{r["month"]}</td><td>{r["category"]}</td><td class="num">{r["opened"]}</td><td class="num">{r["closed"]}</td><td class="num">{r["open_at_month_end"]}</td><td class="num">{r["avg_days_to_close"]}</td><td class="small">{r["note"]}</td></tr>' for r in comps)+'</tbody></table></div>'
+    if not comps: return '<div class="empty"><strong>No data published yet.</strong> The first monthly table will be published here by 10 October 2026.</div>'
+    import collections as _c
+    bycat=_c.OrderedDict(); bymon=_c.OrderedDict()
+    for r in comps:
+        for key,agg in ((r["category"],bycat),(r["month"],bymon)):
+            a=agg.setdefault(key,{"opened":0,"closed":0,"days":[],"end":0})
+            a["opened"]+=int(r["opened"] or 0); a["closed"]+=int(r["closed"] or 0)
+            a["end"]+=int(r["open_at_month_end"] or 0)
+            if r["avg_days_to_close"]: a["days"].append((float(r["avg_days_to_close"]),int(r["closed"] or 0)))
+    def avg(d):
+        n=sum(w for _,w in d)
+        return f'{sum(v*w for v,w in d)/n:.1f}' if n else "—"
+    cat=sorted(bycat.items(),key=lambda kv:-kv[1]["opened"])
+    crows="".join(f'<tr><td>{k}</td><td class="num">{v["opened"]}</td><td class="num">{v["closed"]}</td><td class="num">{avg(v["days"])}</td></tr>' for k,v in cat)
+    mrows="".join(f'<tr><td>{ML(k)}</td><td class="num">{v["opened"]}</td><td class="num">{v["closed"]}</td><td class="num">{v["end"]}</td><td class="num">{avg(v["days"])}</td></tr>' for k,v in bymon.items())
+    return f'''<div class="charts even">
+<div><h3>By category</h3><div class="tablewrap"><table><thead><tr><th>Category</th><th class="num">Raised</th><th class="num">Closed</th><th class="num">Avg days</th></tr></thead><tbody>{crows}</tbody></table></div><p class="small">Plumbing and electrical are five in every six tickets.</p></div>
+<div><h3>Month by month</h3><div class="tablewrap"><table><thead><tr><th>Month</th><th class="num">Raised</th><th class="num">Closed</th><th class="num">Open at month-end</th><th class="num">Avg days</th></tr></thead><tbody>{mrows}</tbody></table></div><p class="small">Open at month-end counts tickets raised but not yet closed.</p></div></div>'''
 lsvc_rows="".join(f'<tr><td>{r["wing"]} · {r["type"].lower()} <span class="small">({r["lift"]})</span></td><td>{datetime.date.fromisoformat(r["date"]).strftime("%-d %b %Y")}</td><td>{"<strong>"+r["kind"]+"</strong>" if r["kind"]=="Repair" else r["kind"]}</td><td class="small">{r["detail"]}</td></tr>' for r in lsvc)
 svc=f'''<section><div class="eyebrow">Service performance · published monthly from October 2026</div><h1>Lifts and complaints</h1>
-<p class="lead">Lifts and complaints were the top two issues in the survey. Both will be measured and published here every month from October.</p></section>
+<p class="lead">Lifts and complaints were the top two issues in the survey. Both are measured here, and published every month from October.</p></section>
 <section><h2>Lift uptime</h2><p>Lifts were the lowest-rated service (3.30 of 5) and the top priority for 54% of households. The lift contract costs ₹16 L a year. Batteries cost ₹6.75 L last year.</p>{lifts_html()}</section>
 <section><h2>Service record, January to August 2026</h2>
 <p>From the contractor's worksheets for the eight lifts. Each lift had three maintenance visits in eight months, roughly one a quarter, and three lifts had a repair call: the Wing 2 service lift (door sensor, March), the Wing 4 passenger lift (door clutch, June, a week to complete) and the Wing 4 service lift (16th-floor button, June). The worksheets do not record how long a lift was out of service, which is why the uptime log above starts from October.</p>
 <div class="tablewrap"><table class="svc"><thead><tr><th>Lift</th><th>Date</th><th>Visit</th><th>What was done</th></tr></thead><tbody>{lsvc_rows}</tbody></table></div>
 <p class="small">Each wing has a passenger lift and a service lift; the number in brackets is the manufacturer's serial. "Statutory 5-year inspection" is the contractor's five-yearly safety check. Source: Schindler's e-worksheets, as received — <a href="docs/Schindler-lift-worksheets-Jan-Aug-2026.zip">download all 30 (zip, 8 MB)</a>.</p></section>
-<section><h2>Complaint resolution</h2><p>Half the households had raised a complaint in the last six months. Reporting was easy (3.90 of 5). Getting it closed was not: ownership scored 3.05, time to resolve 3.13.</p>{comps_html()}</section>
+<section><h2>Complaint resolution</h2>
+<p>In the survey, half the households had raised a complaint in the last six months. Reporting was easy (3.90 of 5); getting it closed was not — ownership scored 3.05, time to resolve 3.13. Below is the actual record from MyGate for {cm["first"]} to {cm["last"]}, unedited.</p>
+<div class="tiles">{tile("","Tickets raised",str(cm["total"]),cm["first"]+" to "+cm["last"]+", "+str(cm["personal"])+" inside a flat")}{tile("","Closed",str(cm["closed"]),str(cm["still_open"])+" still open")}{tile("","Half were closed within","%s days"%cm["median_days"],str(cm["within_7d"])+"% within a week")}{tile("crit","Took more than a month",str(cm["over_30d"]),"tickets — the tail the survey was describing")}</div>
+<p>The picture the numbers give is not the one the survey describes, and both are true. Most tickets are dealt with quickly: half are closed inside {cm["median_days"]} days and {cm["within_7d"]}% inside a week. But {cm["over_30d"]} took longer than a month, and {cm["reopened"]} had to be reopened. It is the tail that people remember, and the average of {cm["mean_days"]} days is dragged up by it. Only {cm["rated"]} of {cm["total"]} tickets were rated, averaging {cm["rating"]} of 5.</p>
+{comps_html()}
+<div class="callout"><strong>What changes from October.</strong> Acknowledged within four working hours, an update every 48 hours, and closed only when the resident confirms. This table is published here every month, and any ticket open beyond 30 days is listed with a reason.</div></section>
 <section><h2>Where the numbers come from</h2><ol class="steps"><li>Lift figures: the contractor's call log, checked against the gate register.</li><li>Complaint figures: MyGate's ticket export, unedited.</li><li>Published by the 10th of the following month. Raw files on request.</li></ol></section>'''
 page("services.html","Lifts and complaints",svc)
 # documents & faq
@@ -348,6 +370,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="card"><h3>Income, treasury and budget</h3><p class="small">Income lines, month-end bank and deposit positions, and the working budget. CSV.</p><div class="card-actions"><a class="btn ghost" href="data/income.csv">income.csv</a><a class="btn ghost" href="data/treasury.csv">treasury.csv</a><a class="btn ghost" href="data/budget.csv">budget.csv</a></div></div>
 <div class="card"><h3>Vendor bills and deposits</h3><p class="small">The two largest contracts invoice by invoice, and the fixed deposits by bank. CSV.</p><div class="card-actions"><a class="btn ghost" href="data/vendor_bills.csv">vendor_bills.csv</a><a class="btn ghost" href="data/fds.csv">fds.csv</a></div></div>
 <div class="card"><h3>Sobha's corpus ledger</h3><p class="small">Sobha's own statement of the owners' corpus, June 2022 to August 2026. Excel, as received.</p><div class="card-actions"><a class="btn ghost" href="docs/Sobha-corpus-fund-statement-2022-06-to-2026-08.xlsx">Excel file</a></div></div>
+<div class="card"><h3>Complaint tickets</h3><p class="small">Every MyGate ticket from January to September 2026, aggregated by month and category. Flat numbers, names and ticket text are not published.</p><div class="card-actions"><a class="btn ghost" href="data/complaints.csv">complaints.csv</a></div></div>
 <div class="card"><h3>Lift service worksheets</h3><p class="small">Schindler's maintenance and repair worksheets for all eight lifts, January to August 2026. Thirty PDFs, as received; the summary is on the lifts page.</p><div class="card-actions"><a class="btn ghost" href="docs/Schindler-lift-worksheets-Jan-Aug-2026.zip">Zip, 8 MB</a></div></div>
 <div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to August 2026, as received on 16 September 2026. Its July and August maturity entries do not appear in the bank statements; see the reserves page.</p><div class="card-actions"><a class="btn ghost" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Excel file</a></div></div>
 <div class="card"><h3>The books themselves</h3><p class="small">The association's accounts are kept in TallyPrime. A backup dated 7 September 2026 is held by the MC; audited statements are published annually, and ledger extracts can be requested by any owner.</p></div>
