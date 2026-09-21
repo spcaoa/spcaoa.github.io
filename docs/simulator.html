@@ -19,9 +19,8 @@
     <div class="ctl"><div class="ctl-h">MC option A: base increase <b id="pctLabel">23</b>%</div>
       <input type="range" id="pct" min="0" max="45" step="1" value="23" aria-label="MC option base increase">
       <div class="ctl-note">Moving this selects option A. Above 23%, C-type flats cross the GST line.</div></div>
-    <div class="ctl"><div class="ctl-h">GST above ₹7,500</div>
-      <label><input type="radio" name="gst" value="whole" checked> On the whole amount</label>
-      <label><input type="radio" name="gst" value="excess"> Only on the part above ₹7,500</label>
+    <div class="ctl"><div class="ctl-h">GST</div>
+      <div class="ctl-note">Once a flat's charge passes ₹7,500 a month, 18% applies to the whole amount.</div>
       <label><input type="checkbox" id="itc"> Association reclaims GST on its own bills (not yet confirmed)</label></div>
     <div class="ctl"><div class="ctl-h">When the new rate starts</div>
       <label><input type="radio" name="eff" value="oct" checked> 1 Oct, difference billed in Nov</label>
@@ -94,7 +93,7 @@ function run(o){
   for(let y=0;y<10;y++){ drawn+=Math.max(0,cost-(coll+fixedInc)); if(o.esc) coll*=1.05; if(o.cesc) cost*=1.05; }
   return {rows,monthlyBaseNew,itcYear,contribNet,corpusRaised,corpusIntNet,collections,fixedInc,spend,drawn10:drawn,series,minB,minM,b27,b28,surplus:income-spend,taxableShare}; }
 function read(){ const preset=document.getElementById("preset").value; const p=P[preset]; const pct=p.pct==null?+document.getElementById("pct").value:p.pct;
-  return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:document.querySelector('input[name=gst]:checked').value,itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,esc:document.getElementById("esc").checked,cesc:document.getElementById("cesc").checked,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
+  return {preset,pct,inside:p.inside,contrib:p.contrib,corpus:!!p.corpus,gst:"whole",itc:document.getElementById("itc").checked,eff:document.querySelector('input[name=eff]:checked').value,sav:+document.getElementById("sav").value,esc:document.getElementById("esc").checked,cesc:document.getElementById("cesc").checked,base:document.getElementById("base").value,taxQ:+document.getElementById("tax").value,rep2:document.getElementById("rep2").checked}; }
 const inr=n=>"₹"+Math.round(n).toLocaleString("en-IN"); const L=n=>(n<0?"−":"")+"₹"+Math.abs(n).toFixed(1)+" L";
 let chart;
 const KEYS=["asis","sc","mc","mcb","opt1"];
