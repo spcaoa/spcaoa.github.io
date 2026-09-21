@@ -6,6 +6,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MC=os.path.join(os.path.dirname(ROOT),"spc-finance-site","site","data")
 OUT=os.path.join(ROOT,"docs"); DATA=os.path.join(ROOT,"data")
+# publish the data files the Documents page links to, so downloads never go stale
+import shutil
+os.makedirs(os.path.join(OUT,"data"),exist_ok=True)
+for _src,_files in ((MC,["expenses.csv","income.csv","treasury.csv","budget.csv","vendor_bills.csv","fds.csv"]),
+                    (DATA,["complaints.csv"])):
+    for _f in _files:
+        _p=os.path.join(_src,_f)
+        if os.path.exists(_p): shutil.copy(_p,os.path.join(OUT,"data",_f))
 UPDATED="17 September 2026"
 def rd(p): return list(csv.DictReader(open(p,newline="",encoding="utf-8")))
 def _assetver():

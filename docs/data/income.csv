@@ -9,7 +9,7 @@ month,line,amount,status,in_runrate,basis
 2026-04,Interest - corpus with Sobha,54531.9,actual,Y,Paid monthly by Sobha on the ₹90 L corpus it still holds
 2026-04,Interest - HDFC FDs (monthly payout),240205,actual,Y,Bank credit; HDFC FDs pay interest monthly
 2026-04,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
-2026-04,Interest - ICICI FDs (accrues to maturity),249500.0,accrued,Y,"6% p.a. on ₹4.99 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-04,Interest - ICICI FDs (accrues to maturity),270291.67,accrued,Y,"6.5% p.a. on ₹4.99 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. 6.5% compounded quarterly is implied by the 2026 maturities (₹1 Cr → ₹1,13,77,147 in 2 years); confirm from the advices"
 2026-05,Maintenance received (incl. penal interest),180645.16,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
 2026-05,EV charging collections,5386.88,actual,Y,Statement
 2026-05,Other income,16675.31,actual,Y,Statement
@@ -21,7 +21,7 @@ month,line,amount,status,in_runrate,basis
 2026-05,Transfer fees,29500,actual,Y,Statement
 2026-05,Interest - HDFC FDs (monthly payout),232448,actual,Y,Bank credit; HDFC FDs pay interest monthly
 2026-05,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
-2026-05,Interest - ICICI FDs (accrues to maturity),263000.0,accrued,Y,"6% p.a. on ₹5.26 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-05,Interest - ICICI FDs (accrues to maturity),284916.67,accrued,Y,"6.5% p.a. on ₹5.26 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. 6.5% compounded quarterly is implied by the 2026 maturities (₹1 Cr → ₹1,13,77,147 in 2 years); confirm from the advices"
 2026-06,Maintenance received (incl. penal interest),171378.48,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
 2026-06,EV charging collections,2610.06,actual,Y,Statement
 2026-06,Other income,15728,actual,Y,Statement
@@ -35,7 +35,7 @@ month,line,amount,status,in_runrate,basis
 2026-06,Suspense (unidentified credits),72.92,actual,Y,Accountant to identify
 2026-06,Interest - HDFC FDs (monthly payout),240209,actual,Y,Bank credit; HDFC FDs pay interest monthly
 2026-06,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q1 ÷ 3; raised, not collected"
-2026-06,Interest - ICICI FDs (accrues to maturity),263500.0,accrued,Y,"6% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-06,Interest - ICICI FDs (accrues to maturity),285458.33,accrued,Y,"6.5% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. 6.5% compounded quarterly is implied by the 2026 maturities (₹1 Cr → ₹1,13,77,147 in 2 years); confirm from the advices"
 2026-07,Maintenance received (incl. penal interest),5269439.76,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
 2026-07,EV charging collections,1977.68,actual,Y,Statement
 2026-07,Other income,8779.2,actual,Y,Statement
@@ -45,7 +45,7 @@ month,line,amount,status,in_runrate,basis
 2026-07,Suspense (unidentified credits),90.01,actual,Y,Accountant to identify
 2026-07,Interest - HDFC FDs (monthly payout),217736,actual,Y,Bank credit; HDFC FDs pay interest monthly
 2026-07,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q2 ÷ 3; raised, not collected"
-2026-07,Interest - ICICI FDs (accrues to maturity),263500.0,accrued,Y,"6% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-07,Interest - ICICI FDs (accrues to maturity),285458.33,accrued,Y,"6.5% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. 6.5% compounded quarterly is implied by the 2026 maturities (₹1 Cr → ₹1,13,77,147 in 2 years); confirm from the advices"
 2026-08,Maintenance received (incl. penal interest),448711.3,actual,N,"Cash collected; quarterly billing makes this lumpy, so the run-rate uses 'Maintenance billed'"
 2026-08,EV charging collections,3868.95,actual,Y,Statement
 2026-08,Other income,11213,actual,Y,Statement
@@ -60,4 +60,4 @@ month,line,amount,status,in_runrate,basis
 2026-08,Vendor licence - laundry,8403,actual,Y,Statement
 2026-08,Interest - HDFC FDs (monthly payout),225006,actual,Y,Bank credit; HDFC FDs pay interest monthly
 2026-08,Maintenance billed,1921208.0,billed,Y,"Statement: ₹57.64 L billed for Q2 ÷ 3; raised, not collected"
-2026-08,Interest - ICICI FDs (accrues to maturity),263500.0,accrued,Y,"6% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. Confirm rate from the FD register"
+2026-08,Interest - ICICI FDs (accrues to maturity),285458.33,accrued,Y,"6.5% p.a. on ₹5.27 Cr principal ÷ 12; ICICI pays at maturity, so nothing is credited monthly. 6.5% compounded quarterly is implied by the 2026 maturities (₹1 Cr → ₹1,13,77,147 in 2 years); confirm from the advices"
