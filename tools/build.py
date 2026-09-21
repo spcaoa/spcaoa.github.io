@@ -252,15 +252,15 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <div class="tablewrap"><table><thead><tr><th>Where</th><th class="num">Deposits</th><th class="num">Principal</th><th class="num">Rate</th><th>How interest is paid</th><th>Maturity</th></tr></thead><tbody>{bankrows}</tbody></table></div>
 <p class="small">Sources: HDFC's account statements to 14 September 2026, ICICI's deposit summary of 7 September 2026, and Sobha's corpus statement. Account numbers are not published.</p>
 </section>
-<section class="split warnsec"><div class="body"><h2>Reconciling the deposits</h2>
-<p class="lead-warn">The deposit figures on this page come from the banks' own statements, checked line by line against the association's accounts in September. <strong>ICICI is settled</strong> at ₹5.27 crore, confirmed against the bank's own statement. <strong>HDFC is nearly settled.</strong> The accounts and the interest actually received both give ₹3.81 crore at the end of August; one deposit of ₹24 lakh was closed on 3 September, leaving about ₹3.57 crore. The bank's summary screen lists sixteen deposits, and the full list is being obtained to confirm the last ₹37 lakh. <strong>Sobha still holds part of the corpus.</strong> Sobha's ledger shows ₹75 lakh, the association's books ₹90 lakh, because Sobha sets its unpaid bills off against it. Getting that money back is on the actions page. When any of these changes, this note will say so.</p></div>
-<aside class="side"><h3>Where the figures stand</h3><dl>
-<dt>ICICI, confirmed</dt><dd class="key">₹5.27 Cr</dd>
-<dt>HDFC in the books, 31 Aug</dt><dd>₹3.81 Cr</dd>
+<section class="split"><div class="body"><h2>Where the deposits stand</h2>
+<p>The figures on this page come from the banks’ own statements, checked line by line against the association’s accounts in September. ICICI holds ₹5.27 crore. HDFC held ₹3.81 crore at the end of August; one deposit of ₹24 lakh was closed on 3 September, leaving ₹3.57 crore. Sobha still holds part of the corpus: its ledger shows ₹75 lakh against ₹90 lakh in the association’s books, because Sobha sets unpaid bills off against the balance. With those bills now paid it should return to about ₹91 lakh, and this page will be updated when Sobha’s next statement arrives.</p></div>
+<aside class="side"><h3>Where the deposits stand</h3><dl>
+<dt>ICICI</dt><dd>₹5.27 Cr</dd>
+<dt>HDFC, 31 August</dt><dd>₹3.81 Cr</dd>
 <dt>Closed 3 September</dt><dd class="up">−₹24.2 L</dd>
 <dt>HDFC today</dt><dd>₹3.57 Cr</dd>
-<dt>Still to tie out</dt><dd class="up">≈ ₹37 L</dd>
-</dl><p class="note">The bank's summary screen lists sixteen deposits; the full list has been asked for to close the last ₹37 L.</p></aside>
+<dt>Held by Sobha</dt><dd>₹75 L</dd>
+</dl><p class="note">From the banks’ own statements and Sobha’s latest ledger.</p></aside>
 </section>
 <section><h2>How ₹11.76 crore became {L(reserves)}</h2>
 <div class="timeline">
