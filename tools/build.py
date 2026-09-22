@@ -14,7 +14,7 @@ for _src,_files in ((MC,["expenses.csv","income.csv","treasury.csv","budget.csv"
     for _f in _files:
         _p=os.path.join(_src,_f)
         if os.path.exists(_p): shutil.copy(_p,os.path.join(OUT,"data",_f))
-UPDATED="17 September 2026"
+UPDATED="22 September 2026"
 def rd(p): return list(csv.DictReader(open(p,newline="",encoding="utf-8")))
 def _assetver():
     h=hashlib.sha256()
@@ -114,9 +114,9 @@ CH='const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).
 per_month=tot/nM; gap=per_month-maint; inc_other=hdfc_int+sobha_int+other+icici_acc
 idx=f'''<section><div class="eyebrow">September 2026</div>
 <h1>Where we stand</h1>
-<p class="lead">Running Sobha Palm Court costs about {L(per_month)} a month. Maintenance brings in {L(maint)}. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
+<p class="lead">Running Sobha Palm Court costs about ₹30 L a month. Maintenance brings in about ₹19 L. The rest has been coming out of the reserves — the money owners paid at handover, meant for big repairs. That cannot go on. These pages show the numbers, what the Managing Committee is proposing, and what you will be asked to decide.</p>
 <div class="hero">
-<div class="big"><div class="k">Shortfall</div><div class="v">₹84 L a year</div><div class="d">We spend about {L(per_month)} a month and collect {L(maint)} in maintenance. Interest and other income add {L(inc_other)}. The rest comes from the reserves. ₹15 L a year of cost has already been cut, and we hope for ₹5 L more; the rest has to come from maintenance.</div></div>
+<div class="big"><div class="k">Shortfall</div><div class="v">₹84 L a year</div><div class="d">We spend about ₹30 L a month. Maintenance brings in about ₹18.8 L once the 2% that goes uncollected is allowed for, and interest and other income add ₹4.2 L after tax. That leaves about ₹7 L a month, ₹84 L a year, coming from the reserves. ₹15 L a year of cost has already been cut, and we hope for ₹5 L more; the rest has to come from maintenance.</div></div>
 <div class="rest">
 {tile("","Spend per month",L(per_month),f"{ML(months[0])}–{ML(months[-1])} average, everything included")}
 {tile("","Maintenance per month",L(maint),"₹57.6 L billed each quarter")}
@@ -163,7 +163,7 @@ money=f'''<section><div class="eyebrow">{ML(months[0])} to {ML(months[-1])} · r
 <p class="small">The dashed line is monthly maintenance income. The gap above it is the shortfall.</p></section>
 <section><h2>The biggest heads</h2>
 <div class="tablewrap"><table><thead><tr><th>Head</th><th class="num">Per month</th><th class="num">Share of running costs</th></tr></thead><tbody>{headrows}</tbody></table></div>
-<p>The three largest of these are about two-thirds of the total, but the rest is not small: taxes, water, lifts, the sewage plant, waste, pest control, repairs and insurance make up the remainder. The big three are facility management by Sobha (₹{byhead["Sobha Ltd - FMS"]/nM*12/1e5:.0f} L a year), security by VEX (₹85 L including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹15–20 L a year in savings, on top of the ₹15 L already taken out of the security bill.</p></section>
+<p>The three largest of these are about two-thirds of the total, but the rest is not small: taxes, water, lifts, the sewage plant, waste, pest control, repairs and insurance make up the remainder. The big three are facility management by Sobha (₹{byhead["Sobha Ltd - FMS"]/nM*12/1e5:.0f} L a year), security by VEX (₹78 L paid this year, including GST) and electricity (₹60 L). Both service contracts are going to tender. The target is ₹15–20 L a year in savings, on top of the ₹15 L already taken out of the security bill.</p></section>
 <section><h2>One-time items</h2><p>Repairs and purchases outside the monthly run. {L(onetime)} in {nM} months. The largest:</p>
 <div class="tablewrap"><table><thead><tr><th>Month</th><th>Item</th><th class="num">Amount</th></tr></thead><tbody>{otrows}</tbody></table></div>
 <p class="small">New rules for how the association buys things and pays for them will be put to owners for approval at the meeting.</p></section>'''
@@ -192,7 +192,7 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <p>At this year's rate of spending, the association is about ₹84 L a year short. ₹15 L a year has already been cut by reducing the number of security posts, and the Managing Committee hopes for about ₹5 L more from housekeeping and technical staffing. If both come through, ₹64 L is left to come from maintenance.</p>
 <div class="tablewrap"><table><thead><tr><th>A full year, at this year's rate</th><th class="num">₹ a year</th></tr></thead><tbody>
 <tr><td>What we spend (running costs ₹3.20 Cr, plus about ₹40 L of one-off repairs and renewals)</td><td class="num">3.60 Cr</td></tr>
-<tr><td>What comes in (maintenance ₹2.31 Cr, interest ₹66 L, other income ₹10 L, less ₹25 L tax on the interest)</td><td class="num">2.76 Cr</td></tr>
+<tr><td>What comes in (maintenance ₹2.26 Cr collected, 98% of ₹2.31 Cr billed; interest ₹66 L, other income ₹10 L, less ₹25 L tax on the interest)</td><td class="num">2.76 Cr</td></tr>
 <tr><td><strong>Gap</strong></td><td class="num"><strong>84 L</strong></td></tr>
 <tr><td>Already cut: fewer security posts</td><td class="num">15 L</td></tr>
 <tr><td>Hoped for: housekeeping and technical staffing</td><td class="num">5 L</td></tr>
@@ -214,9 +214,9 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <p><strong>Carry on as we are.</strong> The reserves keep paying the difference — about ₹64 L a year after the savings. The interest they earn is already spent; this eats the principal. At that rate, the money set aside for the big jobs — lift replacement and overhaul, painting, waterproofing, the sewage plant, and the things we cannot yet foresee — is gone in about fifteen years, and the estate has nothing when those bills come.</p>
 <p><strong>The Finance Sub-Committee's 10.1%.</strong> The Finance Sub-Committee, the resident owners who reviewed last year's accounts, proposed 10.1%. It does not work, for two separate reasons, and it is worth being precise about both. First, their 10.1% was on the bill <em>including</em> GST. For the 148 flats that cross ₹7,500, that GST is inside the new amount, so the association's own share goes <em>down</em>: an A-type flat would pay ₹8,183, of which ₹1,248 is GST, leaving ₹6,934 for the association against ₹7,432 today. Across the estate the association ends up about ₹2 L a year better off — not ₹23 L. (If GST applied only above ₹7,500, it would be about ₹22 L.) Second, their gap of ₹23 L was small because it left out one-off repairs, counted ₹18 L of savings before any had been made, and put tax at a third of what is actually paid. Even 10.1% on the base charge would raise ₹23 L of the ₹64 L needed.</p>
 <p><strong>Option A: a 23% increase.</strong> Raises ₹52 L. The monthly account is still about ₹12 L a year short on paper; if one-off repairs ease next year, that closes. Nothing is set aside for the future. The A- and B-type flats cross ₹7,500 and pay GST; the C, D and D1 flats do not.</p>
-<p><strong>Option B: 23%, plus a one-time ₹1 lakh from each flat into the reserves.</strong> The ₹1 lakh is not spent. It goes into fixed deposits, and the interest — about ₹12 L a year after tax — closes the gap. The ₹2.9 Cr also puts back what was taken out of the reserves over the last two years. Collected over about six months from November. Whether GST applies to it is being checked.</p>
-<p><strong>Option C: a 39% increase, nothing one-time.</strong> Raises ₹86 L. This is the only way to both balance the account and rebuild the reserves out of maintenance alone, and it is close to what the July meeting was asked for and turned down. The cost is the GST line: at 39% the C and D1 flats cross ₹7,500 too, so 286 of the 294 flats pay 18% GST — for a C-type owner that is about ₹1,515 a month of GST on top of the increase, which owners cannot claim back. Option B reaches the same place for 23% and a one-time payment.</p>
-<p>Either way, this financial year still needs about ₹75 L from the reserves, because a new rate would only apply from October. The increase fixes next year, not this one.</p></div>
+<p><strong>Option B: 23%, plus a one-time ₹1 lakh from each flat into the reserves.</strong> The ₹1 lakh is not spent. It goes into fixed deposits, and the interest — about ₹12 L a year after tax — closes the gap. The ₹2.9 Cr also puts back what was taken out of the reserves over the last two years. Collected over about six months from November.</p>
+<p><strong>Option C: a 39% increase, nothing one-time.</strong> Raises ₹88 L. This is the only way to both balance the account and rebuild the reserves out of maintenance alone, and it is close to what the July meeting was asked for and turned down. The cost is the GST line: at 39% the C and D1 flats cross ₹7,500 too, so 286 of the 294 flats pay 18% GST — for a C-type owner that is about ₹1,515 a month of GST on top of the increase, which owners cannot claim back. Option B reaches the same place for 23% and a one-time payment.</p>
+<p>Either way, a new rate only applies from October, so the reserves carry the gap until then. ₹38 L has already come out of them this year, including the ₹24 L deposit closed in September; at 23% from October that should be enough to reach March. The increase fixes next year’s account; it cannot undo this year’s.</p></div>
 <div class="sidecol"><aside class="side"><h3>An A-type flat pays</h3><dl>
 <dt>Today</dt><dd>{inr(a_type(0))}</dd>
 <dt>Option A or B</dt><dd class="key">{inr(a_type(inc_pct))}</dd>
@@ -287,13 +287,11 @@ res=f'''<section><div class="eyebrow">Fixed deposits and the corpus · as at {fd
 <li><strong>No one person can move deposit money.</strong> Any deposit movement needs three authorised signatories, or five members of the Managing Committee.</li>
 <li><strong>A monthly deposit statement, from the banks.</strong> Published on these pages every month, taken from the banks' own statements rather than the association's books.</li>
 <li><strong>A sinking fund from next year.</strong> A fixed amount set aside each year, so the ₹50 L used last year is rebuilt and the big jobs of the next ten years — lift replacement and overhaul, painting, waterproofing, the sewage plant and the rest — have money waiting for them.</li></ol></div>
-<aside class="side"><h3>What has gone from the reserves</h3><dl>
-<dt>At handover, June 2022</dt><dd>₹11.76 Cr</dd>
-<dt>Returned by Sobha, 2023–24</dt><dd>₹9.30 Cr</dd>
-<dt>Used in FY 2025–26</dt><dd class="up">₹50 L</dd>
-<dt>Used so far in 2026–27</dt><dd class="up">₹38 L</dd>
-<dt>Today</dt><dd class="key">{L(reserves)}</dd>
-</dl><p class="note">Interest on the reserves is treated as income and already pays for running costs. The figures above are the principal itself.</p></aside></section>'''
+<aside class="side"><h3>Principal used for running costs</h3><dl>
+<dt>FY 2025–26</dt><dd class="up">₹50 L</dd>
+<dt>2026–27 so far</dt><dd class="up">₹38 L</dd>
+<dt>Reserves today</dt><dd class="key">{L(reserves)}</dd>
+</dl><p class="note">Interest on the reserves is treated as income and already pays for running costs. The figures above are the deposits themselves. How ₹11.76 Cr at handover became today’s figure goes out with the meeting notice.</p></aside></section>'''
 rjs=CH+f'''new Chart(document.getElementById("c3"),{{type:"doughnut",data:{{labels:["HDFC deposits","ICICI deposits (with interest)","Held by Sobha"],datasets:[{{data:[{hdfc["principal"]},{icici["ledger"]},{sobha["principal"]}],backgroundColor:[css("--c1"),css("--c4"),css("--c2")],borderWidth:2,borderColor:css("--surface")}}]}},options:{{responsive:true,maintainAspectRatio:false,cutout:"58%",plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}},tooltip:{{callbacks:{{label:c=>" "+c.label+": "+fmtL(c.parsed)}}}}}}}}}});
 new Chart(document.getElementById("c4"),{{type:"line",data:{{labels:{json.dumps([m for m,_ in floats])},datasets:[{{label:"Bank + cash",data:{json.dumps([round(v) for _,v in floats])},borderColor:css("--c1"),backgroundColor:css("--c1")+"26",fill:true,tension:.25,pointRadius:3,pointBackgroundColor:css("--c1")}},{{label:"One month of spending",data:{json.dumps([round(per_month)]*len(floats))},borderColor:css("--crit"),borderDash:[6,4],borderWidth:1.5,pointRadius:0}}]}},options:{{responsive:true,maintainAspectRatio:false,scales:{{y:{{ticks:{{callback:fmtL}}}},x:{{grid:{{display:false}}}}}},plugins:{{legend:{{position:"bottom",labels:{{boxWidth:10,font:{{size:11}}}}}}}}}}}});'''
 page("reserves.html","Our reserves",res,rjs)
