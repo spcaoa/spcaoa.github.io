@@ -199,7 +199,6 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <tr><td><strong>Left to find from maintenance</strong></td><td class="num"><strong>64 L</strong></td></tr>
 <tr><td>A 20% increase brings in</td><td class="num">45 L — still ₹19 L short</td></tr>
 <tr><td><strong>A 23% increase brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
-<tr><td>To balance from maintenance alone would take</td><td class="num">about 28%</td></tr>
 </tbody></table></div>
 <p class="small">Earlier estimates of the gap ranged from ₹23 L to ₹91 L because they counted different things. This page uses what was actually spent from April to August. The ₹40 L of one-offs includes an ₹8 L five-year licence, so next year's one-offs may be lower, which would cover most of the ₹12 L.</p></div>
 <aside class="side"><h3>The year in five numbers</h3><dl>
