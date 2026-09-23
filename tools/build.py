@@ -186,7 +186,7 @@ def rate_row(t):
         return f'<td class="num">{inr(nw)}</td><td class="num">{inr(nw+g)}</td>'
     return f'<tr><td>{t["type"]}</td><td class="num">{inr(m)}</td>'+at(inc_pct)+at(0.39)+'</tr>'
 raterows="".join(rate_row(t) for t in rates["types"])
-sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>The shortfall and the plan</h1>
+sf=f'''<section><div class="eyebrow">The gap, and the three options</div><h1>The shortfall and the plan</h1>
 <p class="lead">We spend more than we collect. This page shows how much, what is being done about costs, and the three options the Managing Committee is putting to owners.</p></section>
 <section class="split"><div class="body"><h2>How big is the gap?</h2>
 <p>At this year's rate of spending, the association is about ₹84 L a year short. ₹15 L a year has already been cut by reducing the number of security posts, and the Managing Committee hopes for about ₹5 L more from housekeeping and technical staffing. If both come through, ₹64 L is left to come from maintenance.</p>
@@ -201,7 +201,7 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <tr><td><strong>A 23% increase brings in</strong></td><td class="num"><strong>52 L — still ₹12 L short</strong></td></tr>
 </tbody></table></div>
 <p class="small">Earlier estimates of the gap ranged from ₹23 L to ₹91 L because they counted different things. This page uses what was actually spent from April to August. The ₹40 L of one-offs includes an ₹8 L five-year licence, so next year's one-offs may be lower, which would cover most of the ₹12 L.</p></div>
-<aside class="side"><h3>The year in five numbers</h3><dl>
+<aside class="side"><h3>The year in numbers</h3><dl>
 <dt>What we spend</dt><dd>₹3.60 Cr</dd>
 <dt>What comes in</dt><dd>₹2.76 Cr</dd>
 <dt>Gap</dt><dd class="up">₹84 L</dd>
@@ -229,7 +229,7 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <dt>Option C</dt><dd class="key">none</dd>
 </dl></aside></div></section>
 <section class="split"><div class="body"><h2>Why 23%?</h2>
-<p>Two reasons. It is the most that can be asked before the C-type flats cross ₹7,500 a month, which is where 18% GST starts. The A- and B-type flats cross that line at any increase at all — that is the tax law's threshold, not the association's choice — but going past 23% would put three-quarters of the estate into GST — a straight extra cost for each of those owners, since individuals cannot claim it back. And 23% is close enough that the ₹1 lakh option, or a good year on repairs, balances it.</p>
+<p>Two reasons. It is the most that can be asked before the C-type flats cross ₹7,500 a month, which is where 18% GST starts. The A- and B-type flats cross that line at any increase at all; that is the tax law's threshold, not the association's choice. Going past 23% would put three-quarters of the estate into GST, a straight extra cost for each of those owners, since individuals cannot claim it back. And 23% is close enough that the ₹1 lakh option, or a good year on repairs, balances it.</p>
 <p><strong>Why not 15% plus ₹1 lakh?</strong> Because of tax. At 15% the account is ₹30 L a year short, and the ₹1 lakh from each flat earns only ₹12 L a year after the association's 39% tax on interest. The other ₹18 L would have to be taken out of the reserves every year. For 15% to work without touching the reserves, the one-time amount would need to be about ₹2.4 lakh per flat.</p></div>
 <aside class="side"><h3>Flats paying GST</h3><dl>
 <dt>Today</dt><dd>{gst_flats(0)}</dd>
@@ -240,11 +240,11 @@ sf=f'''<section><div class="eyebrow">The gap, and two ways to close it</div><h1>
 <section><h2>Cash, month by month</h2>
 <p>The bank held {L(floats[-1][1])} at the end of {ML(months[-1])}, {L(book_last)} after the cheques already written — under two weeks of spending. The next bill is 1 October, at the current rate. The table shows where the account goes if nothing changes, and with a 23% increase from 1 October. Below zero means the reserves are being used.</p>
 <div class="tablewrap"><table><thead><tr><th>Month-end</th><th class="num">In</th><th class="num">Out</th><th class="num">If nothing changes</th><th class="num">With +23% from 1 Oct</th></tr></thead><tbody>{rrows}</tbody></table></div>
-<p class="small">Spending ₹26 L a month, plus advance tax in September, December and March and the ₹8 L lift contract in December. No deposits maturing, no savings yet. Figures in lakhs.</p></section>
+<p class="small">Spending ₹26 L a month, plus advance tax in September, December and March and the ₹8 L lift contract in December. No further deposits maturing, no savings yet. The ₹24 L deposit closed on 3 September is not counted as income here — it is what covers the September dip. Figures in lakhs.</p></section>
 <section><h2>What it means for your flat</h2>
 <p>Once a flat's monthly charge crosses ₹7,500 a month, 18% GST applies to the whole amount, not only to the part above ₹7,500. That is the tax department's position and it is what these figures assume.</p>
 <div class="tablewrap"><table><thead><tr><th>Flat type</th><th class="num">Today</th><th class="num">A and B: +{int(inc_pct*100)}%</th><th class="num">with GST</th><th class="num">C: +39%</th><th class="num">with GST</th></tr></thead><tbody>{raterows}</tbody></table></div>
-<p class="small">GST is 18% on the whole amount once a flat crosses ₹7,500 a month. At 23% the C, D and D1 flats stay under the line and pay none. At 39% the C flats cross it, and pay about ₹1,364 a month of GST on top of the increase. Option B adds ₹1 lakh once, for every flat.</p></section>
+<p class="small">GST is 18% on the whole amount once a flat crosses ₹7,500 a month. At 23% the C, D and D1 flats stay under the line and pay none. At 39% the C and D1 flats cross it — about ₹1,515 a month of GST for a C-type flat on top of the increase. Option B adds ₹1 lakh once, for every flat.</p></section>
 <section><h2>Why not just cut costs?</h2>
 <p>Both are happening. The facility and security contracts have never been put out to tender; they are being tendered now, and ₹15 L a year has already been saved on guards. But the two together are ₹1.8 Cr a year, and residents rated housekeeping and gardening the best things about living here. Cutting those to avoid an increase would trade a visible service for an invisible saving.</p></section>'''
 page("shortfall.html","The shortfall and the plan",sf)
