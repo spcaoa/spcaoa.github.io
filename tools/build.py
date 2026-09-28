@@ -392,7 +392,14 @@ FAQ=[("Why is the association short of money?","Costs have risen faster than the
 ("What is the MC doing about lifts and pest control?","See the feedback page. In short: a public lift log from October, a root-cause report on the Wing 2 lifts, and an attempt to renegotiate the five-year contract that covers all eight lifts, for uptime targets and penalties (it cannot simply be rebid mid-term); and for pests, an audit of what the vendor actually does, source reduction, and a published schedule."),
 ("How do I know these numbers are right?","They come from the accountant's monthly statements, checked line by line against both banks' statements in September 2026. Where the two disagreed, the bank figure is used and the page says so. They are not audited figures; the audited accounts are annual. Anything that is an estimate says so. If you find an error, write to spcaoa@gmail.com and it will be corrected and noted."),
 ("How often are these pages updated?","Monthly, after the accountant's statement for the month is received, and immediately after any General Body decision. The date at the foot of each page says what the figures cover.")]
-faq="".join(f'<details><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)
+def _fid(q):
+    import re as _re
+    s=_re.sub(r"&#\d+;","",q).replace("\u2019","").replace("'","").lower()
+    s=_re.sub(r"[^a-z0-9]+","-",s).strip("-")
+    if len(s)>60: s=s[:60].rsplit("-",1)[0]
+    return "q-"+s
+faq="".join(f'<details id="{_fid(q)}"><summary>{q}</summary><p>{a}</p></details>' for q,a in FAQ)
+faq+='<script>(function(){function o(){var h=location.hash;if(h.length<2)return;var e=null;try{e=document.querySelector(h)}catch(x){}if(e&&e.tagName==="DETAILS"){e.open=true;e.scrollIntoView({block:"center"})}}addEventListener("hashchange",o);o();setTimeout(o,300);setTimeout(o,1200)})();</script>'
 docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>Documents and FAQ</h1>
 <div class="cards">
 <div class="card"><h3>Finance Sub-Committee report</h3><p class="small">31 August 2026. The Finance Sub-Committee's review of FY 2025–26, with annexures on expenses, income and their 10% simulation.</p><div class="card-actions"><a class="btn ghost" href="docs/SPC-Finance-SubCommittee-Report-2026-08-31.pdf">Open PDF</a></div></div>
