@@ -138,7 +138,7 @@ idx=f'''<section><div class="eyebrow">September 2026</div>
 <div class="timeline">
 <div class="when">20 Sep</div><div>These pages shared with every owner.</div>
 <div class="when">Fri, 25 Sep</div><div>Meeting notice to every owner, with the budget, the options, the Finance Sub-Committee's report and how to vote.</div>
-<div class="when">28 Sep</div><div>Previous Managing Committee's written answers due. Published as received.</div>
+<div class="when">28 Sep</div><div>Previous Managing Committee's written answers received and published in full, with their annexures, on the <a href="documents.html">documents page</a>.</div>
 <div class="when">1 Oct</div><div>Quarterly maintenance bill, at the current rate.</div>
 <div class="when">Sun, 25 Oct</div><div>Special General Body Meeting.</div>
 <div class="when">25 Oct – 1 Nov</div><div>Online poll for every owner: the maintenance rate and the other decisions. One flat, one vote.</div>
@@ -407,6 +407,7 @@ docs=f'''<section><div class="eyebrow">Source documents and questions</div><h1>D
 <div class="card"><h3>Complaint tickets</h3><p class="small">Every MyGate ticket from January to September 2026, aggregated by month and category. Flat numbers, names and ticket text are not published.</p><div class="card-actions"><a class="btn ghost" href="data/complaints.csv">complaints.csv</a></div></div>
 <div class="card"><h3>Lift health checks</h3><p class="small">Schindler’s remote-monitoring report for each of the eight lifts, August and September 2026, with availability and the last breakdown call. As received.</p><div class="card-actions"><a class="btn ghost" href="docs/Schindler-lift-health-checks-Aug-Sep-2026.zip">Zip, 2 MB</a></div></div>
 <div class="card"><h3>Lift service worksheets</h3><p class="small">Schindler's maintenance and repair worksheets for all eight lifts, January to August 2026. Thirty PDFs, as received; the summary is on the lifts page.</p><div class="card-actions"><a class="btn ghost" href="docs/Schindler-lift-worksheets-Jan-Aug-2026.zip">Zip, 8 MB</a></div></div>
+<div class="card"><h3>Previous Managing Committee&#8217;s response</h3><p class="small">The 2025&#8211;26 Managing Committee&#8217;s written response to the Finance Sub-Committee&#8217;s report, received 28 September 2026. Published as received, with the annexures they sent: the expense approval policy, the monthly maintenance policy, a three-year income and expenditure comparison, and Sobha&#8217;s corpus fund statement to February 2026.</p><div class="card-actions"><a class="btn ghost" href="docs/Previous-MC-response-to-SubCommittee-2026-09-28.zip">Zip, 1 MB</a></div></div>
 <div class="card"><h3>Treasurer's deposit ledger</h3><p class="small">Month-by-month fixed-deposit balances by bank, November 2023 to August 2026, as received on 16 September 2026. Its July and August maturity entries do not appear in the bank statements; see the reserves page.</p><div class="card-actions"><a class="btn ghost" href="docs/FD-ledger-2023-2026-treasurer.xlsx">Excel file</a></div></div>
 <div class="card"><h3>The books themselves</h3><p class="small">The association's accounts are kept in TallyPrime. A backup dated 7 September 2026 is held by the MC; audited statements are published annually, and ledger extracts can be requested by any owner.</p></div>
 </div></section>
