@@ -99,7 +99,7 @@ def page(fn,title,body,scripts=""):
 <link rel="stylesheet" href="assets/site.css?v={VER}"><script src="assets/gate.js?v={VER}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script></head><body>
 <div class="topbar"><div class="in"><a class="brand" href="index.html">Sobha Palm Court<small>Apartment Owners' Association</small></a><button class="menubtn" id="menubtn" aria-label="Menu" aria-expanded="false" aria-controls="tabs"><svg class="b" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg><svg class="x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><nav class="tabs" id="tabs" aria-label="Pages">{nav}</nav></div></div>
-<div class="wrap"><div class="callout" role="note" style="margin-top:16px"><strong>The Managing Committee resigned on 3 October 2026.</strong> It is acting only as caretaker until a new Committee takes charge, and no later than 15 November 2026. The Returning Officer has been asked to hold elections. These pages show the position and the options as the Committee left them; what happens next is for the new Committee.</div>{body}
+<div class="wrap"><div class="notice" role="note"><span class="tag">Notice</span><div><strong>The Managing Committee resigned on 3 October 2026.</strong><p>It is acting only as caretaker until a new Committee takes charge, and no later than 15 November 2026. The Returning Officer has been asked to hold elections. These pages show the position and the options as the Committee left them; what happens next is for the new Committee.</p></div></div>{body}
 </div><footer><div class="fin">
 <p>Updated {UPDATED}. Accounts to end {ML(months[-1])}; deposits as at {fds["as_at"]}; survey August 2026. Published by the Managing Committee.</p>
 <p>1 lakh = ₹1,00,000. 1 crore = 100 lakh. Figures come from the accountant's monthly statements and the banks' own statements. They are not audited and are updated monthly.</p>
@@ -262,7 +262,7 @@ sf=f'''<section><div class="eyebrow">The gap, and the options</div><h1>The short
 <p class="small">GST is 18% on the whole amount once a flat crosses ₹7,500 a month. At 23% the C, D and D1 flats stay under the line and pay none. At 39% the C and D1 flats cross it — about ₹1,515 a month of GST for a C-type flat on top of the increase. Option B adds ₹1 lakh once, for every flat. Option D, at 19%, keeps the same 148 flats in GST as Option A.</p></section>
 <section><h2>Why not just cut costs?</h2>
 <p>Both are happening. The facility and security contracts have never been put out to tender; they have now been retendered and quotes are in, though nothing has been awarded, and ₹15 L a year has already been saved on guards. But the two together are ₹1.8 Cr a year, and residents rated housekeeping and gardening the best things about living here. Cutting those to avoid an increase would trade a visible service for an invisible saving.</p></section>'''
-page("shortfall.html","The shortfall and the plan",sf)
+page("shortfall.html","The shortfall and the options",sf)
 # reserves
 def rate_cell(b):
     if not b["rate"]: return "to confirm"
